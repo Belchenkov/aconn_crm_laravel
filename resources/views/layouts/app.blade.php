@@ -69,7 +69,7 @@
                         <a href="/task"><i class="fa fa-ticket"></i> <span class="nav-label">Задачи</span></a>
                     </li>
                     <li>
-                        <a href="/task"><i class="fa fa-briefcase"></i> <span class="nav-label">Организации</span></a>
+                        <a href="/contragents"><i class="fa fa-briefcase"></i> <span class="nav-label">Организации</span></a>
                     </li>
 
                 </ul>
@@ -189,8 +189,6 @@
                                 </li>
                             </ul>
                         </li>
-
-
                         <li>
                             <a href="{{ route('logout') }}"
                                onclick="event.preventDefault();
@@ -208,11 +206,20 @@
                             </a>
                         </li>
                     </ul>
-
                 </nav>
+            </div>
+
+        @yield('content')
+
+        <div class="footer fixed">
+            <div class="pull-right">
+                V. 1.0
+            </div>
+            <div>
+                <strong>UnixCRM </strong> © 2016 - 2017					</div>
+        </div>
+
     </div>
-
-
     <!-- Mainly scripts -->
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>

@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/contragents', 'ContragentsController@show')->name('contragents');
 //
 //Route::get('login', 'Auth\AuthController@showLoginForm');
 //Route::post('login', 'Auth\AuthController@login');
