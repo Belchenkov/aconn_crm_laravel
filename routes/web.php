@@ -11,17 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/contragents', 'ContragentsController@show')->name('contragents');
 Route::get('/employees', 'EmployeesController@show')->name('employees');
 Route::get('/tasks', 'TasksController@show')->name('tasks');
-//
-//Route::get('login', 'Auth\AuthController@showLoginForm');
+
+Auth::routes();
+
+//Route::get('/', ['middleware' => 'auth:web', 'uses' => 'Auth\AuthController@showLoginForm']);
 //Route::post('login', 'Auth\AuthController@login');
 //Route::post('logout', 'Auth\AuthController@logout');
+
