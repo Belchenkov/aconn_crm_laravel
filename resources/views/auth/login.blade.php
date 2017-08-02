@@ -25,7 +25,7 @@
             <h1 class="logo-name">aconnCRM</h1>
         </div>
 
-        <form method='post' action="/login">
+        <form method='post' action="{{ route('login') }}">
 
             {{ csrf_field() }}
 
