@@ -60,7 +60,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="/home"><i class="fa fa-home"></i> <span class="nav-label">Главная</span></a>
+                    <a href="/"><i class="fa fa-home"></i> <span class="nav-label">Главная</span></a>
                 </li>
                 <li>
                     <a href="/employees"><i class="fa fa-users"></i> <span class="nav-label">Сотрудники</span></a>
