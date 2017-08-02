@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contragents', 'ContragentsController@show')->name('contragents');
+Route::get('/employees', 'EmployeesController@show')->name('employees');
+Route::get('/tasks', 'TasksController@show')->name('tasks');
 //
 //Route::get('login', 'Auth\AuthController@showLoginForm');
 //Route::post('login', 'Auth\AuthController@login');

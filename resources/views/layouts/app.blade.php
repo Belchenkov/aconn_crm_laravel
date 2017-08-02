@@ -63,10 +63,10 @@
                         <a href="/home"><i class="fa fa-home"></i> <span class="nav-label">Главная</span></a>
                     </li>
                     <li>
-                        <a href="/users"><i class="fa fa-users"></i> <span class="nav-label">Сотрудники</span></a>
+                        <a href="/employees"><i class="fa fa-users"></i> <span class="nav-label">Сотрудники</span></a>
                     </li>
                     <li>
-                        <a href="/task"><i class="fa fa-ticket"></i> <span class="nav-label">Задачи</span></a>
+                        <a href="/tasks"><i class="fa fa-ticket"></i> <span class="nav-label">Задачи</span></a>
                     </li>
                     <li>
                         <a href="/contragents"><i class="fa fa-briefcase"></i> <span class="nav-label">Организации</span></a>
