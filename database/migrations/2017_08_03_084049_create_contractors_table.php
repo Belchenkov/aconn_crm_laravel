@@ -15,9 +15,11 @@ class CreateContractorsTable extends Migration
     {
         Schema::create('contractors', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('contractor_id');
-            $table->integer('region_id');
+            $table->integer('user_id')->unsigned()->index('user_id');
+            $table->string('name');
+            $table->integer('assign_manager');
+            $table->integer('contractor_status_id')->unsigned()->index('contractor_status_id');
+            $table->integer('region_id')->unsigned()->index('region_id');
             $table->integer('inn')->unique();
             $table->string('phone');
             $table->string('ur_address');
@@ -25,22 +27,22 @@ class CreateContractorsTable extends Migration
             $table->string('site_company');
             $table->string('contacts');
             $table->string('delivery_address');
-            $table->string('what_work_id');
-            $table->string('take_amount');
-            $table->string('periodicity_id');
-            $table->string('contract_exist');
+            $table->integer('what_work_id')->unsigned()->index('what_work_id');
+            $table->string('take_amount')->index('take_amount');
+            $table->integer('periodicity_id')->unsigned();
+            $table->integer('contract_exist');
             $table->integer('contract_number');
             $table->string('delivery');
-            $table->string('packing_id');
+            $table->integer('packing_id')->unsigned();
             $table->text('comments');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('contractor_id')->references('id')->on('contractor_status');
+            $table->foreign('contractor_status_id')->references('id')->on('contractor_statuses');
             $table->foreign('region_id')->references('id')->on('regions');
-            $table->foreign('what_work')->references('id')->on('what_work');
-            $table->foreign('periodicity_id')->references('id')->on('periodicity');
-            $table->foreign('packing_id')->references('id')->on('packing');
+            $table->foreign('packing_id')->references('id')->on('packings');
+            $table->foreign('periodicity_id')->references('id')->on('periodicities');
+            $table->foreign('what_work_id')->references('id')->on('what_works');
         });
     }
 
