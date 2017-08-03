@@ -12,8 +12,12 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/contragents', 'ContragentsController@show')->name('contragents');
+
+Route::get('/contractors', 'ContractorsController@index')->name('contractors');
+Route::get('/contractors/create', 'ContractorsController@create')->name('contractors_add');
+
 Route::get('/employees', 'EmployeesController@show')->name('employees');
+
 Route::get('/tasks', 'TasksController@show')->name('tasks');
 
 Auth::routes();

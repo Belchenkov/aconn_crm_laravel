@@ -35,25 +35,7 @@
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->fio }}</strong>
-                             </span><br> <span class="text-muted text-xs block font-bold">{{ Auth::user()->position }}{{--<b class="caret"></b>--}}</span> </span> </a>
-                        {{--<ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="mailbox.html">Mailbox</a></li>
-                            <li class="divider"></li>
-                            <li>
-
-                                <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
-                        </ul>--}}
+                             </span><br> <span class="text-muted text-xs block font-bold">{{ Auth::user()->position }}</span> </span> </a>
                     </div>
                     <div class="logo-element">
                         IN+
@@ -69,7 +51,7 @@
                     <a href="/tasks"><i class="fa fa-ticket"></i> <span class="nav-label">Задачи</span></a>
                 </li>--}}
                 <li>
-                    <a href="/contragents"><i class="fa fa-briefcase"></i> <span class="nav-label">Организации</span></a>
+                    <a href="/contractors"><i class="fa fa-briefcase"></i> <span class="nav-label">Организации</span></a>
                 </li>
             </ul>
         </div>
@@ -88,12 +70,58 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <span class="m-r-sm text-muted welcome-message">{{ Auth::user()->fio }} {{---- {{ Auth::user()->group_id }}--}}</span>
+                        <span class="m-r-sm text-muted welcome-message">{{ Auth::user()->fio }}</span>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                            <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                            <i class="fa fa-bell"></i>
+                            <span class="label label-danger">12</span>
                         </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="http://homestead.app/tasks/edit/14">
+                                    <div>
+                                        <i class="fa fa-ticket fa-fw"></i> <span class="pull-right text-muted small">01.01.70</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li><li>
+                                <a href="http://homestead.app/tasks/edit/15">
+                                    <div>
+                                        <i class="fa fa-ticket fa-fw"></i> <span class="pull-right text-muted small">01.01.70</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li><li>
+                                <a href="http://homestead.app/tasks/edit/9">
+                                    <div>
+                                        <i class="fa fa-ticket fa-fw"></i> Провести совещание в отделе продаж<span class="pull-right text-muted small">18.10.16</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li><li>
+                                <a href="http://homestead.app/tasks/edit/1">
+                                    <div>
+                                        <i class="fa fa-ticket fa-fw"></i> Позвонить маме<span class="pull-right text-muted small">26.10.16</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li><li>
+                                <a href="http://homestead.app/tasks/edit/3">
+                                    <div>
+                                        <i class="fa fa-ticket fa-fw"></i> Прозвонить клиентов<span class="pull-right text-muted small">26.10.16</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>									<li>
+                                <div class="text-center link-block">
+                                    <a href="http://homestead.app/alerts">
+                                        <strong>Посмотреть все напоминания</strong>
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="{{ route('logout') }}"

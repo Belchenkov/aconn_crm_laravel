@@ -10,7 +10,8 @@
                             <div class="row">
                                 <?php /*dd($contractor_statuses); */?>
                                 <div class="col-md-3">
-                                    <a href="/contracting_parties/add" class="btn btn-info"><i class="fa fa-plus"></i> Добавить организацию</a><br>
+
+                                    <a href="contractors/create" class="btn btn-success"><i class="fa fa-plus"></i> Добавить организацию</a><br>
                                 </div>
                                 <form action="http://homestead.app/contracting_parties/exportExcel" method="POST" target="_blank">
                                     <div class="col-md-9" id="filters">
