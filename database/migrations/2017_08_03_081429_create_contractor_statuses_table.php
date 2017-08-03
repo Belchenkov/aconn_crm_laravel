@@ -16,7 +16,6 @@ class CreateContractorStatusesTable extends Migration
         Schema::create('contractor_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->timestamps();
         });
     }
 

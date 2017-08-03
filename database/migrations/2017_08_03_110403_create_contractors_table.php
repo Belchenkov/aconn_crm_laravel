@@ -26,7 +26,7 @@ class CreateContractorsTable extends Migration
             $table->string('email');
             $table->string('site_company');
             $table->string('contacts');
-            $table->string('delivery_address');
+            $table->text('delivery_address');
             $table->integer('what_work_id')->unsigned()->index('what_work_id');
             $table->string('take_amount')->index('take_amount');
             $table->integer('periodicity_id')->unsigned();
@@ -35,7 +35,6 @@ class CreateContractorsTable extends Migration
             $table->string('delivery');
             $table->integer('packing_id')->unsigned();
             $table->text('comments');
-            $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('contractor_status_id')->references('id')->on('contractor_statuses');
