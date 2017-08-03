@@ -8,9 +8,9 @@
                     <div class="ibox-content">
                         <div class="box-body">
                             <div class="row">
-                                <?php /*dd($managers); */?>
+                                <?php /*dd($contractor_statuses); */?>
                                 <div class="col-md-3">
-                                    <a href="http://homestead.app/contracting_parties/add" class="btn btn-success"><i class="fa fa-plus"></i> Добавить организацию</a><br>
+                                    <a href="/contracting_parties/add" class="btn btn-info"><i class="fa fa-plus"></i> Добавить организацию</a><br>
                                 </div>
                                 <form action="http://homestead.app/contracting_parties/exportExcel" method="POST" target="_blank">
                                     <div class="col-md-9" id="filters">
@@ -18,32 +18,22 @@
                                             <b>Регион:</b>
                                             <select class="select2 form-control" name="filter[directions]">
                                                 <option value="0">Все</option>
-                                                <option value="1">База Диалог</option>
-                                                <option value="2">База 2ГИС</option>
-                                                <option value="3">Входящие заявки</option>
-                                                <option value="4">База рассылки</option>
-                                                <option value="5">Квесты</option>
+                                                @if(count($regions) > 0)
+                                                    @foreach($regions as $region)
+                                                        <option value="{{$region->id}}">{{$region->name}}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                         <div class="col-md-4">
                                             <b>Статусы:</b>
                                             <select class="select2 form-control" name="filter[status]">
                                                 <option value="0">Все</option>
-                                                <option value="1">Активный</option>
-                                                <option value="2">Не активный</option>
-                                                <option value="3">Теплый</option>
-                                                <option value="11">На перспективу</option>
-                                                <option value="12">Бесперспективный</option>
-                                                <option value="13">Конкурент</option>
-                                                <option value="14">Не работают</option>
-                                                <option value="15">Не профильный</option>
-                                                <option value="4">Был холодный звонок</option>
-                                                <option value="5">Рассылка</option>
-                                                <option value="6">Получил КП</option>
-                                                <option value="7">Переговоры</option>
-                                                <option value="8">Встреча с ЛПР</option>
-                                                <option value="9">Зарегистрировался</option>
-                                                <option value="10">Оплатил</option>
+                                                @if(count($contractor_statuses) > 0)
+                                                    @foreach($contractor_statuses as $contractor_status)
+                                                        <option value="{{$contractor_status->id}}">{{$contractor_status->name}}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
 
@@ -53,7 +43,7 @@
                                                 <option value="0">Все</option>
                                                 @if(count($managers) > 0)
                                                     @foreach($managers as $manager)
-                                                        <option value="4">{{$manager->fio}}</option>
+                                                        <option value="{{$manager->id}}">{{$manager->fio}}</option>
                                                     @endforeach
                                                 @endif
                                             </select>
@@ -63,18 +53,17 @@
                                             <b>На чем работают:</b>
                                             <select class="select2 form-control" name="filter[client_manager]">
                                                 <option value="0">Все</option>
-                                                <option value="4">Дмитрий Исайкин</option>
-                                                <option value="5">Второй Манагер</option>
+                                                @if(count($what_work) > 0)
+                                                    @foreach($what_work as $item)
+                                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <b>В каких объемах берут:</b>
-                                            <select class="select2 form-control" name="filter[client_manager]">
-                                                <option value="0">Все</option>
-                                                <option value="4">Дмитрий Исайкин</option>
-                                                <option value="5">Второй Манагер</option>
-                                            </select>
+                                            <input type="number" class="form-control" min="1"  name="take_amount">
                                         </div>
 
                                         <div class="col-md-12"><br></div>
