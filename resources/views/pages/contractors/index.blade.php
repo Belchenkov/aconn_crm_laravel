@@ -103,7 +103,9 @@
                                                             @foreach($contractors as $contractor)
                                                                 <tr>
                                                                     <td>{{$contractor->id}}</td>
-                                                                    <td>{{$contractor->name}}</td>
+                                                                    <td>
+                                                                        <a href="/contractors/details/{{$contractor->id}}">{{$contractor->name}}</a>
+                                                                    </td>
                                                                     <td>{{$contractor->inn}}</td>
                                                                     <td>{{$contractor->phone}}</td>
                                                                     <td>{{$contractor->ur_address}}</td>

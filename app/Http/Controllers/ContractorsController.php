@@ -62,7 +62,7 @@ class ContractorsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('pages.contractors.details');
     }
 
     /**
