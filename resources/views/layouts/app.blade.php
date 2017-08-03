@@ -88,7 +88,7 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <span class="m-r-sm text-muted welcome-message">{{ Auth::user()->fio }} -- {{ Auth::user()->group_id }}</span></span>
+                        <span class="m-r-sm text-muted welcome-message">{{ Auth::user()->fio }} {{---- {{ Auth::user()->group_id }}--}}</span></span>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -204,7 +204,6 @@
                 </ul>
             </nav>
         </div>
-
         @yield('content')
 
         <div class="footer fixed">
@@ -212,10 +211,14 @@
                 V. 1.0
             </div>
             <div>
-                <strong>UnixCRM </strong> © 2016 - 2017					</div>
+                <strong>UnixCRM </strong> © 2016 - 2017
+            </div>
         </div>
 
-    </div>
+    </div>{{-- #page-wrapper --}}
+
+    </div>{{-- #wrapper--}}
+
     <!-- Mainly scripts -->
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
