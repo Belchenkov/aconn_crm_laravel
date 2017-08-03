@@ -17,10 +17,10 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('group_id');
+            $table->integer('group_id');
             $table->string('fio');
             $table->string('position');
-            $table->enum('status', ['1', '0']);
+            $table->integer('status');
             $table->rememberToken();
             $table->timestamps();
         });

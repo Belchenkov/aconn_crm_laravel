@@ -31,12 +31,12 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="{{ asset('img/profile_small.jpg') }}" />
+                            {{--<img alt="image" class="img-circle" src="{{ asset('img/profile_small.jpg') }}" />--}}
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->name }}</strong>
-                             </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->fio }}</strong>
+                             </span><br> <span class="text-muted text-xs block font-bold">{{ Auth::user()->position }}{{--<b class="caret"></b>--}}</span> </span> </a>
+                        {{--<ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="profile.html">Profile</a></li>
                             <li><a href="contacts.html">Contacts</a></li>
                             <li><a href="mailbox.html">Mailbox</a></li>
@@ -53,7 +53,7 @@
                                     {{ csrf_field() }}
                                 </form>
                             </li>
-                        </ul>
+                        </ul>--}}
                     </div>
                     <div class="logo-element">
                         IN+
@@ -71,11 +71,7 @@
                 <li>
                     <a href="/contragents"><i class="fa fa-briefcase"></i> <span class="nav-label">Организации</span></a>
                 </li>
-
             </ul>
-
-
-
         </div>
     </nav>
 
@@ -92,7 +88,7 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <span class="m-r-sm text-muted welcome-message">{{ Auth::user()->name }}</span></span>
+                        <span class="m-r-sm text-muted welcome-message">{{ Auth::user()->fio }} -- {{ Auth::user()->group_id }}</span></span>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
