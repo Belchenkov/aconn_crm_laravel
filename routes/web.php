@@ -15,6 +15,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/contractors', 'ContractorsController@index')->name('contractors');
 Route::get('/contractors/create', 'ContractorsController@create')->name('contractors_add');
+Route::get('/contractors/edit/{id}', 'ContractorsController@edit')->name('contractors_edit');
 
 Route::get('/employees', 'EmployeesController@show')->name('employees');
 

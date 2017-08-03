@@ -73,7 +73,7 @@ class ContractorsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('pages.contractors.edit');
     }
 
     /**

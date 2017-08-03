@@ -114,7 +114,7 @@
 
                                                                     <td>
                                                                         <button class="btn btn-outline btn-primary dim" title="Добавить" type="button"><i class="fa fa-plus"></i></button>
-                                                                        <button class="btn btn-outline btn-warning  dim" title="Редактировать" type="button"><i class="fa fa-edit"></i></button>
+                                                                        <a href="/contractors/edit/{{$contractor->id}}"><button class="btn btn-outline btn-warning  dim" title="Редактировать" type="button"><i class="fa fa-edit"></i></button></a>
                                                                         <button class="btn btn-outline btn-danger  dim " title="Удалить" type="button"><i class="fa fa-trash"></i></button>
                                                                     </td>
                                                                 </tr>
