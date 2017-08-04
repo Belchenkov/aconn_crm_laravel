@@ -3,7 +3,9 @@
 @section('content')
 
 <div class="row  border-bottom white-bg dashboard-header">
-    <form action="http://homestead.app/contracting_parties/add" method="post" id="newForm">
+    <form action="/contractors/store" method="post" id="newForm">
+
+    {{ csrf_field() }}
 
     <div class="row">
         <div class="col-md-7">
@@ -15,7 +17,7 @@
                             @if(count($regions) > 0)
                                 <div class="form-group col-md-4">
                                     <label>Регион</label>
-                                    <select class="form-control" name="type">
+                                    <select class="form-control" name="region_id">
                                         <option value="0">Не выбран</option>
                                         @foreach($regions as $region)
                                             <option value="{{$region->id}}">{{$region->name}}</option>
@@ -61,8 +63,8 @@
                             <div class="form-group col-md-6">
                                 <br>
                                 <div class="checkbox checkbox-circle">
-                                    <input id="take_manager" type="checkbox" name="take_manager">
-                                    <label for="take_manager">
+                                    <input id="assign_manager" type="checkbox" name="assign_manager" value="1">
+                                    <label for="assign_manager">
                                         Закрепить за менеджером
                                     </label>
                                 </div>
@@ -71,7 +73,7 @@
                             @if(count($what_work) > 0)
                                 <div class="form-group col-md-6">
                                     <label>На чём работают</label>
-                                    <select class="select2_cities form-control" name="what_work">
+                                    <select class="form-control" name="what_work_id">
                                         <option value="0">Не выбран</option>
                                             @foreach($what_work as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
@@ -83,7 +85,7 @@
                             @if(count($periodicity) > 0)
                                 <div class="form-group col-md-6">
                                     <label>Периодичность</label>
-                                    <select class="form-control" name="periodicity">
+                                    <select class="form-control" name="periodicity_id">
                                         <option value="0">Не выбрана</option>
                                         @foreach($periodicity as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
@@ -95,7 +97,7 @@
                             @if(count($packing) > 0)
                                 <div class="form-group col-md-6">
                                     <label>Упаковка</label>
-                                    <select class="select2 form-control" name="manager">
+                                    <select class="select2 form-control" name="packing_id">
                                         <option value="0">Не выбран</option>
                                         @foreach($packing as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
@@ -114,20 +116,18 @@
                                 <input type="text" class="form-control" name="delivery_address">
                             </div>
 
-                                <div class="form-group col-md-6">
-                                    <label>Доставка</label><br>
-                                    <div class="radio radio-inline">
-                                        <input type="radio" id="delivery_our" value="0" name="contract_exist">
-                                        <label for="delivery_our"> Наша </label>
-                                    </div>
-                                    <br>
-                                    <div class="radio radio-inline">
-                                        <input type="radio" id="delivery_self" value="0" name="contract_exist">
-                                        <label for="delivery_self"> Сам </label>
-                                    </div>
+                            <div class="form-group col-md-6">
+                                <label>Доставка</label><br>
+                                <div class="radio radio-inline">
+                                    <input type="radio" id="delivery_our" value="наша" name="delivery">
+                                    <label for="delivery_our"> Наша </label>
                                 </div>
-
-
+                                <br>
+                                <div class="radio radio-inline">
+                                    <input type="radio" id="delivery_self" value="сам" name="delivery">
+                                    <label for="delivery_self"> Сам </label>
+                                </div>
+                            </div>
 
                             <div class="form-group col-md-6">
                                 <label>Номер договора</label>
@@ -163,7 +163,7 @@
                     <h2>Статус</h2>
                     <div class="ibox-content">
                         <div class="box-body" id="status">
-                            <select class="form-control" name="status">
+                            <select class="form-control" name="contractor_status_id">
                                 <option value="0">Не выбран</option>
                                 @foreach($contractor_statuses as $contractor_status)
                                     <option value="{{$contractor_status->id}}">{{$contractor_status->name}}</option>

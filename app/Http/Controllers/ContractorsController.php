@@ -74,7 +74,43 @@ class ContractorsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       /* // Validate
+        $this->validate($request, [
+            'name' => 'required',
+            'url' => 'required'
+        ]);
+       */
+
+        $contractor = new Contractor();
+
+        $contractor->name = $request->input('name');
+        $contractor->region_id = $request->input('region_id');
+        $contractor->user_id = $request->input('manager');
+        $contractor->email = $request->input('email');
+        $contractor->ur_address = $request->input('ur_address');
+        $contractor->site_company = $request->input('site_company');
+        $contractor->inn = $request->input('inn');
+        $contractor->assign_manager = $request->input('assign_manager');
+        $contractor->what_work_id = $request->input('what_work_id');
+        $contractor->periodicity_id = $request->input('periodicity_id');
+        $contractor->take_amount = $request->input('take_amount');
+        $contractor->delivery_address = $request->input('delivery_address');
+        $contractor->delivery = $request->input('delivery');
+        $contractor->packing_id = $request->input('packing_id');
+        $contractor->contract_number = $request->input('contract_number');
+        $contractor->contract_exist = $request->input('contract_exist');
+        $contractor->comments = $request->input('comments');
+        $contractor->contractor_status_id = $request->input('contractor_status_id');
+
+        $phones = '';
+        foreach ($request->input('phones') as $phone) {
+            $phones .=  $phone ."\n";
+        }
+        $contractor->phone = $phones;
+
+        $contractor->save();
+        //dd($contractor);
+        return redirect('/contractors')->with('success', 'Организация добавлена');
     }
 
     /**
