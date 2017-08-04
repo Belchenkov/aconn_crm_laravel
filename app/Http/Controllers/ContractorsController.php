@@ -9,6 +9,7 @@ use App\ContractorStatus;
 use App\Region;
 use App\WhatWork;
 use App\Periodicity;
+use App\Packing;
 
 class ContractorsController extends Controller
 {
@@ -48,6 +49,7 @@ class ContractorsController extends Controller
             $regions = Region::all();
             $what_work = WhatWork::all();
             $periodicity = periodicity::all();
+            $packing = packing::all();
 
             return view('pages.contractors.create',  [
                 'contractors' => $contractors,
@@ -55,7 +57,8 @@ class ContractorsController extends Controller
                 'contractor_statuses' => $contractor_statuses,
                 'regions' => $regions,
                 'what_work' => $what_work,
-                'periodicity' => $periodicity
+                'periodicity' => $periodicity,
+                'packing' => $packing
             ]);
         }
         else {

@@ -36,6 +36,25 @@
                                 <input type="text" class="form-control" name="ur_address" placeholder="Юридический адрес">
                             </div>
 
+                            @if(count($managers) > 0)
+                                <div class="form-group col-md-6">
+                                    <label>Менеджер</label>
+                                    <select class="select2 form-control" name="manager">
+                                        <option value="0">Не выбран</option>
+                                        @foreach($managers as $manager)
+                                            <option value="{{$manager->id}}">{{$manager->fio}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
+                            <div class="form-group col-md-6">
+                                    <input id="take_manager" type="checkbox" name="take_manager">
+                                    <label for="take_manager">
+                                         Закрепить за менеджером
+                                    </label>
+                            </div>
+
                             @if(count($what_work) > 0)
                                 <div class="form-group col-md-6">
                                     <label>На чём работают</label>
@@ -60,14 +79,14 @@
                                 </div>
                             @endif
 
-                            @if(count($managers) > 0)
+                            @if(count($packing) > 0)
                                 <div class="form-group col-md-6">
-                                    <label>Менеджер</label>
+                                    <label>Упаковка</label>
                                     <select class="select2 form-control" name="manager">
                                         <option value="0">Не выбран</option>
-                                            @foreach($managers as $manager)
-                                                <option value="{{$manager->id}}">{{$manager->fio}}</option>
-                                            @endforeach
+                                        @foreach($packing as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             @endif
@@ -88,8 +107,10 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label>В каких объемах берут</label>
-                                <input type="number" min="1" class="form-control" name="take_amount">
+                                <label for="delivery_out">Наша</label>
+                                <input type="radio" id="delivery_out" name="delivery">
+                                <label for="delivery_self">Сам</label>
+                                <input type="radio" id="delivery_self" name="delivery">
                             </div>
 
                             <div class="form-group col-md-6">
@@ -103,8 +124,15 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label>Номер договора</label>
-                                <input type="text" min="1" class="form-control" name="contract_number">
+                                <label>Наличие договора</label><br>
+                                <div class="radio radio-info radio-inline">
+                                    <input type="radio" id="contract_yes" value="1" name="contract_exist">
+                                    <label for="contract_yes"> Да </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <input type="radio" id="contract_no" value="0" name="contract_exist">
+                                    <label for="contract_no"> Нет </label>
+                                </div>
                             </div>
 
                             <div class="form-group col-md-12">
