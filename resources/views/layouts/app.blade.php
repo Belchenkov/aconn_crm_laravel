@@ -27,15 +27,18 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                             <span>
-                                <img src="http://homestead.app//pub/img/aconncrm_logo_w.png" />
+                                <a href="/"><img src="{{ asset('img/aconncrm_logo_w.png') }}" /></a>
                              </span>
                         <br><br>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->fio }}</strong>
-                             </span><br> <span class="text-muted text-xs block font-bold">{{ Auth::user()->position }}</span> </span> </a>
+                        <span data-toggle="dropdown" class="dropdown-toggle">
+                            {{--<span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->fio }}</strong>--}}
+                             {{--</span><br>--}}
+                            <span class="text-muted text-center text-xs block font-bold"><strong class="text-white">{{ Auth::user()->position }}</strong></span> </span>
+                        </span>
+
                     </div>
                     <div class="logo-element">
-                        <img src="http://homestead.app//pub/img/unixcrm_icon.png" />
+                        <img src="{{ asset('img/unixcrm_icon.png') }}" />
                     </div>
                 </li>
                 <li>

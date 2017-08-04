@@ -21,7 +21,7 @@ class ContractorsController extends Controller
     public function index()
     {
         $contractors = Contractor::all();
-        $managers = User::where('group_id', '>', '1')->get();
+        $managers = User::where('group_id', '=', '2')->get();
         $contractor_statuses = ContractorStatus::all();
         $regions = Region::all();
         $what_work = WhatWork::all();
@@ -44,7 +44,7 @@ class ContractorsController extends Controller
     {
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
             $contractors = Contractor::all();
-            $managers = User::where('group_id', '>', '1')->get();
+            $managers = User::where('group_id', '=', '2')->get();
             $contractor_statuses = ContractorStatus::all();
             $regions = Region::all();
             $what_work = WhatWork::all();

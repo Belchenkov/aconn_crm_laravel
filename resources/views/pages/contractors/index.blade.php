@@ -93,11 +93,11 @@
                                                             <th>ID</th>
                                                             <th>Наименование(s)</th>
                                                             <th>ИНН</th>
-                                                            <th>Телефон</th>
-                                                            <th>Юридический адрес</th>
+                                                            <th width="150px">Телефон</th>
+                                                            <th>Регион</th>
                                                             <th>Почта</th>
                                                             <th>Сайт</th>
-                                                            <th>Контакты</th>
+                                                            <th>Менеджер</th>
                                                             <th>Адресс доставки</th>
                                                             @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                 <th>Управление</th>
@@ -114,17 +114,17 @@
                                                                     </td>
                                                                     <td>{{$contractor->inn}}</td>
                                                                     <td>{{$contractor->phone}}</td>
-                                                                    <td>{{$contractor->ur_address}}</td>
+                                                                    <td>{{$contractor->region_id}}</td>
                                                                     <td>{{$contractor->email}}</td>
                                                                     <td>{{$contractor->site_company}}</td>
-                                                                    <td>{{$contractor->contacts}}</td>
+                                                                    <td>{{$contractor->user_id}}</td>
                                                                     <td>{{$contractor->delivery_address}}</td>
                                                                     @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                         <td>
-                                                                            <button class="btn btn-outline btn-primary dim" title="Добавить" type="button"><i class="fa fa-plus"></i></button>
-                                                                            <a href="/contractors/edit/{{$contractor->id}}"><button class="btn btn-outline btn-warning  dim" title="Редактировать" type="button"><i class="fa fa-edit"></i></button></a>
+                                                                            <a href="/tasks/add/" class="btn btn-default btn-outline btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить задачу" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a>
+                                                                            <a href="/contractors/edit/{{$contractor->id}}" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a>
                                                                             @if(!Auth()->user()->group_id)
-                                                                                <button class="btn btn-outline btn-danger  dim " title="Удалить" type="button"><i class="fa fa-trash"></i></button>
+                                                                                <a href="/contractors/delete/{{$contractor->id}}" class="btn btn-danger btn-bitbucket" onclick="return confirm('Удалить?')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></a>
                                                                             @endif
                                                                         </td>
                                                                     @endif
