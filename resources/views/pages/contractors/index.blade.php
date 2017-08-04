@@ -9,10 +9,13 @@
                         <div class="box-body">
                             <div class="row">
                                 <?php /*dd($contractor_statuses); */?>
-                                <div class="col-md-3">
+                                    <div class="col-md-3">
+                                        @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
+                                            <a href="contractors/create" class="btn btn-success"><i class="fa fa-plus"></i> Добавить организацию</a><br>
+                                        @endif
 
-                                    <a href="contractors/create" class="btn btn-success"><i class="fa fa-plus"></i> Добавить организацию</a><br>
-                                </div>
+                                    </div>
+
                                 <form action="http://homestead.app/contracting_parties/exportExcel" method="POST" target="_blank">
                                     <div class="col-md-9" id="filters">
                                         <div class="col-md-4">
@@ -95,7 +98,9 @@
                                                             <th>Сайт</th>
                                                             <th>Контакты</th>
                                                             <th>Адресс доставки</th>
-                                                            <th>Управление</th>
+                                                            @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
+                                                                <th>Управление</th>
+                                                            @endif
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -113,12 +118,13 @@
                                                                     <td>{{$contractor->site_company}}</td>
                                                                     <td>{{$contractor->contacts}}</td>
                                                                     <td>{{$contractor->delivery_address}}</td>
-
-                                                                    <td>
-                                                                        <button class="btn btn-outline btn-primary dim" title="Добавить" type="button"><i class="fa fa-plus"></i></button>
-                                                                        <a href="/contractors/edit/{{$contractor->id}}"><button class="btn btn-outline btn-warning  dim" title="Редактировать" type="button"><i class="fa fa-edit"></i></button></a>
-                                                                        <button class="btn btn-outline btn-danger  dim " title="Удалить" type="button"><i class="fa fa-trash"></i></button>
-                                                                    </td>
+                                                                    @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
+                                                                        <td>
+                                                                            <button class="btn btn-outline btn-primary dim" title="Добавить" type="button"><i class="fa fa-plus"></i></button>
+                                                                            <a href="/contractors/edit/{{$contractor->id}}"><button class="btn btn-outline btn-warning  dim" title="Редактировать" type="button"><i class="fa fa-edit"></i></button></a>
+                                                                            <button class="btn btn-outline btn-danger  dim " title="Удалить" type="button"><i class="fa fa-trash"></i></button>
+                                                                        </td>
+                                                                    @endif
                                                                 </tr>
                                                             @endforeach
                                                         @endif

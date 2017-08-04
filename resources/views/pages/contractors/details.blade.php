@@ -8,10 +8,13 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="box-footer">
+                        {{Auth()->user()->group_id}}
                         <a onclick="javascript:history.back();" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
-                        <a href="http://homestead.app/tasks/add/79" class="btn btn-default"><i class="fa fa-plus"></i> Добавить задачу</a>
-                        <a href="http://homestead.app/contracting_parties/edit/79" class="btn btn-default"><i class="fa fa-edit"></i> Редактировать</a>
-                        <a href="http://homestead.app/contracting_parties/delete/79" class="btn btn-danger" onclick="return confirm('Удалить?')"><i class="fa fa-trash"></i> Удалить</a>
+                        @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
+                            <a href="/tasks/add" class="btn btn-default"><i class="fa fa-plus"></i> Добавить задачу</a>
+                            <a href="/contracts/edit/{{$contractor->id}}" class="btn btn-default"><i class="fa fa-edit"></i> Редактировать</a>
+                            <a href="/contracts/delete/{{$contractor->id}}" class="btn btn-danger" onclick="return confirm('Удалить?')"><i class="fa fa-trash"></i> Удалить</a>
+                        @endif
                     </div>
                 </div>
             </div>

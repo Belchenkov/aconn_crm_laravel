@@ -40,7 +40,12 @@ class ContractorsController extends Controller
      */
     public function create()
     {
-        return view('pages.contractors.create');
+        if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
+            return view('pages.contractors.create');
+        }
+        else {
+            return redirect('/contractors');
+        }
     }
 
     /**
@@ -62,7 +67,8 @@ class ContractorsController extends Controller
      */
     public function show($id)
     {
-        return view('pages.contractors.details');
+        $contractor = Contractor::find($id);
+        return view('pages.contractors.details', ['contractor' => $contractor]);
     }
 
     /**
@@ -96,6 +102,11 @@ class ContractorsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!Auth()->user()->group_id) {
+            echo 'Delete';
+        }
+        else {
+            return redirect('/contractors');
+        }
     }
 }
