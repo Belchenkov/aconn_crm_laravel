@@ -36,6 +36,16 @@
                                 <input type="text" class="form-control" name="ur_address" placeholder="Юридический адрес">
                             </div>
 
+                            <div class="form-group col-md-6">
+                                <label>Сайт компании</label>
+                                <input type="text" class="form-control" name="site_company">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>ИНН</label>
+                                <input type="text" class="form-control" name="inn">
+                            </div>
+
                             @if(count($managers) > 0)
                                 <div class="form-group col-md-6">
                                     <label>Менеджер</label>
@@ -49,10 +59,13 @@
                             @endif
 
                             <div class="form-group col-md-6">
+                                <br>
+                                <div class="checkbox checkbox-circle">
                                     <input id="take_manager" type="checkbox" name="take_manager">
                                     <label for="take_manager">
-                                         Закрепить за менеджером
+                                        Закрепить за менеджером
                                     </label>
+                                </div>
                             </div>
 
                             @if(count($what_work) > 0)
@@ -92,13 +105,8 @@
                             @endif
 
                             <div class="form-group col-md-6">
-                                <label>Сайт компании</label>
-                                <input type="text" class="form-control" name="site_company">
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label>ИНН</label>
-                                <input type="text" class="form-control" name="inn">
+                                <label>В каких объемах берут</label>
+                                <input type="number" min="1" class="form-control" name="take_amount">
                             </div>
 
                             <div class="form-group col-md-6">
@@ -106,17 +114,20 @@
                                 <input type="text" class="form-control" name="delivery_address">
                             </div>
 
-                            <div class="form-group col-md-6">
-                                <label for="delivery_out">Наша</label>
-                                <input type="radio" id="delivery_out" name="delivery">
-                                <label for="delivery_self">Сам</label>
-                                <input type="radio" id="delivery_self" name="delivery">
-                            </div>
+                                <div class="form-group col-md-6">
+                                    <label>Доставка</label><br>
+                                    <div class="radio radio-inline">
+                                        <input type="radio" id="delivery_our" value="0" name="contract_exist">
+                                        <label for="delivery_our"> Наша </label>
+                                    </div>
+                                    <br>
+                                    <div class="radio radio-inline">
+                                        <input type="radio" id="delivery_self" value="0" name="contract_exist">
+                                        <label for="delivery_self"> Сам </label>
+                                    </div>
+                                </div>
 
-                            <div class="form-group col-md-6">
-                                <label>В каких объемах берут</label>
-                                <input type="number" min="1" class="form-control" name="take_amount">
-                            </div>
+
 
                             <div class="form-group col-md-6">
                                 <label>Номер договора</label>
@@ -125,10 +136,11 @@
 
                             <div class="form-group col-md-6">
                                 <label>Наличие договора</label><br>
-                                <div class="radio radio-info radio-inline">
+                                <div class="radio radio-inline">
                                     <input type="radio" id="contract_yes" value="1" name="contract_exist">
                                     <label for="contract_yes"> Да </label>
                                 </div>
+                                <br>
                                 <div class="radio radio-inline">
                                     <input type="radio" id="contract_no" value="0" name="contract_exist">
                                     <label for="contract_no"> Нет </label>
