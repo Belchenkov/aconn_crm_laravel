@@ -30,15 +30,17 @@
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
-                    <div class="dropdown profile-element"> <span>
-                            {{--<img alt="image" class="img-circle" src="{{ asset('img/profile_small.jpg') }}" />--}}
+                    <div class="dropdown profile-element">
+                            <span>
+                                <img src="http://homestead.app//pub/img/aconncrm_logo_w.png" />
                              </span>
+                        <br><br>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->fio }}</strong>
                              </span><br> <span class="text-muted text-xs block font-bold">{{ Auth::user()->position }}</span> </span> </a>
                     </div>
                     <div class="logo-element">
-                        IN+
+                        <img src="http://homestead.app//pub/img/unixcrm_icon.png" />
                     </div>
                 </li>
                 <li>
@@ -62,11 +64,6 @@
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                    <form role="search" class="navbar-form-custom" action="search_results.html">
-                        <div class="form-group">
-                            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
-                        </div>
-                    </form>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>

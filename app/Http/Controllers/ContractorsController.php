@@ -8,6 +8,7 @@ use App\User;
 use App\ContractorStatus;
 use App\Region;
 use App\WhatWork;
+use App\Periodicity;
 
 class ContractorsController extends Controller
 {
@@ -41,7 +42,21 @@ class ContractorsController extends Controller
     public function create()
     {
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
-            return view('pages.contractors.create');
+            $contractors = Contractor::all();
+            $managers = User::where('group_id', '>', '1')->get();
+            $contractor_statuses = ContractorStatus::all();
+            $regions = Region::all();
+            $what_work = WhatWork::all();
+            $periodicity = periodicity::all();
+
+            return view('pages.contractors.create',  [
+                'contractors' => $contractors,
+                'managers' => $managers,
+                'contractor_statuses' => $contractor_statuses,
+                'regions' => $regions,
+                'what_work' => $what_work,
+                'periodicity' => $periodicity
+            ]);
         }
         else {
             return redirect('/contractors');
@@ -79,7 +94,9 @@ class ContractorsController extends Controller
      */
     public function edit($id)
     {
-        return view('pages.contractors.edit');
+        $contractor = Contractor::find($id);
+
+        return view('pages.contractors.edit', ['contractor' => $contractor]);
     }
 
     /**

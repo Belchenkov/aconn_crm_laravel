@@ -13,8 +13,10 @@
                         @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                             <a href="/tasks/add" class="btn btn-default"><i class="fa fa-plus"></i> Добавить задачу</a>
                             <a href="/contracts/edit/{{$contractor->id}}" class="btn btn-default"><i class="fa fa-edit"></i> Редактировать</a>
-                            <a href="/contracts/delete/{{$contractor->id}}" class="btn btn-danger" onclick="return confirm('Удалить?')"><i class="fa fa-trash"></i> Удалить</a>
-                        @endif
+                            @if(!Auth()->user()->group_id)
+                                <a href="/contracts/delete/{{$contractor->id}}" class="btn btn-danger" onclick="return confirm('Удалить?')"><i class="fa fa-trash"></i> Удалить</a>
+                            @endif
+                            @endif
                     </div>
                 </div>
             </div>

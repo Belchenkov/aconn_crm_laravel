@@ -12,20 +12,17 @@
                 <div class="ibox-content">
                     <div class="box-body">
                         <div class="row">
-                            <div class="form-group col-md-4">
-                                <label>Тип Организации</label>
-                                <select class="form-control" name="type">
-                                    <option value="0">Не выбран</option>
-                                    <option value="1">ООО</option>
-                                    <option value="2">ЗАО</option>
-                                    <option value="3">ОАО</option>
-                                    <option value="4">ОДО</option>
-                                    <option value="5">ПАО</option>
-                                    <option value="6">НКО</option>
-                                    <option value="7">ИП</option>
-                                    <option value="8">Физ. лицо</option>
-                                </select>
-                            </div>
+                            @if(count($regions) > 0)
+                                <div class="form-group col-md-4">
+                                    <label>Регион</label>
+                                    <select class="form-control" name="type">
+                                        <option value="0">Не выбран</option>
+                                        @foreach($regions as $region)
+                                            <option value="{{$region->id}}">{{$region->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
                             <div class="form-group col-md-8">
                                 <label>Наименование</label>
                                 <input type="text" class="form-control" name="name" placeholder="Наименование" required>
@@ -35,52 +32,84 @@
                                 <input type="text" class="form-control" name="email" placeholder="E-mail">
                             </div>
                             <div class="form-group col-md-8">
-                                <label>Адрес офиса</label>
-                                <input type="text" class="form-control" name="office" placeholder="Адрес офиса">
+                                <label>Юридический адрес</label>
+                                <input type="text" class="form-control" name="ur_address" placeholder="Юридический адрес">
                             </div>
+
+                            @if(count($what_work) > 0)
+                                <div class="form-group col-md-6">
+                                    <label>На чём работают</label>
+                                    <select class="select2_cities form-control" name="what_work">
+                                        <option value="0">Не выбран</option>
+                                            @foreach($what_work as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
+                            @if(count($periodicity) > 0)
+                                <div class="form-group col-md-6">
+                                    <label>Периодичность</label>
+                                    <select class="form-control" name="periodicity">
+                                        <option value="0">Не выбрана</option>
+                                        @foreach($periodicity as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
+                            @if(count($managers) > 0)
+                                <div class="form-group col-md-6">
+                                    <label>Менеджер</label>
+                                    <select class="select2 form-control" name="manager">
+                                        <option value="0">Не выбран</option>
+                                            @foreach($managers as $manager)
+                                                <option value="{{$manager->id}}">{{$manager->fio}}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
                             <div class="form-group col-md-6">
-                                <label>Канал</label>
-                                <select class="select2_cities form-control" name="direction">
-                                    <option value="0">Не выбран</option>
-                                    <option value="1">База Диалог</option>
-                                    <option value="2">База 2ГИС</option>
-                                    <option value="3">Входящие заявки</option>
-                                    <option value="4">База рассылки</option>
-                                    <option value="5">Квесты</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Категория</label>
-                                <select class="form-control" name="category">
-                                    <option value="0">Не выбрана</option>
-                                    <option value="1">Малый бизнес (до 10 сотрудников)</option>
-                                    <option value="2">Средний бизнес (более 10 сотрудников)</option>
-                                    <option value="3">Крупный бизнес (более 20 сотрудников)</option>
-                                    <option value="4">VIP</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Город</label>
-                                <select class="select2 form-control" name="city">
-                                    <option value="0">Не выбран</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Менеджер</label>
-                                <select class="select2 form-control" name="client_manager">
-                                    <option value="0">Не выбран</option>
-                                    <option value="4">Дмитрий Исайкин</option>
-                                    <option value="5">Второй Манагер</option>
-                                </select>
+                                <label>Сайт компании</label>
+                                <input type="text" class="form-control" name="site_company">
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label>Сайт</label>
-                                <input type="text" class="form-control" name="site">
+                                <label>ИНН</label>
+                                <input type="text" class="form-control" name="inn">
                             </div>
+
+                            <div class="form-group col-md-6">
+                                <label>Адресс доставки</label>
+                                <input type="text" class="form-control" name="delivery_address">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>В каких объемах берут</label>
+                                <input type="number" min="1" class="form-control" name="take_amount">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>В каких объемах берут</label>
+                                <input type="number" min="1" class="form-control" name="take_amount">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>Номер договора</label>
+                                <input type="text" min="1" class="form-control" name="contract_number">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>Номер договора</label>
+                                <input type="text" min="1" class="form-control" name="contract_number">
+                            </div>
+
                             <div class="form-group col-md-12">
-                                <label>Информация об организации</label>
-                                <textarea rows="4" type="text" class="form-control" name="information"></textarea>
+                                <label>Комментарии</label>
+                                <textarea rows="4" class="form-control" name="comments"></textarea>
                             </div>
                         </div>
                     </div>
@@ -88,20 +117,23 @@
             </div>
         </div>
         <div class="col-md-5">
-            <div class="ibox float-e-margins">
-                <h2>Статус</h2>
-                <div class="ibox-content">
-                    <div class="box-body" id="status">
-                        <select class="form-control" name="status">
-                            <option value="0">Не выбран</option>
-                            <option value="3">Теплый</option>
-                            <option value="11">На перспективу</option>
-                            <option value="12">Бесперспективный</option>
-                            <option value="13">Конкурент</option>
-                        </select>
+
+            @if(count($contractor_statuses) > 0)
+                <div class="ibox float-e-margins">
+                    <h2>Статус</h2>
+                    <div class="ibox-content">
+                        <div class="box-body" id="status">
+                            <select class="form-control" name="status">
+                                <option value="0">Не выбран</option>
+                                @foreach($contractor_statuses as $contractor_status)
+                                    <option value="{{$contractor_status->id}}">{{$contractor_status->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
+
             <div class="ibox float-e-margins">
                 <h2>Контактные телефоны</h2>
                 <div class="ibox-content">
@@ -134,6 +166,6 @@
         </div>
     </div>
     </form>
-
+</div>
 
 @endsection

@@ -9,26 +9,27 @@
                         <div class="box-body">
                             <div class="row">
                                 <?php /*dd($contractor_statuses); */?>
-                                    <div class="col-md-3">
-                                        @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
-                                            <a href="contractors/create" class="btn btn-success"><i class="fa fa-plus"></i> Добавить организацию</a><br>
-                                        @endif
+                                    @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
+                                        <div class="col-md-3">
+                                                <a href="contractors/create" class="btn btn-success"><i class="fa fa-plus"></i> Добавить организацию</a><br>
 
-                                    </div>
+                                        </div>
+                                    @endif
 
                                 <form action="http://homestead.app/contracting_parties/exportExcel" method="POST" target="_blank">
                                     <div class="col-md-9" id="filters">
-                                        <div class="col-md-4">
-                                            <b>Регион:</b>
-                                            <select class="select2 form-control" name="filter[directions]">
-                                                <option value="0">Все</option>
-                                                @if(count($regions) > 0)
-                                                    @foreach($regions as $region)
-                                                        <option value="{{$region->id}}">{{$region->name}}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                        </div>
+                                        @if(count($regions) > 0)
+                                            <div class="col-md-4">
+                                                <b>Регион:</b>
+                                                <select class="select2 form-control" name="filter[directions]">
+                                                    <option value="0">Все</option>
+                                                        @foreach($regions as $region)
+                                                            <option value="{{$region->id}}">{{$region->name}}</option>
+                                                        @endforeach
+                                                </select>
+                                            </div>
+                                        @endif
+
                                         <div class="col-md-4">
                                             <b>Статусы:</b>
                                             <select class="select2 form-control" name="filter[status]">
@@ -122,7 +123,9 @@
                                                                         <td>
                                                                             <button class="btn btn-outline btn-primary dim" title="Добавить" type="button"><i class="fa fa-plus"></i></button>
                                                                             <a href="/contractors/edit/{{$contractor->id}}"><button class="btn btn-outline btn-warning  dim" title="Редактировать" type="button"><i class="fa fa-edit"></i></button></a>
-                                                                            <button class="btn btn-outline btn-danger  dim " title="Удалить" type="button"><i class="fa fa-trash"></i></button>
+                                                                            @if(!Auth()->user()->group_id)
+                                                                                <button class="btn btn-outline btn-danger  dim " title="Удалить" type="button"><i class="fa fa-trash"></i></button>
+                                                                            @endif
                                                                         </td>
                                                                     @endif
                                                                 </tr>
