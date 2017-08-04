@@ -134,8 +134,22 @@ class ContractorsController extends Controller
     public function edit($id)
     {
         $contractor = Contractor::find($id);
+        $managers = User::where('group_id', '=', '2')->get();
+        $contractor_statuses = ContractorStatus::all();
+        $regions = Region::all();
+        $what_work = WhatWork::all();
+        $periodicity = periodicity::all();
+        $packing = packing::all();
 
-        return view('pages.contractors.edit', ['contractor' => $contractor]);
+        return view('pages.contractors.edit', [
+            'contractor' => $contractor,
+            'managers' => $managers,
+            'contractor_statuses' => $contractor_statuses,
+            'regions' => $regions,
+            'what_work' => $what_work,
+            'periodicity' => $periodicity,
+            'packing' => $packing
+        ]);
     }
 
     /**

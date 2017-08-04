@@ -22,41 +22,67 @@
                             <div class="box-body">
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label>Тип Организации</label>
-                                        <select class="form-control" name="type">
-                                            <option value="0">Не выбран</option>
-                                            <option value="1" >ООО</option>
-                                            <option value="2" >ЗАО</option>
-                                            <option value="3" >ОАО</option>
-                                            <option value="4" >ОДО</option>
-                                            <option value="5" >ПАО</option>
-                                            <option value="6" >НКО</option>
-                                            <option value="7" >ИП</option>
-                                            <option value="8" >Физ. лицо</option>
-                                        </select>
+                                        @if(count($regions) > 0)
+                                            <label>Регион</label>
+                                            <select class="form-control" name="region_id">
+                                                <option value="0">Не выбран</option>
+                                                @foreach($regions as $region)
+                                                    <option value="{{$region->id}}">{{$region->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        @endif
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label>Название</label>
-                                        <input type="text" class="form-control" name="name" value="ttttttttttttttt1232143">
+                                        <input type="text" class="form-control" name="name" value="{{$contractor->name}}">
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label>E-mail</label>
-                                        <input type="text" class="form-control" name="email" value="">
+                                        <input type="text" class="form-control" name="email" value="{{$contractor->email}}">
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label>Город</label>
-                                        <select class="select2 form-control" name="city">
-                                            <option value="0">Не выбран</option>
-                                        </select>
+                                        <label>Юридический адрес</label>
+                                        <input type="text" class="form-control" name="ur_address" value="{{$contractor->ur_address}}" placeholder="Юридический адрес">
                                     </div>
+
                                     <div class="form-group col-md-12">
-                                        <label>Адрес офиса</label>
-                                        <input type="text" class="form-control" name="office" value="">
+                                        <label>Сайт компании</label>
+                                        <input type="text" class="form-control" name="site_company" value="{{$contractor->site_company}}" placeholder="Сайт компании">
                                     </div>
+
                                     <div class="form-group col-md-12">
-                                        <label>Сайт</label>
-                                        <input type="text" class="form-control" name="site" value="">
+                                        <label>ИНН</label>
+                                        <input type="text" class="form-control" name="inn" value="{{$contractor->inn}}" placeholder="ИНН">
                                     </div>
+
+                                    @if(count($packing) > 0)
+                                        <div class="form-group col-md-12">
+                                            <label>Упаковка</label>
+                                            <select class="select2 form-control" name="packing_id">
+                                                <option value="0">Не выбран</option>
+                                                @foreach($packing as $item)
+                                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
+
+                                    <div class="form-group col-md-12">
+                                        <label>В каких объемах берут</label>
+                                        <input type="number" min="1" class="form-control" name="take_amount">
+                                    </div>
+
+                                    @if(count($what_work) > 0)
+                                        <div class="form-group col-md-12">
+                                            <label>На чём работают</label>
+                                            <select class="form-control" name="what_work_id">
+                                                <option value="0">Не выбран</option>
+                                                @foreach($what_work as $item)
+                                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -68,36 +94,76 @@
                             <div class="box-body">
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label>Менеджер</label>
-                                        <select class="select2_cities form-control" name="client_manager">
-                                            <option value="0">Не выбран</option>
-                                            <option value="4" selected>Дмитрий Исайкин</option>
-                                            <option value="5" >Второй Манагер</option>
-                                        </select>
+                                        @if(count($managers) > 0)
+                                            <label>Менеджер</label>
+                                            <select class="select2 form-control" name="manager">
+                                                <option value="0">Не выбран</option>
+                                                @foreach($managers as $manager)
+                                                    <option value="{{$manager->id}}">{{$manager->fio}}</option>
+                                                @endforeach
+                                            </select>
+                                        @endif
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label>Канал</label>
-                                        <select class="select2_cities form-control" name="direction">
-                                            <option value="0">Не выбран</option>
-                                            <option value="1" >База Диалог</option>
-                                            <option value="2" >База 2ГИС</option>
-                                            <option value="3" >Входящие заявки</option>
-                                            <option value="4" >База рассылки</option>
-                                            <option value="5" >Квесты</option>
-                                        </select>
+                                        <br>
+                                        <div class="checkbox checkbox-circle">
+                                            <input id="assign_manager" type="checkbox" name="assign_manager" value="1">
+                                            <label for="assign_manager">
+                                                Закрепить за менеджером
+                                            </label>
+                                        </div>
                                     </div>
+
+
                                     <div class="form-group col-md-12">
-                                        <label>Тип Организации</label>
-                                        <select class="form-control" name="category">
-                                            <option value="0">Не выбрана</option>
-                                            <option value="1" >Малый бизнес (до 10 сотрудников)</option>
-                                            <option value="2" >Средний бизнес (более 10 сотрудников)</option>
-                                            <option value="3" >Крупный бизнес (более 20 сотрудников)</option>
-                                            <option value="4" >VIP</option>
-                                        </select>
+                                        <label>Номер договора</label>
+                                        <input type="text" min="1" class="form-control" name="contract_number">
                                     </div>
+
                                     <div class="form-group col-md-12">
-                                        <label>Информация об организации</label>
+                                        <label>Наличие договора</label><br>
+                                        <div class="radio radio-inline">
+                                            <input type="radio" id="contract_yes" value="1" name="contract_exist">
+                                            <label for="contract_yes"> Да </label>
+                                        </div>
+                                        <br>
+                                        <div class="radio radio-inline">
+                                            <input type="radio" id="contract_no" value="0" name="contract_exist">
+                                            <label for="contract_no"> Нет </label>
+                                        </div>
+                                    </div>
+
+                                    @if(count($periodicity) > 0)
+                                        <div class="form-group col-md-12">
+                                            <label>Периодичность</label>
+                                            <select class="form-control" name="periodicity_id">
+                                                <option value="0">Не выбрана</option>
+                                                @foreach($periodicity as $item)
+                                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
+                                    <div class="form-group col-md-12">
+                                        <label>Адресс доставки</label>
+                                        <input type="text" class="form-control" name="delivery_address">
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label>Доставка</label><br>
+                                        <div class="radio radio-inline">
+                                            <input type="radio" id="delivery_our" value="наша" name="delivery">
+                                            <label for="delivery_our"> Наша </label>
+                                        </div>
+                                        <br>
+                                        <div class="radio radio-inline">
+                                            <input type="radio" id="delivery_self" value="сам" name="delivery">
+                                            <label for="delivery_self"> Сам </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label>Комментарии</label>
                                         <textarea rows="8" type="text" class="form-control" name="information"></textarea>
                                     </div>
                                 </div>
