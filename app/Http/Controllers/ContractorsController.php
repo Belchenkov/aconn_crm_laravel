@@ -104,7 +104,7 @@ class ContractorsController extends Controller
 
         $phones = '';
         foreach ($request->input('phones') as $phone) {
-            $phones .=  $phone ."\n";
+            $phones .=  $phone ."<br>";
         }
         $contractor->phone = $phones;
 

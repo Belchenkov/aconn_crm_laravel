@@ -93,7 +93,7 @@
                                                             <th>ID</th>
                                                             <th>Наименование(s)</th>
                                                             <th>ИНН</th>
-                                                            <th width="150px">Телефон</th>
+                                                            <th>Телефон</th>
                                                             <th>Регион</th>
                                                             <th>Почта</th>
                                                             <th>Сайт</th>
@@ -113,7 +113,7 @@
                                                                         <a href="/contractors/details/{{$contractor->id}}">{{$contractor->name}}</a>
                                                                     </td>
                                                                     <td>{{$contractor->inn}}</td>
-                                                                    <td>{{$contractor->phone}}</td>
+                                                                    <td>{!! $contractor->phone !!}</td>
                                                                     <td>{{$contractor->region_id}}</td>
                                                                     <td>{{$contractor->email}}</td>
                                                                     <td>{{$contractor->site_company}}</td>
@@ -134,7 +134,6 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
