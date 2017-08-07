@@ -92,13 +92,9 @@
                                                         <tr>
                                                             <th>ID</th>
                                                             <th>Наименование(s)</th>
-                                                            <th>ИНН</th>
                                                             <th>Телефон</th>
                                                             <th>Регион</th>
-                                                            <th>Почта</th>
-                                                            <th>Сайт</th>
                                                             <th>Менеджер</th>
-                                                            <th>Адресс доставки</th>
                                                             @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                 <th>Управление</th>
                                                             @endif
@@ -112,7 +108,6 @@
                                                                     <td>
                                                                         <a href="/contractors/details/{{$contractor->id}}">{{$contractor->name}}</a>
                                                                     </td>
-                                                                    <td>{{$contractor->inn}}</td>
                                                                     <td>{!! $contractor->phone !!}</td>
                                                                     <td>
                                                                         @foreach($regions as $region)
@@ -121,15 +116,12 @@
                                                                             @endif
                                                                         @endforeach
                                                                     </td>
-                                                                    <td>{{$contractor->email}}</td>
-                                                                    <td>{{$contractor->site_company}}</td>
                                                                     <td>
                                                                         @foreach($users as $user)
                                                                             @if($contractor->user_id === $user->id)
                                                                                 {{$user->fio}}
                                                                             @endif
                                                                         @endforeach
-                                                                    <td>{{$contractor->delivery_address}}</td>
                                                                     @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                         <td>
                                                                             <a href="/tasks/add/" class="btn btn-default btn-outline btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить задачу" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a>

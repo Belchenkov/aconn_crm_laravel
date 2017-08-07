@@ -64,7 +64,7 @@ class ContractorsController extends Controller
             ]);
         }
         else {
-            return redirect('/contractors');
+            abort(404);
         }
     }
 
@@ -76,12 +76,25 @@ class ContractorsController extends Controller
      */
     public function store(Request $request)
     {
-       /* // Validate
+        // Validate
         $this->validate($request, [
-            'name' => 'required',
-            'url' => 'required'
-        ]);
-       */
+            'name' => 'required|unique:contractors|max:255',
+            'region_id' => 'required',
+            'inn' => 'unique:contractors|max:255',
+            'phone' => 'required|unique:contractors|max:255',
+            'contract_number' => 'required|unique:contractors|max:255',
+            'packing_id ' => 'required',
+            'periodicity_id ' => 'required',
+            'what_work_id ' => 'required',
+
+
+            ],
+            $messages = array(
+                'required' => 'Поле :attribute обязательно',
+                'max' => 'Поле :attribute должно быть не более 255 символов',
+                'unique'   => 'Поле :attribute должно быть уникальным'
+            )
+        );
 
         $contractor = new Contractor();
 
@@ -105,7 +118,7 @@ class ContractorsController extends Controller
         $contractor->contractor_status_id = $request->input('contractor_status_id');
 
         $phones = '';
-        foreach ($request->input('phones') as $phone) {
+        foreach ($request->input('phone') as $phone) {
             $phones .=  $phone ."<br>";
         }
         $contractor->phone = $phones;
@@ -173,7 +186,50 @@ class ContractorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validate
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'region_id' => 'required',
+            'phone' => 'required|max:255',
+            'contract_number' => 'required|max:255',
+            'packing_id ' => 'required',
+            'periodicity_id ' => 'required',
+            'what_work_id ' => 'required',
+
+
+        ],
+            $messages = array(
+                'required' => 'Поле :attribute обязательно',
+                'max' => 'Поле :attribute должно быть не более 255 символов',
+                'unique'   => 'Поле :attribute должно быть уникальным'
+            )
+        );
+
+        $contractor = Contractor::find($id);
+
+        $contractor->name = $request->input('name');
+        $contractor->region_id = $request->input('region_id');
+        $contractor->user_id = $request->input('manager');
+        $contractor->email = $request->input('email');
+        $contractor->ur_address = $request->input('ur_address');
+        $contractor->site_company = $request->input('site_company');
+        $contractor->inn = $request->input('inn');
+        $contractor->assign_manager = $request->input('assign_manager');
+        $contractor->what_work_id = $request->input('what_work_id');
+        $contractor->periodicity_id = $request->input('periodicity_id');
+        $contractor->take_amount = $request->input('take_amount');
+        $contractor->delivery_address = $request->input('delivery_address');
+        $contractor->delivery = $request->input('delivery');
+        $contractor->packing_id = $request->input('packing_id');
+        $contractor->contract_number = $request->input('contract_number');
+        $contractor->contract_exist = $request->input('contract_exist');
+        $contractor->comments = $request->input('comments');
+        $contractor->contractor_status_id = $request->input('contractor_status_id');
+
+        dd($contractor);
+
+//        $contractor->save();
+        //return redirect('/contractors')->with('success', 'Организация добавлена');
     }
 
     /**
@@ -188,7 +244,7 @@ class ContractorsController extends Controller
             echo 'Delete';
         }
         else {
-            return redirect('/contractors');
+            abort(404);
         }
     }
 }

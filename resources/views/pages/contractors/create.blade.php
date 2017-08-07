@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="row  border-bottom white-bg dashboard-header">
-    <form action="/contractors/store" method="post" id="newForm">
+<div class="row border-bottom white-bg dashboard-header">
+    <form action="/contractors/store" method="post">
 
     {{ csrf_field() }}
 
@@ -27,25 +27,25 @@
                             @endif
                             <div class="form-group col-md-8">
                                 <label>Наименование</label>
-                                <input type="text" class="form-control" name="name" placeholder="Наименование" required>
+                                <input type="text" class="form-control" name="name" value="{{old('name')}}"  placeholder="Наименование">
                             </div>
                             <div class="form-group col-md-4">
                                 <label>E-mail</label>
-                                <input type="text" class="form-control" name="email" placeholder="E-mail">
+                                <input type="text" class="form-control" name="email" value="{{old('email')}}" placeholder="E-mail">
                             </div>
                             <div class="form-group col-md-8">
                                 <label>Юридический адрес</label>
-                                <input type="text" class="form-control" name="ur_address" placeholder="Юридический адрес">
+                                <input type="text" class="form-control" name="ur_address" value="{{old('ur_address')}}" placeholder="Юридический адрес">
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label>Сайт компании</label>
-                                <input type="text" class="form-control" name="site_company">
+                                <input type="text" class="form-control" value="{{old('site_company')}}" name="site_company">
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label>ИНН</label>
-                                <input type="text" class="form-control" name="inn">
+                                <input type="text" class="form-control" value="{{old('inn')}}" name="inn">
                             </div>
 
                             @if(count($managers) > 0)
@@ -63,7 +63,7 @@
                             <div class="form-group col-md-6">
                                 <br>
                                 <div class="checkbox checkbox-circle">
-                                    <input id="assign_manager" type="checkbox" name="assign_manager" value="1">
+                                    <input id="assign_manager" type="checkbox" name="assign_manager" value="{{old('assign_manager')}}">
                                     <label for="assign_manager">
                                         Закрепить за менеджером
                                     </label>
@@ -108,12 +108,12 @@
 
                             <div class="form-group col-md-6">
                                 <label>В каких объемах берут</label>
-                                <input type="number" min="1" class="form-control" name="take_amount">
+                                <input type="number" min="1" class="form-control" value="{{old('take_amount')}}" name="take_amount">
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label>Адресс доставки</label>
-                                <input type="text" class="form-control" name="delivery_address">
+                                <input type="text" class="form-control" value="{{old('delivery_address')}}" name="delivery_address">
                             </div>
 
                             <div class="form-group col-md-6">
@@ -131,7 +131,7 @@
 
                             <div class="form-group col-md-6">
                                 <label>Номер договора</label>
-                                <input type="text" min="1" class="form-control" name="contract_number">
+                                <input type="text" min="1" class="form-control" value="{{old('contract_number')}}" name="contract_number">
                             </div>
 
                             <div class="form-group col-md-6">
@@ -149,7 +149,7 @@
 
                             <div class="form-group col-md-12">
                                 <label>Комментарии</label>
-                                <textarea rows="4" class="form-control" name="comments"></textarea>
+                                <textarea rows="4" class="form-control" name="comments">{{old('comments ')}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -177,7 +177,7 @@
             <div class="ibox float-e-margins">
                 <h2>Контактные телефоны</h2>
                 <div class="ibox-content">
-                    <input type="text" class="form-control" name="phones[]" required data-mask="+7 (999) 999-9999">
+                    <input type="text" class="form-control" name="phone[]" required data-mask="+7 (999) 999-9999">
                     <div id="listPhones"></div>
                     <a href="" class="btn btn-outline btn-success" style="margin-top: 10px;" onclick="add_phone();return false;"><i class="fa fa-plus"></i> Добавить телефон</a>
                 </div>

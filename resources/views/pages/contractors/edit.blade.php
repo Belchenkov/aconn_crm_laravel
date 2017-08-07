@@ -3,7 +3,8 @@
 @section('content')
 
     <div class="row  border-bottom white-bg dashboard-header">
-        <form action="http://homestead.app/contracting_parties/edit/79" method="post">
+        <form action="/contractors/edit/{{$contractor->id}}" method="post">
+            {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-12">
                     <div class="ibox float-e-margins">
@@ -172,20 +173,21 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-                            <div class="box-body" id="status">
-                                <h2>Статус</h2>
-                                <select class="form-control" name="status">
-                                    <option value="0">Не выбран</option>
-                                    <option value="3" >Теплый</option>
-                                    <option value="11" >На перспективу</option>
-                                    <option value="12" selected>Бесперспективный</option>
-                                    <option value="13" >Конкурент</option>
-                                </select>
+                    @if(count($contractor_statuses) > 0)
+                        <div class="ibox float-e-margins">
+                            <h2>Статус</h2>
+                            <div class="ibox-content">
+                                <div class="box-body" id="status">
+                                    <select class="form-control" name="contractor_status_id">
+                                        <option value="0">Не выбран</option>
+                                        @foreach($contractor_statuses as $contractor_status)
+                                            <option value="{{$contractor_status->id}}">{{$contractor_status->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
                             <div class="box-body">
@@ -193,10 +195,18 @@
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <div id="listPhones">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" name="phones[]" data-mask="+7 (999) 999-9999" value="+7 (555) 555-5555">
-                                                <div class="input-group-addon"><a href="#" onclick="$(this).parent('.input-group-addon').parent('.input-group').remove(); return false;"><i class="fa fa-trash"></i></a></div>
-                                            </div>							</div>
+                                            @if (count($contractor->phone) > 0)
+                                                    <?php $phones = explode('<br>', $contractor->phone); ?>
+
+                                                        @for ($i = 0; $i < count($phones) - 1; $i++)
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" name="phone[]" data-mask="+7 (999) 999-9999" value="{{$phones[$i]}}">
+                                                                <div class="input-group-addon"><a href="#" onclick="$(this).parent('.input-group-addon').parent('.input-group').remove(); return false;"><i class="fa fa-trash"></i></a></div>
+                                                            </div>
+                                                        @endfor
+                                            @endif
+                                        </div>
+
                                         <a href="" class="btn btn-xs btn-outline btn-success" style="margin-top: 10px;" onclick="add_phone();return false;"><i class="fa fa-plus"></i> Добавить телефон</a>
                                     </div>
                                 </div>
