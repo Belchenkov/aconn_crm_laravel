@@ -13,7 +13,10 @@
                             {{--<a href="/tasks/add" class="btn btn-default"><i class="fa fa-plus"></i> Добавить задачу</a>--}}
                             <a href="/contractors/edit/{{$contractor->id}}" class="btn btn-default"><i class="fa fa-edit"></i> Редактировать</a>
                             @if(!Auth()->user()->group_id)
-                                <a href="/contracts/delete/{{$contractor->id}}" class="btn btn-danger" onclick="return confirm('Удалить?')"><i class="fa fa-trash"></i> Удалить</a>
+                                <form action="/contractors/delete/{{$contractor->id}}" method="post" style="display: inline;">
+                                    {{ csrf_field() }}
+                                    <button class="btn btn-danger" onclick="return confirm('Удалить?')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i> Удалить</button>
+                                </form>
                             @endif
                         @endif
                     </div>

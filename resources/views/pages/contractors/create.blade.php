@@ -17,8 +17,8 @@
                             @if(count($regions) > 0)
                                 <div class="form-group col-md-4">
                                     <label>Регион</label>
-                                    <select class="form-control" name="region_id">
-                                        <option value="0">Не выбран</option>
+                                    <select class="form-control" name="region_id" >
+                                        <option value="">Не выбран</option>
                                         @foreach($regions as $region)
                                             <option value="{{$region->id}}">{{$region->name}}</option>
                                         @endforeach
@@ -27,7 +27,7 @@
                             @endif
                             <div class="form-group col-md-8">
                                 <label>Наименование</label>
-                                <input type="text" class="form-control" name="name" value="{{old('name')}}"  placeholder="Наименование">
+                                <input type="text" class="form-control" name="name" value="{{old('name')}}" required="" placeholder="Наименование">
                             </div>
                             <div class="form-group col-md-4">
                                 <label>E-mail</label>
@@ -51,8 +51,8 @@
                             @if(count($managers) > 0)
                                 <div class="form-group col-md-6">
                                     <label>Менеджер</label>
-                                    <select class="select2 form-control" name="manager">
-                                        <option value="0">Не выбран</option>
+                                    <select class="select2 form-control" name="manager" required="">
+                                        <option value="">Не выбран</option>
                                         @foreach($managers as $manager)
                                             <option value="{{$manager->id}}">{{$manager->fio}}</option>
                                         @endforeach
@@ -73,8 +73,8 @@
                             @if(count($what_work) > 0)
                                 <div class="form-group col-md-6">
                                     <label>На чём работают</label>
-                                    <select class="form-control" name="what_work_id">
-                                        <option value="0">Не выбран</option>
+                                    <select class="form-control" name="what_work_id" required="">
+                                        <option value="">Не выбран</option>
                                             @foreach($what_work as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
@@ -85,8 +85,8 @@
                             @if(count($periodicity) > 0)
                                 <div class="form-group col-md-6">
                                     <label>Периодичность</label>
-                                    <select class="form-control" name="periodicity_id">
-                                        <option value="0">Не выбрана</option>
+                                    <select class="form-control" name="periodicity_id" required="">
+                                        <option value="">Не выбрана</option>
                                         @foreach($periodicity as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
@@ -97,8 +97,8 @@
                             @if(count($packing) > 0)
                                 <div class="form-group col-md-6">
                                     <label>Упаковка</label>
-                                    <select class="select2 form-control" name="packing_id">
-                                        <option value="0">Не выбран</option>
+                                    <select class="select2 form-control" required="" name="packing_id">
+                                        <option value="">Не выбран</option>
                                         @foreach($packing as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
@@ -131,7 +131,7 @@
 
                             <div class="form-group col-md-6">
                                 <label>Номер договора</label>
-                                <input type="text" min="1" class="form-control" value="{{old('contract_number')}}" name="contract_number">
+                                <input type="text" min="1" class="form-control" required="" value="{{old('contract_number')}}" name="contract_number">
                             </div>
 
                             <div class="form-group col-md-6">
@@ -163,8 +163,8 @@
                     <h2>Статус</h2>
                     <div class="ibox-content">
                         <div class="box-body" id="status">
-                            <select class="form-control" name="contractor_status_id">
-                                <option value="0">Не выбран</option>
+                            <select class="form-control" required="" name="contractor_status_id">
+                                <option value="">Не выбран</option>
                                 @foreach($contractor_statuses as $contractor_status)
                                     <option value="{{$contractor_status->id}}">{{$contractor_status->name}}</option>
                                 @endforeach

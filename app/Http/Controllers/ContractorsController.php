@@ -83,9 +83,9 @@ class ContractorsController extends Controller
             'inn' => 'unique:contractors|max:255',
             'phone' => 'required|unique:contractors|max:255',
             'contract_number' => 'required|unique:contractors|max:255',
-            'packing_id ' => 'required',
-            'periodicity_id ' => 'required',
-            'what_work_id ' => 'required',
+            'packing_id' => 'required',
+            'periodicity_id' => 'required',
+            'what_work_id' => 'required',
 
 
             ],
