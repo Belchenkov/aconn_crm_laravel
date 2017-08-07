@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contractor extends Model
 {
-    public function users()
+    public function user()
     {
         return $this->belongsTo('App\User');
     }
+
     public function region()
     {
         return $this->hasOne('App\Region');

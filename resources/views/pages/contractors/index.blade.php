@@ -114,10 +114,21 @@
                                                                     </td>
                                                                     <td>{{$contractor->inn}}</td>
                                                                     <td>{!! $contractor->phone !!}</td>
-                                                                    <td>{{$contractor->region_id}}</td>
+                                                                    <td>
+                                                                        @foreach($regions as $region)
+                                                                            @if($contractor->region_id === $region->id)
+                                                                                {{$region->name}}
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </td>
                                                                     <td>{{$contractor->email}}</td>
                                                                     <td>{{$contractor->site_company}}</td>
-                                                                    <td>{{$contractor->user_id}}</td>
+                                                                    <td>
+                                                                        @foreach($users as $user)
+                                                                            @if($contractor->user_id === $user->id)
+                                                                                {{$user->fio}}
+                                                                            @endif
+                                                                        @endforeach
                                                                     <td>{{$contractor->delivery_address}}</td>
                                                                     @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                         <td>

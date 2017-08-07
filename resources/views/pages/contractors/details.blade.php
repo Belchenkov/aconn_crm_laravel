@@ -31,10 +31,11 @@
                             <label>Телефоны</label><br>
                             {!! $contractor->phone !!}
                         </div>
+
                         <div class="form-group col-md-6">
                             <label>Менеджер</label><br>
-                            @if (!empty($contractor->user_id))
-                                {{$contractor->user_id}}
+                            @if (!empty($manager) && ($contractor->assign_manager === 1))
+                                {{$manager}}
                             @else
                                 Отсутствует
                             @endif

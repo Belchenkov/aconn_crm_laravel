@@ -21,6 +21,7 @@ class ContractorsController extends Controller
     public function index()
     {
         $contractors = Contractor::all();
+        $users = User::all();
         $managers = User::where('group_id', '=', '2')->get();
         $contractor_statuses = ContractorStatus::all();
         $regions = Region::all();
@@ -31,7 +32,8 @@ class ContractorsController extends Controller
             'managers' => $managers,
             'contractor_statuses' => $contractor_statuses,
             'regions' => $regions,
-            'what_work' => $what_work
+            'what_work' => $what_work,
+            'users' => $users,
         ]);
     }
 
@@ -122,13 +124,14 @@ class ContractorsController extends Controller
     public function show($id)
     {
         $contractor = Contractor::find($id);
-//      $manager = User::find($id)->users;
+        $manager = User::find($id)->contractors()->getParent()->fio;
         $region = Region::find($id)->contractor()->getParent()->name;
         $status = ContractorStatus::find($id)->contractor()->getParent()->name;
 
-        //dd($status);
+        //dd($manager);
         return view('pages.contractors.details', [
             'contractor' => $contractor,
+            'manager' => $manager,
             'region' => $region,
             'status' => $status,
         ]);
