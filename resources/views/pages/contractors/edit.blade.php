@@ -10,7 +10,7 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
                             <div class="box-footer">
-                                <a onclick="javascript:history.back();" class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a>
+                                <a href="/contractors"  class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a>
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Сохранить изменения</button>
                                 <a href="/contractors/details/{{$contractor->id}}" class="btn btn-white btn-bitbucket"><i class="fa fa-eye"></i> Карточка организации</a>
                             </div>
@@ -70,7 +70,7 @@
 
                                     <div class="form-group col-md-12">
                                         <label>В каких объемах берут</label>
-                                        <input type="number" min="1" class="form-control" name="take_amount">
+                                        <input type="number" min="1" class="form-control" value="{{$contractor->take_amount}}" name="take_amount">
                                     </div>
 
                                     @if(count($what_work) > 0)
@@ -118,7 +118,7 @@
 
                                     <div class="form-group col-md-12">
                                         <label>Номер договора</label>
-                                        <input type="text" min="1" class="form-control" name="contract_number">
+                                        <input type="text" min="1" class="form-control" value="{{$contractor->contract_number}}" name="contract_number">
                                     </div>
 
                                     <div class="form-group col-md-12">
@@ -147,7 +147,7 @@
                                     @endif
                                     <div class="form-group col-md-12">
                                         <label>Адресс доставки</label>
-                                        <input type="text" class="form-control" name="delivery_address">
+                                        <input type="text" class="form-control" value="{{$contractor->delivery_address}}" name="delivery_address">
                                     </div>
 
                                     <div class="form-group col-md-12">
@@ -165,7 +165,9 @@
 
                                     <div class="form-group col-md-12">
                                         <label>Комментарии</label>
-                                        <textarea rows="8" type="text" class="form-control" name="information"></textarea>
+                                        <textarea rows="8" type="text" class="form-control" name="information">
+                                            {{$contractor->comments}}
+                                        </textarea>
                                     </div>
                                 </div>
                             </div>
@@ -196,14 +198,14 @@
                                     <div class="form-group col-md-12">
                                         <div id="listPhones">
                                             @if (count($contractor->phone) > 0)
-                                                    <?php $phones = explode('<br>', $contractor->phone); ?>
+                                                <?php $phones = explode('<br>', $contractor->phone); ?>
 
-                                                        @for ($i = 0; $i < count($phones) - 1; $i++)
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" name="phone[]" data-mask="+7 (999) 999-9999" value="{{$phones[$i]}}">
-                                                                <div class="input-group-addon"><a href="#" onclick="$(this).parent('.input-group-addon').parent('.input-group').remove(); return false;"><i class="fa fa-trash"></i></a></div>
-                                                            </div>
-                                                        @endfor
+                                                @for ($i = 0; $i < count($phones) - 1; $i++)
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" name="phone[]" data-mask="+7 (999) 999-9999" value="{{$phones[$i]}}">
+                                                        <div class="input-group-addon"><a href="#" onclick="$(this).parent('.input-group-addon').parent('.input-group').remove(); return false;"><i class="fa fa-trash"></i></a></div>
+                                                    </div>
+                                                @endfor
                                             @endif
                                         </div>
 
@@ -230,7 +232,7 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
                             <div class="box-footer">
-                                <a onclick="javascript:history.back();" class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a>
+                                <a href="contractors" class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a>
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Сохранить изменения</button>
                             </div>
                         </div>
@@ -238,6 +240,5 @@
                 </div>
             </div>
         </form>
-
-
+    </div>
 @endsection

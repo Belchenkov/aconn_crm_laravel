@@ -192,9 +192,9 @@ class ContractorsController extends Controller
             'region_id' => 'required',
             'phone' => 'required|max:255',
             'contract_number' => 'required|max:255',
-            'packing_id ' => 'required',
-            'periodicity_id ' => 'required',
-            'what_work_id ' => 'required',
+            'packing_id' => 'required',
+            'periodicity_id' => 'required',
+            'what_work_id' => 'required',
 
 
         ],
@@ -226,10 +226,10 @@ class ContractorsController extends Controller
         $contractor->comments = $request->input('comments');
         $contractor->contractor_status_id = $request->input('contractor_status_id');
 
-        dd($contractor);
+         //dd($contractor);
 
-//        $contractor->save();
-        //return redirect('/contractors')->with('success', 'Организация добавлена');
+        $contractor->save();
+        return redirect('/contractors')->with('success', 'Данные об организации обновлены');
     }
 
     /**

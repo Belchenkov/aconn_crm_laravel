@@ -8,7 +8,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="box-footer">
-                        <a onclick="javascript:history.back();" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
+                        <a href="/contractors" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
                         @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                             {{--<a href="/tasks/add" class="btn btn-default"><i class="fa fa-plus"></i> Добавить задачу</a>--}}
                             <a href="/contractors/edit/{{$contractor->id}}" class="btn btn-default"><i class="fa fa-edit"></i> Редактировать</a>
