@@ -241,7 +241,9 @@ class ContractorsController extends Controller
     public function destroy($id)
     {
         if(!Auth()->user()->group_id) {
-            echo 'Delete';
+            $contractor = Contractor::find($id);
+            $contractor->delete();
+            return redirect('/contractors')->with('success', 'Организация удалена');
         }
         else {
             abort(404);

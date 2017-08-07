@@ -19,16 +19,11 @@ Route::get('/contractors/edit/{id}', 'ContractorsController@edit')->name('contra
 Route::post('/contractors/edit/{id}', 'ContractorsController@update')->name('contractors_update');
 Route::get('/contractors/details/{id}', 'ContractorsController@show')->name('contractors_details');
 Route::post('/contractors/store', 'ContractorsController@store')->name('contractors_store');
+Route::post('/contractors/delete/{id}', 'ContractorsController@destroy')->name('contractors_delete');
 
 Route::get('/employees', 'EmployeesController@show')->name('employees');
 
 Route::get('/tasks', 'TasksController@show')->name('tasks');
 
-
-
 Auth::routes();
-
-//Route::get('/', ['middleware' => 'auth:web', 'uses' => 'Auth\AuthController@showLoginForm']);
-//Route::post('login', 'Auth\AuthController@login');
-//Route::post('logout', 'Auth\AuthController@logout');
 

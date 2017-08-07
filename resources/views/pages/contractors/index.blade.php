@@ -127,7 +127,10 @@
                                                                             <a href="/tasks/add/" class="btn btn-default btn-outline btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить задачу" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a>
                                                                             <a href="/contractors/edit/{{$contractor->id}}" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a>
                                                                             @if(!Auth()->user()->group_id)
-                                                                                <a href="/contractors/delete/{{$contractor->id}}" class="btn btn-danger btn-bitbucket" onclick="return confirm('Удалить?')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></a>
+                                                                                <form action="/contractors/delete/{{$contractor->id}}" method="post" style="display: inline;">
+                                                                                    {{ csrf_field() }}
+                                                                                    <button class="btn btn-danger btn-bitbucket" onclick="return confirm('Удалить?')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button>
+                                                                                </form>
                                                                             @endif
                                                                         </td>
                                                                     @endif
