@@ -122,7 +122,16 @@ class ContractorsController extends Controller
     public function show($id)
     {
         $contractor = Contractor::find($id);
-        return view('pages.contractors.details', ['contractor' => $contractor]);
+//      $manager = User::find($id)->users;
+        $region = Region::find($id)->contractor()->getParent()->name;
+        $status = ContractorStatus::find($id)->contractor()->getParent()->name;
+
+        //dd($status);
+        return view('pages.contractors.details', [
+            'contractor' => $contractor,
+            'region' => $region,
+            'status' => $status,
+        ]);
     }
 
     /**

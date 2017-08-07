@@ -57,8 +57,8 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Регион</label><br>
-                            @if (!empty($contractor->region_id))
-                                {{$contractor->region_id}}
+                            @if (!empty($region))
+                                {{$region}}
                             @else
                                 Отсутствует
                             @endif
@@ -100,9 +100,13 @@
             <h2>Статус организации</h2>
             <div class="ibox-content">
                 <div class="box-body" id="status">
-                    <span>{{$contractor->status_id}}</span>
+                    @if (!empty($status))
+                        <span>{{$status}}</span>
+                    @else
+                        Отсутствует
+                    @endif
+                </div>
             </div>
-        </div>
     </div>
     <div class="col-md-6">
         <div id="vertical-timeline" class="vertical-container">
@@ -111,10 +115,12 @@
                 <div class="vertical-timeline-content">
                     <p>Организация добавлена</p>
                     <span class="vertical-date">
-                        {{$contractor->created_at}}
-						<b>07:28</b>
+                        <?php
+                            $date = explode(" ", $contractor->created_at);
+                        ?>
+						<b><?= $date[1]; ?></b>
 						<i class="fa fa-clock-o"></i>
-						16.11.2016 <br/><small></small>
+                        <?= $date[0]; ?> <br/><small></small>
 					</span>
                 </div>
             </div>
