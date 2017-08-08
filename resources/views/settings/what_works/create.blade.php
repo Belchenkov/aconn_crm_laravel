@@ -7,13 +7,13 @@
                 <form action="" method="post">
                     <div class="box-body">
                         <div class="form-group">
-                            <label>Наменование региона</label>
+                            <label>На чем работают - Наименование</label>
                             <input type="text" class="form-control" name="name" >
                         </div>
                     </div>
                     <div class="box-footer">
                         <a href="/settings/admin-panel" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Сохранить</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Добавить</button>
                     </div>
                 </form>
             </div>

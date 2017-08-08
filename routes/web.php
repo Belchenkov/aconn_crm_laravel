@@ -38,6 +38,21 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'], function() {
         Route::get('/edit/{id}', 'RegionsController@edit')->name('regions_edit');
     });
 
+    Route::group(['prefix'=>'what-works','middleware'=>'auth'], function() {
+        Route::get('/create', 'WhatWorksController@create')->name('what-works_create');
+        Route::get('/edit/{id}', 'WhatWorksController@edit')->name('what-works_edit');
+    });
+
+    Route::group(['prefix'=>'periodicity','middleware'=>'auth'], function() {
+        Route::get('/create', 'PeriodicityController@create')->name('periodicity_create');
+        Route::get('/edit/{id}', 'PeriodicityController@edit')->name('periodicity_edit');
+    });
+
+    Route::group(['prefix'=>'packings','middleware'=>'auth'], function() {
+        Route::get('/create', 'PackingsController@create')->name('packings_create');
+        Route::get('/edit/{id}', 'PackingsController@edit')->name('packings_edit');
+    });
+
 });
 
 

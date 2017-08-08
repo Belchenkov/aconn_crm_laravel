@@ -7,7 +7,7 @@
                 <form action="" method="post">
                     <div class="box-body">
                         <div class="form-group">
-                            <label>Наменование региона</label>
+                            <label>Периодичность - Наменование</label>
                             <input type="text" class="form-control" name="name" >
                         </div>
                     </div>

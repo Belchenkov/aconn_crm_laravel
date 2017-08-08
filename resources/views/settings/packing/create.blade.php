@@ -7,7 +7,7 @@
                 <form action="" method="post">
                     <div class="box-body">
                         <div class="form-group">
-                            <label>Наменование региона</label>
+                            <label>Упаковка - Наменование</label>
                             <input type="text" class="form-control" name="name" >
                         </div>
                     </div>
