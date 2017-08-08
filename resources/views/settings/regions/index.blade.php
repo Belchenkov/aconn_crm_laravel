@@ -26,12 +26,11 @@
                                     <tr>
                                         <td> {{$i++}}</td>
                                         <td>
-
                                             <a href="regions/edit/{{$region->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             @if(!Auth()->user()->group_id)
-                                                <form action="delete/{{$region->id}}" method="post" style="display: inline;">
+                                                <form action="regions/delete/{{$region->id}}" method="post" style="display: inline;">
                                                     {{ csrf_field() }}
                                                     <button onclick="return confirm('Удалить?')" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
                                                         <i class="fa fa-trash"></i>
@@ -46,7 +45,6 @@
                                                     {{$manager->fio}}
                                                 @endif
                                             @endforeach
-
                                         </td>
                                     </tr>
                                     @endforeach
