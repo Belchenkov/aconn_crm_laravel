@@ -78,16 +78,14 @@ class ContractorsController extends Controller
     {
         // Validate
         $this->validate($request, [
-            'name' => 'required|unique:contractors|max:255',
-            'region_id' => 'required',
-            'inn' => 'unique:contractors|max:255',
-            'phone' => 'required|unique:contractors|max:255',
-            'contract_number' => 'required|unique:contractors|max:255',
-            'packing_id' => 'required',
-            'periodicity_id' => 'required',
-            'what_work_id' => 'required',
-
-
+                'name' => 'required|unique:contractors|max:255',
+                'region_id' => 'required',
+                'inn' => 'unique:contractors|max:255',
+                'phone' => 'required|unique:contractors|max:255',
+                'contract_number' => 'required|unique:contractors|max:255',
+                'packing_id' => 'required',
+                'periodicity_id' => 'required',
+                'what_work_id' => 'required',
             ],
             $messages = array(
                 'required' => 'Поле :attribute обязательно',

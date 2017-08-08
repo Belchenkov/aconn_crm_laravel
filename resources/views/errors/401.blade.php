@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AconnCRM | 404 Error</title>
+    <title>AconnCRM | 401 Error</title>
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -21,10 +21,9 @@
 
     <div class="middle-box text-center animated fadeInDown">
         <h1>404</h1>
-        <h3 class="font-bold">Страница не найдена</h3>
+        <h3 class="font-bold">У Вас недостаточно прав для выполнения данной операции</h3>
 
         <div class="error-desc">
-            <form class="form-inline m-t" role="form">
                 Вы можете вернуться на главную старицу: <br/><a href="/" class="btn btn-primary btn-block btn-lg m-t">Главная</a>
             </form>
         </div>

@@ -9,6 +9,7 @@
 
     <div class="row">
         <div class="col-md-7">
+            <a href="/contractors"  class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a><br><br>
             <div class="ibox float-e-margins">
                 <h2>Основная информация</h2>
                 <div class="ibox-content">
