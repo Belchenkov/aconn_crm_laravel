@@ -17,11 +17,12 @@
                                     <th>Название</th>
                                 </tr>
                                 </thead>
-                                <tbody>
 
+                                <tbody>
+                                <?php $i = 1; ?>
                                 @foreach($packing as $item)
                                     <tr>
-                                        <td> {{$item->id}}</td>
+                                        <td> {{$i++}}</td>
                                         <td>
                                             <a href="packings/edit/{{$item->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
                                                 <i class="fa fa-edit"></i>

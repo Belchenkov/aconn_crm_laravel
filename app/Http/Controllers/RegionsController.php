@@ -93,7 +93,15 @@ class RegionsController extends Controller
     public function edit($id)
     {
         if(!Auth()->user()->group_id) {
-            return view('settings.regions.edit');
+
+            $managers = User::where('group_id', '=', '2')->get();
+            //dd($managers);
+            $region = Region::find($id);
+
+            return view('settings.regions.edit', [
+                'managers' => $managers,
+                'region' => $region
+            ]);
         }
         else {
             abort(401);
@@ -109,7 +117,23 @@ class RegionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validate
+        $this->validate($request, [
+            'name' => 'required|max:255',
+        ],
+            $messages = array(
+                'required' => 'Поле :attribute обязательно',
+                'max' => 'Поле :attribute должно быть не более 255 символов',
+                'integer'   => 'Поле :attribute должно быть числовым'
+            )
+        );
+
+        $region = Region::find($id);
+        $region->name = $request->input('name');
+        $region->user_id = $request->input('manager');
+        $region->save();
+
+        return redirect('/settings/regions')->with('success', 'Регион отредактирован');
     }
 
     /**
@@ -120,6 +144,13 @@ class RegionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!Auth()->user()->group_id) {
+            $region = Region::find($id);
+            $region->delete();
+            return redirect('/settings/regions')->with('success', 'Регион удален');
+        }
+        else {
+            abort(401);
+        }
     }
 }

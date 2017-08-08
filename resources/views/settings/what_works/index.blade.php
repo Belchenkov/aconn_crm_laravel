@@ -19,9 +19,10 @@
                                 </thead>
                                 <tbody>
 
+                                <?php $i = 1; ?>
                                 @foreach($what_works as $what_work)
                                     <tr>
-                                        <td> {{$what_work->id}}</td>
+                                        <td> {{$i++}}</td>
                                         <td>
                                             <a href="what-works/edit/{{$what_work->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
                                                 <i class="fa fa-edit"></i>

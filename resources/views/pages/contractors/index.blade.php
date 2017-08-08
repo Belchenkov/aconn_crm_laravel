@@ -45,7 +45,7 @@
                                             <b>Менеджер:</b>
                                             <select class="select2 form-control" name="filter[client_manager]">
                                                 <option value="0">Все</option>
-                                                @if(count($managers) > 0)
+                                                @if(!empty($managers))
                                                     @foreach($managers as $manager)
                                                         <option value="{{$manager->id}}">{{$manager->fio}}</option>
                                                     @endforeach
@@ -57,7 +57,7 @@
                                             <b>На чем работают:</b>
                                             <select class="select2 form-control" name="filter[client_manager]">
                                                 <option value="0">Все</option>
-                                                @if(count($what_work) > 0)
+                                                @if(!empty($what_work))
                                                     @foreach($what_work as $item)
                                                         <option value="{{$item->id}}">{{$item->name}}</option>
                                                     @endforeach

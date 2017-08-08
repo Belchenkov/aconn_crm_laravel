@@ -24,8 +24,9 @@
         <h3 class="font-bold">Internal Server Error</h3>
 
         <div class="error-desc">
-            The server encountered something unexpected that didn't allow it to complete the request. We apologize.<br/>
-            You can go back to main page: <br/><a href="/" class="btn btn-primary m-t">Home</a>
+            <form class="form-inline m-t" role="form">
+                Вы можете вернуться на главную страницу: <br/><a href="/" class="btn btn-primary btn-block btn-lg m-t">Главная</a>
+            </form>
         </div>
     </div>
 

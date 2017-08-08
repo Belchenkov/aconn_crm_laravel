@@ -35,7 +35,9 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'], function() {
     Route::group(['prefix'=>'regions','middleware'=>'auth'], function() {
         Route::get('/', 'RegionsController@index')->name('regions');
         Route::post('/create', 'RegionsController@store')->name('regions_create');
+        Route::post('/edit/{id}', 'RegionsController@update')->name('regions_update');
         Route::get('/edit/{id}', 'RegionsController@edit')->name('regions_edit');
+        Route::post('/delete/{id}', 'RegionsController@destroy')->name('regions_delete');
     });
 
     Route::group(['prefix'=>'what-works','middleware'=>'auth'], function() {

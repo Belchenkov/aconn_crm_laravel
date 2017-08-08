@@ -24,7 +24,7 @@
         <h3 class="font-bold">У Вас недостаточно прав для выполнения данной операции</h3>
 
         <div class="error-desc">
-                Вы можете вернуться на главную старицу: <br/><a href="/" class="btn btn-primary btn-block btn-lg m-t">Главная</a>
+                Вы можете вернуться на главную страницу: <br/><a href="/" class="btn btn-primary btn-block btn-lg m-t">Главная</a>
         </div>
     </div>
 

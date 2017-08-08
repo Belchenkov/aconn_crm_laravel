@@ -110,7 +110,7 @@
                             <div class="box-body">
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        @if(count($managers) > 0)
+                                        @if(!empty($managers))
                                             <label>Менеджер</label>
                                             <select class="form-control" name="manager">
                                                 <option value="0">Не выбран</option>

@@ -20,16 +20,18 @@
                                 </thead>
                                 <tbody>
 
-                                @foreach($regions as $region)
+                                <?php $i = 1; ?>
+                                @if(!empty($regions))
+                                    @foreach($regions as $region)
                                     <tr>
-                                        <td> {{$region->id}}</td>
+                                        <td> {{$i++}}</td>
                                         <td>
 
                                             <a href="regions/edit/{{$region->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             @if(!Auth()->user()->group_id)
-                                                <form action="regions/delete/{{$region->id}}" method="post" style="display: inline;">
+                                                <form action="delete/{{$region->id}}" method="post" style="display: inline;">
                                                     {{ csrf_field() }}
                                                     <button onclick="return confirm('Удалить?')" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
                                                         <i class="fa fa-trash"></i>
@@ -47,7 +49,8 @@
 
                                         </td>
                                     </tr>
-                                @endforeach
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>
@@ -68,7 +71,7 @@
                                     <label>Название</label>
                                     <input type="text" class="form-control" required="" name="name" placeholder="Название региона">
                                 </div>
-                                @if(count($managers) > 0)
+                                @if(!empty($managers))
                                     <div class="form-group">
                                         <label>Менеджер</label>
                                         <select class="form-control" required="" name="manager">

@@ -25,7 +25,7 @@
 
         <div class="error-desc">
             <form class="form-inline m-t" role="form">
-                Вы можете вернуться на главную старицу: <br/><a href="/" class="btn btn-primary btn-block btn-lg m-t">Главная</a>
+                Вы можете вернуться на главную страницу: <br/><a href="/" class="btn btn-primary btn-block btn-lg m-t">Главная</a>
             </form>
         </div>
     </div>

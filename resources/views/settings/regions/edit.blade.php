@@ -5,12 +5,31 @@
         <div class="ibox float-e-margins col-md-6">
             <div class="ibox-content">
                 <form action="" method="post">
+                    {{csrf_field()}}
                     <div class="box-body">
-                        <div class="form-group">
-                            <label>Наменование региона</label>
-                            <input type="text" class="form-control" name="name" >
-                        </div>
+                        @if(!empty($region))
+                            <div class="form-group">
+                                <label>Наменование региона</label>
+                                <input type="text" class="form-control" required="" value="{{$region->name}}" name="name" >
+                            </div>
+                        @endif
+                        @if(!empty($managers))
+                            <label>Менеджер</label>
+                            <select class="form-control" name="manager">
+                                <option value="0">Не выбран</option>
+                                @foreach($managers as $manager)
+                                    <option
+                                            @if($manager->id === $region->user_id)
+                                            selected
+                                            @endif
+                                            value="{{$manager->id}}">
+                                        {{$manager->fio}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        @endif
                     </div>
+                    <br><br>
                     <div class="box-footer">
                         <a href="/settings/regions" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Сохранить</button>
