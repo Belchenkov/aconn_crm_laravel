@@ -15,6 +15,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Название</th>
+                                    <th>Закрепленный менеджер</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -37,6 +38,14 @@
                                                 </form>
                                             @endif
                                         </td>
+                                        <td>
+                                            @foreach($managers as $manager)
+                                                @if($manager->id === $region->user_id)
+                                                    {{$manager->fio}}
+                                                @endif
+                                            @endforeach
+
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -53,12 +62,25 @@
                     </div>
                     <div class="ibox-content">
                         <form action="regions/create" method="post">
+                            {{ csrf_field() }}
                             <div class="box-body">
                                 <div class="form-group">
                                     <label>Название</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Название направления">
+                                    <input type="text" class="form-control" required="" name="name" placeholder="Название региона">
                                 </div>
+                                @if(count($managers) > 0)
+                                    <div class="form-group">
+                                        <label>Менеджер</label>
+                                        <select class="form-control" required="" name="manager">
+                                            <option value="">Не выбран</option>
+                                            @foreach($managers as $manager)
+                                                <option value="{{$manager->id}}">{{$manager->fio}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
                             </div>
+                            <br>
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Добавить</button>
                             </div>

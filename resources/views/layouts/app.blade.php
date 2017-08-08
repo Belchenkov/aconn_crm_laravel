@@ -58,10 +58,10 @@
                         <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Настройки</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="/settings"><i class="fa fa-cog"></i> Настройки</a></li>
-                            <li><a href="/settings/regions"><i class="fa fa-arrow-right"></i> Регионы</a></li>
-                            <li><a href="/settings/what-works"><i class="fa fa-arrow-right"></i> На чем работают</a></li>
-                            <li><a href="/settings/periodicity"><i class="fa fa-arrow-right"></i> Периодичность</a></li>
-                            <li><a href="/settings/packings"><i class="fa fa-arrow-right"></i> Упаковка</a></li>
+                            <li><a href="/settings/regions"><i class="fa fa-cog"></i> Регионы</a></li>
+                            <li><a href="/settings/what-works"><i class="fa fa-cog"></i> На чем работают</a></li>
+                            <li><a href="/settings/periodicity"><i class="fa fa-cog"></i> Периодичность</a></li>
+                            <li><a href="/settings/packings"><i class="fa fa-cog"></i> Упаковка</a></li>
                         </ul>
                     </li>
                 @endif

@@ -16,11 +16,12 @@ class RegionsController extends Controller
     public function index()
     {
         if(!Auth()->user()->group_id) {
-            //$managers = User::where('group_id', '=', '2')->get();
+            $managers = User::where('group_id', '=', '2')->get();
+            //dd($managers);
             $regions = Region::all();
 
             return view('settings.regions.index', [
-                /*'managers' => $managers,*/
+                'managers' => $managers,
                 'regions' => $regions
             ]);
         }
@@ -36,12 +37,7 @@ class RegionsController extends Controller
      */
     public function create()
     {
-        if(!Auth()->user()->group_id) {
-            return view('settings.regions.create');
-        }
-        else {
-            abort(401);
-        }
+
 
     }
 
@@ -53,7 +49,28 @@ class RegionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(!Auth()->user()->group_id) {
+            // Validate
+            $this->validate($request, [
+                'name' => 'required|max:255',
+            ],
+                $messages = array(
+                    'required' => 'Поле :attribute обязательно',
+                    'max' => 'Поле :attribute должно быть не более 255 символов',
+                    'integer'   => 'Поле :attribute должно быть числовым'
+                )
+            );
+
+            $region = new Region();
+            $region->name = $request->input('name');
+            $region->user_id = $request->input('manager');
+            $region->save();
+
+            return redirect('/settings/regions')->with('success', 'Регион добавлен');
+        }
+        else {
+            abort(401);
+        }
     }
 
     /**

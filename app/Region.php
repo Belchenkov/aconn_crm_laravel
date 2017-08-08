@@ -9,4 +9,8 @@ class Region extends Model
     public function contractor() {
         return $this->belongsTo('App\Contractor');
     }
+
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
 }

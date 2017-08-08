@@ -12,7 +12,7 @@
                         </div>
                     </div>
                     <div class="box-footer">
-                        <a href="/settings/admin-panel" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
+                        <a href="/settings/what-works" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Сохранить</button>
                     </div>
                 </form>

@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Contractor');
     }
+
+    public function regions()
+    {
+        return $this->hasMany('App\Region');
+    }
 }

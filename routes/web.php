@@ -31,11 +31,10 @@ Route::group(['prefix'=>'tasks','middleware'=>'auth'], function() {
 
 Route::group(['prefix'=>'settings','middleware'=>'auth'], function() {
     Route::get('/', 'SettingsController@index')->name('settings');
-    Route::get('/admin-panel', 'SettingsController@adminPanel')->name('settings_adminPanel');
 
     Route::group(['prefix'=>'regions','middleware'=>'auth'], function() {
         Route::get('/', 'RegionsController@index')->name('regions');
-        Route::get('/create', 'RegionsController@create')->name('regions_create');
+        Route::post('/create', 'RegionsController@store')->name('regions_create');
         Route::get('/edit/{id}', 'RegionsController@edit')->name('regions_edit');
     });
 
