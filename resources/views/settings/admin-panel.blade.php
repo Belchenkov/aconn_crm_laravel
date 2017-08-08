@@ -68,7 +68,7 @@
                                     <tr>
                                         <td> {{$what_work->id}}</td>
                                         <td>
-                                            <a href="what-works/create" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить" data-original-title="Редактировать">
+                                            <a href="what_works/create" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить" data-original-title="Редактировать">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                             <a href="what-works/edit/{{$what_work->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
@@ -186,5 +186,6 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
 @endsection

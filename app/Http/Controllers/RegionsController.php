@@ -15,7 +15,18 @@ class RegionsController extends Controller
      */
     public function index()
     {
+        if(!Auth()->user()->group_id) {
+            //$managers = User::where('group_id', '=', '2')->get();
+            $regions = Region::all();
 
+            return view('settings.regions.index', [
+                /*'managers' => $managers,*/
+                'regions' => $regions
+            ]);
+        }
+        else {
+            abort(401);
+        }
     }
 
     /**

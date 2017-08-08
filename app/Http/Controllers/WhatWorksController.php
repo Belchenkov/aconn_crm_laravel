@@ -3,9 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\WhatWork;
 
 class WhatWorksController extends Controller
 {
+        /**
+         * Display a listing of the resource.
+         *
+         * @return \Illuminate\Http\Response
+         */
+    public function index()
+    {
+        if(!Auth()->user()->group_id) {
+
+            $what_works = WhatWork::all();
+
+            return view('settings.what_works.index', [
+                'what_works' => $what_works
+            ]);
+        }
+        else {
+            abort(401);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -14,7 +35,7 @@ class WhatWorksController extends Controller
     public function create()
     {
         if(!Auth()->user()->group_id) {
-            return view('settings.what_works.create');
+            return view('settings.what_work.create');
         }
         else {
             abort(401);

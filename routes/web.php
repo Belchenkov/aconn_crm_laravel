@@ -34,21 +34,25 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'], function() {
     Route::get('/admin-panel', 'SettingsController@adminPanel')->name('settings_adminPanel');
 
     Route::group(['prefix'=>'regions','middleware'=>'auth'], function() {
+        Route::get('/', 'RegionsController@index')->name('regions');
         Route::get('/create', 'RegionsController@create')->name('regions_create');
         Route::get('/edit/{id}', 'RegionsController@edit')->name('regions_edit');
     });
 
     Route::group(['prefix'=>'what-works','middleware'=>'auth'], function() {
+        Route::get('/', 'WhatWorksController@index')->name('what-works');
         Route::get('/create', 'WhatWorksController@create')->name('what-works_create');
         Route::get('/edit/{id}', 'WhatWorksController@edit')->name('what-works_edit');
     });
 
     Route::group(['prefix'=>'periodicity','middleware'=>'auth'], function() {
+        Route::get('/', 'PeriodicityController@index')->name('periodicity');
         Route::get('/create', 'PeriodicityController@create')->name('periodicity_create');
         Route::get('/edit/{id}', 'PeriodicityController@edit')->name('periodicity_edit');
     });
 
     Route::group(['prefix'=>'packings','middleware'=>'auth'], function() {
+        Route::get('/', 'PackingsController@index')->name('packings');
         Route::get('/create', 'PackingsController@create')->name('packings_create');
         Route::get('/edit/{id}', 'PackingsController@edit')->name('packings_edit');
     });

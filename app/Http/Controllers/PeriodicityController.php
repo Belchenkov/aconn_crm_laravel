@@ -3,9 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Periodicity;
 
 class PeriodicityController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        if(!Auth()->user()->group_id) {
+
+            $periodicity = periodicity::all();
+
+            return view('settings.periodicity.index', [
+                'periodicity' => $periodicity,
+            ]);
+        }
+        else {
+            abort(401);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
