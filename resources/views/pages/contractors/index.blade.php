@@ -8,7 +8,6 @@
                     <div class="ibox-content">
                         <div class="box-body">
                             <div class="row">
-                                <?php /*dd($contractor_statuses); */?>
                                     @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                         <div class="col-md-3">
                                                 <a href="contractors/create" class="btn btn-success"><i class="fa fa-plus"></i> Добавить организацию</a><br>

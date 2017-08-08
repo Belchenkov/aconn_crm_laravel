@@ -13,24 +13,31 @@
                             <table id="users" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="contacts_info">
                                 <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>ID</th>
                                     <th>Название</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+
                                 @foreach($regions as $region)
                                     <tr>
                                         <td> {{$region->id}}</td>
                                         <td>
-                                            <a href="regions/create/{{$region->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить" data-original-title="Редактировать">
+                                            <a href="regions/create" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить" data-original-title="Редактировать">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                             <a href="regions/edit/{{$region->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="/delete/{{$region->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
-                                                <i class="fa fa-trash"></i>
-                                            </a> {{$region->name}}
+                                            @if(!Auth()->user()->group_id)
+                                                <form action="regions/delete/{{$region->id}}" method="post" style="display: inline;">
+                                                    {{ csrf_field() }}
+                                                    <button onclick="return confirm('Удалить?')" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                    {{$region->name}}
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -51,7 +58,7 @@
                             <table id="users" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="contacts_info">
                                 <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>ID</th>
                                     <th>Название</th>
                                 </tr>
                                 </thead>
@@ -61,19 +68,24 @@
                                     <tr>
                                         <td> {{$what_work->id}}</td>
                                         <td>
-                                            <a href="regions/create/{{$what_work->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить" data-original-title="Редактировать">
+                                            <a href="what_work/create/{{$what_work->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить" data-original-title="Редактировать">
                                                 <i class="fa fa-plus"></i>
                                             </a>
-                                            <a href="regions/edit/{{$what_work->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
+                                            <a href="what_work/edit/{{$what_work->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="/delete/{{$what_work->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
-                                                <i class="fa fa-trash"></i>
-                                            </a> {{$what_work->name}}
+                                            @if(!Auth()->user()->group_id)
+                                                <form action="what_work/delete/{{$what_work->id}}" method="post" style="display: inline;">
+                                                    {{ csrf_field() }}
+                                                    <button onclick="return confirm('Удалить?')" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                    {{$what_work->name}}
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
-
                                 </tbody>
                             </table>
                         </div>
@@ -93,7 +105,7 @@
                             <table id="users" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="contacts_info">
                                 <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>ID</th>
                                     <th>Название</th>
                                 </tr>
                                 </thead>
@@ -103,15 +115,21 @@
                                     <tr>
                                         <td> {{$item->id}}</td>
                                         <td>
-                                            <a href="regions/create/{{$item->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить" data-original-title="Редактировать">
+                                            <a href="periodicity/create/{{$item->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить" data-original-title="Редактировать">
                                                 <i class="fa fa-plus"></i>
                                             </a>
-                                            <a href="regions/edit/{{$item->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
+                                            <a href="periodicity/edit/{{$item->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="/delete/{{$item->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
-                                                <i class="fa fa-trash"></i>
-                                            </a> {{$item->name}}
+                                            @if(!Auth()->user()->group_id)
+                                                <form action="periodicity/delete/{{$item->id}}" method="post" style="display: inline;">
+                                                    {{ csrf_field() }}
+                                                    <button onclick="return confirm('Удалить?')" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                    {{$item->name}}
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -132,7 +150,7 @@
                             <table id="users" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="contacts_info">
                                 <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>ID</th>
                                     <th>Название</th>
                                 </tr>
                                 </thead>
@@ -142,15 +160,21 @@
                                     <tr>
                                         <td> {{$item->id}}</td>
                                         <td>
-                                            <a href="regions/create/{{$item->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить" data-original-title="Редактировать">
+                                            <a href="packing/create/{{$item->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить" data-original-title="Редактировать">
                                                 <i class="fa fa-plus"></i>
                                             </a>
-                                            <a href="regions/edit/{{$item->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
+                                            <a href="packing/edit/{{$item->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="/delete/{{$item->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
-                                                <i class="fa fa-trash"></i>
-                                            </a> {{$item->name}}
+                                            @if(!Auth()->user()->group_id)
+                                                <form action="packing/delete/{{$item->id}}" method="post" style="display: inline;">
+                                                    {{ csrf_field() }}
+                                                    <button onclick="return confirm('Удалить?')" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                    {{$item->name}}
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

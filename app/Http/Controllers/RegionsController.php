@@ -15,13 +15,7 @@ class RegionsController extends Controller
      */
     public function index()
     {
-        $managers = User::where('group_id', '=', '2')->get();
-        $regions = Region::all();
 
-        return view('settings.admin-panel', [
-            'managers' => $managers,
-            'regions' => $regions
-        ]);
     }
 
     /**
@@ -31,7 +25,13 @@ class RegionsController extends Controller
      */
     public function create()
     {
-        //
+        if(!Auth()->user()->group_id) {
+            return view('settings.regions.create');
+        }
+        else {
+            abort(401);
+        }
+
     }
 
     /**
@@ -64,7 +64,12 @@ class RegionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!Auth()->user()->group_id) {
+            return view('settings.regions.edit');
+        }
+        else {
+            abort(401);
+        }
     }
 
     /**

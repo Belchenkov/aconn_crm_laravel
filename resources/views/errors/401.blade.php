@@ -20,12 +20,11 @@
 
 
     <div class="middle-box text-center animated fadeInDown">
-        <h1>404</h1>
+        <h1>401</h1>
         <h3 class="font-bold">У Вас недостаточно прав для выполнения данной операции</h3>
 
         <div class="error-desc">
                 Вы можете вернуться на главную старицу: <br/><a href="/" class="btn btn-primary btn-block btn-lg m-t">Главная</a>
-            </form>
         </div>
     </div>
 

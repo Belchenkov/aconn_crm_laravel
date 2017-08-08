@@ -244,7 +244,7 @@ class ContractorsController extends Controller
             return redirect('/contractors')->with('success', 'Организация удалена');
         }
         else {
-            abort(404);
+            abort(401);
         }
     }
 }

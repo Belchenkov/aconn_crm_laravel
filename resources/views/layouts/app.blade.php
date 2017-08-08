@@ -53,13 +53,15 @@
                 <li>
                     <a href="/contractors"><i class="fa fa-briefcase"></i> <span class="nav-label">Организации</span></a>
                 </li>
-                <li>
-                    <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Настройки</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse">
-                        <li><a href="/settings"><i class="fa fa-cog"></i> Настройки</a></li>
-                        <li><a href="/settings/admin-panel"><i class="fa fa-arrow-right"></i> Каналы</a></li>
-                    </ul>
-                </li>
+                @if(!Auth()->user()->group_id)
+                    <li>
+                        <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Настройки</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="/settings"><i class="fa fa-cog"></i> Настройки</a></li>
+                            <li><a href="/settings/admin-panel"><i class="fa fa-arrow-right"></i> Каналы</a></li>
+                        </ul>
+                    </li>
+                @endif
             </ul>
         </div>
     </nav>
