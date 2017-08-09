@@ -39,7 +39,6 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
                                 </tbody>
                             </table>
                         </div>
@@ -54,10 +53,11 @@
                     </div>
                     <div class="ibox-content">
                         <form action="packings/create" method="post">
+                            {{ csrf_field() }}
                             <div class="box-body">
                                 <div class="form-group">
                                     <label>Название</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Название упаковки">
+                                    <input type="text" class="form-control" name="name" required="" placeholder="Название упаковки">
                                 </div>
                             </div>
                             <div class="box-footer">

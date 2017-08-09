@@ -58,8 +58,10 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'], function() {
 
     Route::group(['prefix'=>'packings','middleware'=>'auth'], function() {
         Route::get('/', 'PackingsController@index')->name('packings');
-        Route::get('/create', 'PackingsController@create')->name('packings_create');
+        Route::post('/create', 'PackingsController@store')->name('packings_store');
         Route::get('/edit/{id}', 'PackingsController@edit')->name('packings_edit');
+        Route::post('/edit/{id}', 'PackingsController@update')->name('packings_update');
+        Route::post('/delete/{id}', 'PackingsController@destroy')->name('packings_delete');
     });
 
 });
