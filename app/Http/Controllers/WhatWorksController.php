@@ -118,15 +118,6 @@ class WhatWorksController extends Controller
             )
         );
 
-        $contractors_what_works = Contractor::where('what_work_id', '=', $id)->get();
-
-        if (!empty($contractors_what_works)) {
-            foreach ($contractors_what_works as $item) {
-                $item->what_work_id = $request->input('id');
-                $item->save();
-            }
-        }
-
         $what_work = WhatWork::find($id);
         $what_work->name = $request->input('name');
         $what_work->save();
@@ -148,7 +139,7 @@ class WhatWorksController extends Controller
 
             if (!empty($contractors_what_works)) {
                 foreach ($contractors_what_works as $item) {
-                    $item->what_work = 1;
+                    $item->what_work_id = 1;
                     $item->save();
                 }
             }

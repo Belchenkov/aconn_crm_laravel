@@ -54,10 +54,11 @@
                     </div>
                     <div class="ibox-content">
                         <form action="periodicity/create" method="post">
+                            {{csrf_field()}}
                             <div class="box-body">
                                 <div class="form-group">
                                     <label>Название</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Название периодичности">
+                                    <input type="text" class="form-control" name="name" required="" placeholder="Название">
                                 </div>
                             </div>
                             <div class="box-footer">
@@ -67,7 +68,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

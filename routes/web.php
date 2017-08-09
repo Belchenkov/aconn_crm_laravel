@@ -50,8 +50,10 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'], function() {
 
     Route::group(['prefix'=>'periodicity','middleware'=>'auth'], function() {
         Route::get('/', 'PeriodicityController@index')->name('periodicity');
-        Route::get('/create', 'PeriodicityController@create')->name('periodicity_create');
+        Route::post('/create', 'PeriodicityController@store')->name('periodicity_store');
         Route::get('/edit/{id}', 'PeriodicityController@edit')->name('periodicity_edit');
+        Route::post('/edit/{id}', 'PeriodicityController@update')->name('periodicity_update');
+        Route::post('/delete/{id}', 'PeriodicityController@destroy')->name('periodicity_destroy');
     });
 
     Route::group(['prefix'=>'packings','middleware'=>'auth'], function() {

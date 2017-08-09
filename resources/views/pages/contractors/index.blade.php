@@ -95,6 +95,8 @@
                                                             <th>Регион</th>
                                                             <th>Менеджер</th>
                                                             <th>Закреплено</th>
+                                                            <th>Работают</th>
+                                                            <th>Периодичность</th>
                                                             @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                 <th>Управление</th>
                                                             @endif
@@ -129,6 +131,21 @@
                                                                         @else
                                                                             {{'Нет'}}
                                                                         @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @foreach($what_work as $item)
+                                                                            @if($contractor->what_work_id === $item->id)
+                                                                                {{$item->name}}
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </td>
+
+                                                                    <td>
+                                                                        @foreach($periodicity as $item)
+                                                                            @if($contractor->periodicity_id === $item->id)
+                                                                                {{$item->name}}
+                                                                            @endif
+                                                                        @endforeach
                                                                     </td>
 
                                                                     @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)

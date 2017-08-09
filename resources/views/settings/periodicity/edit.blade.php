@@ -4,11 +4,12 @@
     <div class="row  border-bottom white-bg dashboard-header">
         <div class="ibox float-e-margins col-md-6">
             <div class="ibox-content">
-                <form action="" method="post">
+                <form action="/settings/periodicity/edit/{{$periodicity->id}}" method="post">
+                    {{csrf_field()}}
                     <div class="box-body">
                         <div class="form-group">
                             <label>Периодичность - Наменование</label>
-                            <input type="text" class="form-control" name="name" >
+                            <input type="text" class="form-control" value="{{$periodicity->name}}" required="" name="name" >
                         </div>
                     </div>
                     <div class="box-footer">

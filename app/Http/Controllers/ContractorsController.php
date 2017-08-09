@@ -26,14 +26,18 @@ class ContractorsController extends Controller
         $contractor_statuses = ContractorStatus::all();
         $regions = Region::all();
         $what_work = WhatWork::all();
+        $periodicity = Periodicity::all();
+        $packing = Packing::all();
 
         return view('pages.contractors.index', [
             'contractors' => $contractors,
             'managers' => $managers,
             'contractor_statuses' => $contractor_statuses,
             'regions' => $regions,
-            'what_work' => $what_work,
             'users' => $users,
+            'what_work' => $what_work,
+            'periodicity' => $periodicity,
+            'packing' => $packing,
         ]);
     }
 
