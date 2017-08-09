@@ -28,9 +28,13 @@ class ContractorsController extends Controller
         $what_work = WhatWork::all();
         $periodicity = Periodicity::all();
         $packing = Packing::all();
+        $manager_contractors = Contractor::where('user_id', '=', Auth()->user()->id)->get();
+        //dd($manager_contractors);
+
 
         return view('pages.contractors.index', [
             'contractors' => $contractors,
+            'manager_contractors' => $manager_contractors,
             'managers' => $managers,
             'contractor_statuses' => $contractor_statuses,
             'regions' => $regions,
