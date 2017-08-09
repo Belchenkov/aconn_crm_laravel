@@ -94,6 +94,7 @@
                                                             <th>Телефон</th>
                                                             <th>Регион</th>
                                                             <th>Менеджер</th>
+                                                            <th>Закреплено</th>
                                                             @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                 <th>Управление</th>
                                                             @endif
@@ -121,6 +122,15 @@
                                                                                 {{$user->fio}}
                                                                             @endif
                                                                         @endforeach
+                                                                    </td>
+                                                                    <td>
+                                                                        @if($contractor->assign_manager)
+                                                                            {{'Да'}}
+                                                                        @else
+                                                                            {{'Нет'}}
+                                                                        @endif
+                                                                    </td>
+
                                                                     @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                         <td>
                                                                             <a href="/tasks/add/" class="btn btn-default btn-outline btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить задачу" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a>
@@ -133,6 +143,7 @@
                                                                             @endif
                                                                         </td>
                                                                     @endif
+
                                                                 </tr>
                                                             @endforeach
                                                         @endif

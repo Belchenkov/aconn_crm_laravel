@@ -19,7 +19,7 @@ class RegionsController extends Controller
         if(!Auth()->user()->group_id) {
             $managers = User::where('group_id', '=', '2')->get();
             //dd($managers);
-            $regions = Region::all();
+            $regions = Region::where('id', '>', '1')->get();
 
             return view('settings.regions.index', [
                 'managers' => $managers,
@@ -51,9 +51,11 @@ class RegionsController extends Controller
     public function store(Request $request)
     {
         if(!Auth()->user()->group_id) {
+
             // Validate
             $this->validate($request, [
                 'name' => 'required|max:255',
+                'manager' => 'required|integer'
             ],
                 $messages = array(
                     'required' => 'Поле :attribute обязательно',
@@ -125,7 +127,6 @@ class RegionsController extends Controller
             $messages = array(
                 'required' => 'Поле :attribute обязательно',
                 'max' => 'Поле :attribute должно быть не более 255 символов',
-                'integer'   => 'Поле :attribute должно быть числовым'
             )
         );
         $contractors_region = Contractor::where('region_id', '=', $id)->get();

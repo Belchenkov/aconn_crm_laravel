@@ -42,8 +42,10 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'], function() {
 
     Route::group(['prefix'=>'what-works','middleware'=>'auth'], function() {
         Route::get('/', 'WhatWorksController@index')->name('what-works');
-        Route::get('/create', 'WhatWorksController@create')->name('what-works_create');
+        Route::post('/create', 'WhatWorksController@store')->name('what-works_store');
         Route::get('/edit/{id}', 'WhatWorksController@edit')->name('what-works_edit');
+        Route::post('/edit/{id}', 'WhatWorksController@update')->name('what-works_update');
+        Route::post('/delete/{id}', 'WhatWorksController@destroy')->name('what-works_destroy');
     });
 
     Route::group(['prefix'=>'periodicity','middleware'=>'auth'], function() {

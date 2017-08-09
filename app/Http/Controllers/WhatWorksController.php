@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\WhatWork;
+use App\Contractor;
 
 class WhatWorksController extends Controller
 {
@@ -16,7 +17,7 @@ class WhatWorksController extends Controller
     {
         if(!Auth()->user()->group_id) {
 
-            $what_works = WhatWork::all();
+            $what_works = WhatWork::where('id', '>', '1')->get();
 
             return view('settings.what_works.index', [
                 'what_works' => $what_works
@@ -34,12 +35,7 @@ class WhatWorksController extends Controller
      */
     public function create()
     {
-        if(!Auth()->user()->group_id) {
-            return view('settings.what_work.create');
-        }
-        else {
-            abort(401);
-        }
+
     }
 
     /**
@@ -50,7 +46,27 @@ class WhatWorksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(!Auth()->user()->group_id) {
+
+            // Validate
+            $this->validate($request, [
+                'name' => 'required|max:255'
+            ],
+                $messages = array(
+                    'required' => 'Поле :attribute обязательно',
+                    'max' => 'Поле :attribute должно быть не более 255 символов'
+                )
+            );
+
+            $what_work = new WhatWork();
+            $what_work->name = $request->input('name');
+            $what_work->save();
+
+            return redirect('/settings/what-works')->with('success', 'Добавлена новая запись');
+        }
+        else {
+            abort(401);
+        }
     }
 
     /**
@@ -73,7 +89,10 @@ class WhatWorksController extends Controller
     public function edit($id)
     {
         if(!Auth()->user()->group_id) {
-            return view('settings.what_works.edit');
+
+            $what_works = WhatWork::find($id);
+
+            return view('settings.what_works.edit')->with('what_works', $what_works);
         }
         else {
             abort(401);
@@ -89,7 +108,30 @@ class WhatWorksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validate
+        $this->validate($request, [
+            'name' => 'required|max:255',
+        ],
+            $messages = array(
+                'required' => 'Поле :attribute обязательно',
+                'max' => 'Поле :attribute должно быть не более 255 символов'
+            )
+        );
+
+        $contractors_what_works = Contractor::where('what_work_id', '=', $id)->get();
+
+        if (!empty($contractors_what_works)) {
+            foreach ($contractors_what_works as $item) {
+                $item->what_work_id = $request->input('id');
+                $item->save();
+            }
+        }
+
+        $what_work = WhatWork::find($id);
+        $what_work->name = $request->input('name');
+        $what_work->save();
+
+        return redirect('/settings/what-works')->with('success', 'Запись отредактирована');
     }
 
     /**
@@ -100,6 +142,24 @@ class WhatWorksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!Auth()->user()->group_id) {
+            $what_work = WhatWork::find($id);
+            $contractors_what_works = Contractor::where('what_work_id', '=', $id)->get();
+
+            if (!empty($contractors_what_works)) {
+                foreach ($contractors_what_works as $item) {
+                    $item->what_work = 1;
+                    $item->save();
+                }
+            }
+
+            $what_work->delete();
+
+            return redirect('/settings/what-works')->with('success', 'Запись удалена');
+
+        }
+        else {
+            abort(401);
+        }
     }
 }

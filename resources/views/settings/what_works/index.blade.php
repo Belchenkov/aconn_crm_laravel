@@ -54,10 +54,11 @@
                     </div>
                     <div class="ibox-content">
                         <form action="what-works/create" method="post">
+                            {{csrf_field()}}
                             <div class="box-body">
                                 <div class="form-group">
                                     <label>Название</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Название направления">
+                                    <input type="text" class="form-control" name="name" required="" placeholder="Название">
                                 </div>
                             </div>
                             <div class="box-footer">
