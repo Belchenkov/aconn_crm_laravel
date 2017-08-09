@@ -22,7 +22,7 @@ Route::group(['prefix'=>'contractors','middleware'=>'auth'], function() {
 });
 
 Route::group(['prefix'=>'employees','middleware'=>'auth'], function() {
-    Route::get('/', 'EmployeesController@show')->name('employees');
+    Route::get('/', 'EmployeesController@index')->name('employees');
 });
 
 Route::group(['prefix'=>'tasks','middleware'=>'auth'], function() {
@@ -31,6 +31,7 @@ Route::group(['prefix'=>'tasks','middleware'=>'auth'], function() {
 
 Route::group(['prefix'=>'settings','middleware'=>'auth'], function() {
     Route::get('/', 'SettingsController@index')->name('settings');
+    Route::post('/change-pass', 'SettingsController@changePass')->name('change-pass');
 
     Route::group(['prefix'=>'regions','middleware'=>'auth'], function() {
         Route::get('/', 'RegionsController@index')->name('regions');

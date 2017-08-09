@@ -19,7 +19,7 @@
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
-<body class="skin-1  pace-done">
+<body class="skin-1 pace-done">
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
@@ -42,26 +42,26 @@
                     </div>
                 </li>
                 <li>
-                    <a href="/"><i class="fa fa-home"></i> <span class="nav-label">Главная</span></a>
+                    <a href="{{route('home')}}"><i class="fa fa-home"></i> <span class="nav-label">Главная</span></a>
                 </li>
                 <li>
-                    <a href="/employees"><i class="fa fa-users"></i> <span class="nav-label">Сотрудники</span></a>
+                    <a href="{{route('employees')}}"><i class="fa fa-users"></i> <span class="nav-label">Сотрудники</span></a>
                 </li>
                 {{--<li>
                     <a href="/tasks"><i class="fa fa-ticket"></i> <span class="nav-label">Задачи</span></a>
                 </li>--}}
                 <li>
-                    <a href="/contractors"><i class="fa fa-briefcase"></i> <span class="nav-label">Организации</span></a>
+                    <a href="{{route('contractors')}}"><i class="fa fa-briefcase"></i> <span class="nav-label">Организации</span></a>
                 </li>
                 @if(!Auth()->user()->group_id)
                     <li>
                         <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Настройки</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="/settings"><i class="fa fa-cog"></i> Настройки</a></li>
-                            <li><a href="/settings/regions"><i class="fa fa-cog"></i> Регионы</a></li>
-                            <li><a href="/settings/what-works"><i class="fa fa-cog"></i> На чем работают</a></li>
-                            <li><a href="/settings/periodicity"><i class="fa fa-cog"></i> Периодичность</a></li>
-                            <li><a href="/settings/packings"><i class="fa fa-cog"></i> Упаковка</a></li>
+                            <li><a href="{{route('settings')}}"><i class="fa fa-cog"></i> Настройки</a></li>
+                            <li><a href="{{route('regions')}}"><i class="fa fa-cog"></i> Регионы</a></li>
+                            <li><a href="{{route('what-works')}}"><i class="fa fa-cog"></i> На чем работают</a></li>
+                            <li><a href="{{route('periodicity')}}"><i class="fa fa-cog"></i> Периодичность</a></li>
+                            <li><a href="{{route('packings')}}"><i class="fa fa-cog"></i> Упаковка</a></li>
                         </ul>
                     </li>
                 @endif
@@ -160,6 +160,12 @@
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
             </div>
         @endif
 

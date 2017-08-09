@@ -10,7 +10,7 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
                             <div class="box-footer">
-                                <a href="/contractors"  class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a>
+                                <a href="{{route('contractors')}}"  class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a>
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Сохранить изменения</button>
                                 <a href="/contractors/details/{{$contractor->id}}" class="btn btn-white btn-bitbucket"><i class="fa fa-eye"></i> Карточка организации</a>
                             </div>
@@ -261,7 +261,7 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
                             <div class="box-footer">
-                                <a href="contractors" class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a>
+                                <a href="{{route('contractors')}}" class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a>
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Сохранить изменения</button>
                             </div>
                         </div>
