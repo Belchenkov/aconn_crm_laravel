@@ -128,8 +128,17 @@ class RegionsController extends Controller
                 'integer'   => 'Поле :attribute должно быть числовым'
             )
         );
-
+        $contractors_region = Contractor::where('region_id', '=', $id)->get();
         $region = Region::find($id);
+
+        if (!empty($contractors_region)) {
+            foreach ($contractors_region as $item) {
+                if ($item->assign_manager !== 1) {
+                    $item->user_id = $request->input('manager');
+                }
+                $item->save();
+            }
+        }
         $region->name = $request->input('name');
         $region->user_id = $request->input('manager');
         $region->save();
@@ -147,21 +156,18 @@ class RegionsController extends Controller
     {
         if(!Auth()->user()->group_id) {
             $region = Region::find($id);
-            $contractor = Contractor::find($id);
-            //$manager = User::find($region->user_id)->regions();
             $contractors_region = Contractor::where('region_id', '=', $id)->get();
-            $contractors_assign_manager = $contractors_region[0]->assign_manager;
-            //dd($contractors_assign_manager);
-            if ($contractors_assign_manager != 1) {
-                dd($contractor);
-                //$contractor->region_id = 1;
-                //$contractor->save();
-                //$region->delete();
-                //return redirect('/settings/regions')->with('success', 'Регион удален');
+
+            if (!empty($contractors_region)) {
+                foreach ($contractors_region as $item) {
+                    $item->region_id = 1;
+                    $item->save();
+                }
             }
-            dd('sdfsdfg');
 
+            $region->delete();
 
+            return redirect('/settings/regions')->with('success', 'Регион удален');
 
         }
         else {
