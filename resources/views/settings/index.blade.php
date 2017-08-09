@@ -20,7 +20,7 @@
                         </div>
                         <div class="form-group">
                             <label>Повтор нового пароля</label>
-                            <input type="password" name="newpassword2" required=""  class="form-control">
+                            <input type="password" name="newpassword_confirmation" required=""  class="form-control">
                         </div>
 
                         <div class="box-footer">
