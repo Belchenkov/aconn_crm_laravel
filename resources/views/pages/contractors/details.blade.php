@@ -43,6 +43,7 @@
                                 {{$manager}}
                             @endif
                         </div>
+
                         <div class="form-group col-md-6">
                             <label>E-mail</label><br>
                             @if (!empty($contractor->email))
@@ -51,6 +52,7 @@
                                 Отсутствует
                             @endif
                         </div>
+
                         <div class="form-group col-md-6">
                             <label>ИНН</label><br>
                             @if (!empty($contractor->inn))
@@ -59,12 +61,14 @@
                                 Отсутствует
                             @endif
                         </div>
+
                         <div class="form-group col-md-6">
                             <label>Регион</label><br>
                             @if (!empty($region))
                                 {{$region}}
                             @endif
                         </div>
+
                         <div class="form-group col-md-6">
                             <label>Юридический адрес</label><br>
                             @if (!empty($contractor->ur_address))
@@ -73,6 +77,7 @@
                                 Отсутствует
                             @endif
                         </div>
+
                         <div class="form-group col-md-6">
                             <label>Адрес доставки</label><br>
                             @if (!empty($contractor->ur_address))
@@ -81,6 +86,7 @@
                                 Отсутствует
                             @endif
                         </div>
+
                         <div class="form-group col-md-6">
                             <label>Сайт</label><br>
                             @if (!empty($contractor->site_company))
@@ -89,13 +95,13 @@
                                 Отсутствует
                             @endif
                         </div>
-                        <div class="form-group col-md-12">
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <h2>Контактные лица</h2>
+
     </div>
     <div class="col-md-6">
         <div class="ibox float-e-margins">
@@ -140,13 +146,6 @@
             </div>
         </div>
     </div>
-    {{--<div class="col-md-12">
-        <div class="ibox float-e-margins">
-            <h2>Задачи по организации</h2>
-            <div class="ibox-content">
-                <table id="tasks" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="contracting_parties"><thead><tr><th>Задача/событие</th><th>Дата завершения</th><th>Организация</th><th>Кто поставил задачу</th><th>Исполнитель</th><th>Статус</th><th>Действие</th></tr></thead><tbody><tr><td colspan="100%">Задачи не найдены</td></tr></tbody></table>		</div>
-        </div>
-    </div>--}}
 </div>
 
 </div>

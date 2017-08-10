@@ -4,7 +4,9 @@
 
     <div class="row  border-bottom white-bg dashboard-header">
         <form action="/contractors/edit/{{$contractor->id}}" method="post">
+
             {{ csrf_field() }}
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="ibox float-e-margins">
@@ -23,13 +25,12 @@
                             <div class="box-body">
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        @if(count($regions) > 0)
+                                        @if(!empty($regions))
                                             <label>Регион</label>
                                             <select class="form-control" name="region_id">
-                                                <option value="0">Не выбран</option>
                                                 @foreach($regions as $region)
                                                     <option
-                                                            @if($region->id === $contractor->id)
+                                                            @if($region->id === $contractor->region_id)
                                                             selected
                                                             @endif
                                                             value="{{$region->id}}">{{$region->name}}
@@ -61,14 +62,13 @@
                                         <input type="text" class="form-control" name="inn" value="{{$contractor->inn}}" placeholder="ИНН">
                                     </div>
 
-                                    @if(count($packing) > 0)
+                                    @if(!empty($packing))
                                         <div class="form-group col-md-12">
                                             <label>Упаковка</label>
                                             <select class="select2 form-control" name="packing_id">
-                                                <option value="0">Не выбран</option>
                                                 @foreach($packing as $item)
                                                     <option
-                                                        @if($item->id === $contractor->id)
+                                                        @if($item->id === $contractor->packing_id)
                                                             selected
                                                         @endif
                                                         value="{{$item->id}}">{{$item->name}}
@@ -83,14 +83,13 @@
                                         <input type="number" min="1" class="form-control" value="{{$contractor->take_amount}}" name="take_amount">
                                     </div>
 
-                                    @if(count($what_work) > 0)
+                                    @if(!empty($what_work))
                                         <div class="form-group col-md-12">
                                             <label>На чём работают</label>
                                             <select class="form-control" name="what_work_id">
-                                                <option value="0">Не выбран</option>
                                                 @foreach($what_work as $item)
                                                     <option
-                                                            @if($item->id === $contractor->id)
+                                                            @if($item->id === $contractor->what_work_id)
                                                             selected
                                                             @endif
                                                             value="{{$item->id}}">{{$item->name}}
@@ -113,7 +112,6 @@
                                         @if(!empty($managers))
                                             <label>Менеджер</label>
                                             <select class="form-control" name="manager">
-                                                <option value="0">Не выбран</option>
                                                 @foreach($managers as $manager)
                                                     <option
                                                             @if($manager->id === $contractor->user_id)
@@ -129,7 +127,14 @@
                                     <div class="form-group col-md-12">
                                         <br>
                                         <div class="checkbox checkbox-circle">
-                                            <input id="assign_manager" type="checkbox" name="assign_manager" value="1">
+                                            <input id="assign_manager"
+                                                   type="checkbox"
+                                                   name="assign_manager"
+                                                   value="1"
+                                                   @if($contractor->assign_manager == 1)
+                                                       checked
+                                                   @endif
+                                            >
                                             <label for="assign_manager">
                                                 Закрепить за менеджером
                                             </label>
@@ -154,14 +159,13 @@
                                         </div>
                                     </div>
 
-                                    @if(count($periodicity) > 0)
+                                    @if(!empty($periodicity))
                                         <div class="form-group col-md-12">
                                             <label>Периодичность</label>
                                             <select class="form-control" name="periodicity_id">
-                                                <option value="0">Не выбрана</option>
                                                 @foreach($periodicity as $item)
                                                         <option
-                                                            @if($item->id === $contractor->id)
+                                                            @if($item->id === $contractor->periodicity_id)
                                                                 selected
                                                             @endif
                                                             value="{{$item->id}}">{{$item->name}}
@@ -190,9 +194,7 @@
 
                                     <div class="form-group col-md-12">
                                         <label>Комментарии</label>
-                                        <textarea rows="8" type="text" class="form-control" name="information">
-                                            {{$contractor->comments}}
-                                        </textarea>
+                                        <textarea rows="8" type="text" class="form-control" name="comments">{{$contractor->comments}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -200,16 +202,15 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    @if(count($contractor_statuses) > 0)
+                    @if(!empty($contractor_statuses))
                         <div class="ibox float-e-margins">
                             <h2>Статус</h2>
                             <div class="ibox-content">
                                 <div class="box-body" id="status">
                                     <select class="form-control" name="contractor_status_id">
-                                        <option value="0">Не выбран</option>
                                         @foreach($contractor_statuses as $contractor_status)
                                             <option
-                                                @if($contractor_status->id === $contractor->id)
+                                                @if($contractor_status->id == $contractor->contractor_status_id)
                                                     selected
                                                 @endif
                                                 value="{{$contractor_status->id}}">{{$contractor_status->name}}
@@ -227,7 +228,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <div id="listPhones">
-                                            @if (count($contractor->phone) > 0)
+                                            @if (!empty($contractor->phone))
                                                 <?php $phones = explode('<br>', $contractor->phone); ?>
 
                                                 @for ($i = 0; $i < count($phones); $i++)

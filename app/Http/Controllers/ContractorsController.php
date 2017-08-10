@@ -199,18 +199,16 @@ class ContractorsController extends Controller
         $this->validate($request, [
             'name' => 'required|max:255',
             'region_id' => 'required',
-            'phone' => 'required|max:255',
-            'contract_number' => 'required|max:255',
-            'packing_id' => 'required',
-            'periodicity_id' => 'required',
-            'what_work_id' => 'required',
-
-
+            'inn' => 'max:12',
+            'phone' => 'required|unique:contractors|max:255',
+            'contract_number' => 'max:255'
         ],
             $messages = array(
                 'required' => 'Поле :attribute обязательно',
-                'max' => 'Поле :attribute должно быть не более 255 символов',
-                'unique'   => 'Поле :attribute должно быть уникальным'
+                'max' => 'Поле :attribute должно быть не более 12 символов',
+                'unique'   => 'Поле :attribute должно быть уникальным',
+                'integer'   => 'Поле :attribute должно быть числовым',
+                'string'   => 'Поле :attribute должно быть строковым'
             )
         );
 
