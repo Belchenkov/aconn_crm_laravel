@@ -37,10 +37,8 @@
 
                         <div class="form-group col-md-6">
                             <label>Менеджер</label><br>
-                            @if (!empty($manager) && ($contractor->assign_manager === 1))
+                            @if (!empty($manager))
                                 {{$manager}}
-                            @else
-                                Отсутствует
                             @endif
                         </div>
                         <div class="form-group col-md-6">
@@ -63,8 +61,6 @@
                             <label>Регион</label><br>
                             @if (!empty($region))
                                 {{$region}}
-                            @else
-                                Отсутствует
                             @endif
                         </div>
                         <div class="form-group col-md-6">

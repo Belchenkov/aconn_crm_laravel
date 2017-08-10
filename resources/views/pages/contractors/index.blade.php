@@ -91,7 +91,7 @@
                                                         <tr>
                                                             <th>ID</th>
                                                             <th>Наименование(s)</th>
-                                                            <th>Телефон</th>
+                                                            {{--<th>Телефон</th>--}}
                                                             <th>Регион</th>
                                                             <th>Менеджер</th>
                                                             <th>Закреплено</th>
@@ -112,7 +112,7 @@
                                                                         <td>
                                                                             <a href="/contractors/details/{{$contractor->id}}">{{$contractor->name}}</a>
                                                                         </td>
-                                                                        <td>{!! $contractor->phone !!}</td>
+                                                                        {{--<td>{!! $contractor->phone !!}</td>--}}
                                                                         <td>
                                                                             @foreach($regions as $region)
                                                                                 @if($contractor->region_id === $region->id)
