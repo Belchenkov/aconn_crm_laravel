@@ -101,7 +101,54 @@
         </div>
 
         <h2>Контактные лица</h2>
+        @if(!empty($contacts))
+            @foreach($contacts as $contact)
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="box-body row">
+                            <input type="text" value="3" name="contact[0][id]" class="hidden">
+                            <div class="form-group col-md-6">
+                                @if (!empty($contact->fio))
+                                    <h4>{{$contact->fio}} </h4>
+                                @else
+                                    Отсутствует
+                                @endif
 
+                                @if (!empty($contact->position))
+                                    <p>{{$contact->position}} </p>
+                                @else
+                                    Отсутствует
+                                @endif
+
+                                @if (!empty($contact->comment))
+                                    <p>{{$contact->comment}} </p>
+                                @else
+                                    Отсутствует
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                @if ($contact->lpr == 1)
+                                    <span class="label label-danger pull-right"> ЛПР </span>
+                                @endif
+
+                                @if (!empty($contact->phones))
+                                    <p>{{$contact->phones}} </p>
+                                @else
+                                    Отсутствует
+                                @endif
+
+                                @if (!empty($contact->email))
+                                    <p>{{$contact->email}} </p>
+                                @else
+                                    Отсутствует
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
     </div>
     <div class="col-md-6">
         <div class="ibox float-e-margins">
@@ -116,7 +163,7 @@
                 </div>
             </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div id="vertical-timeline" class="vertical-container">
             <div class="vertical-timeline-block">
                 <div class="vertical-timeline-icon navy-bg"><i class="fa fa-check"></i></div>
@@ -132,6 +179,7 @@
 					</span>
                 </div>
             </div>
+
             <div class="vertical-timeline-block">
                 <form action="/contractors/comment/{{$contractor->id}}" method="post">
                     <div class="vertical-timeline-icon blue-bg"><i class="fa fa-comments"></i></div>
@@ -147,7 +195,6 @@
         </div>
     </div>
 </div>
-
 </div>
 <script>
     $('button#sendComment').click(function(){

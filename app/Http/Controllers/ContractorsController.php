@@ -156,10 +156,6 @@ class ContractorsController extends Controller
             $contact->save();
         }
 
-
-
-
-        //dd($contractor);
         return redirect('/contractors')->with('success', 'Организация добавлена');
     }
 
@@ -172,20 +168,17 @@ class ContractorsController extends Controller
     public function show($id)
     {
         $contractor = Contractor::find($id);
-        //dd($contractor);
+        $contacts =Contact::where('contractors_id', '=', $id)->get();
         $manager = User::find($contractor->user_id)->contractors()->getParent()->fio;
-        //dd($manager);
         $region = Region::find($contractor->region_id)->contractor()->getParent()->name;
-        //dd($region);
         $status = ContractorStatus::find($contractor->contractor_status_id)->contractor()->getParent()->name;
-        //dd($status);
 
-        //dd($manager);
         return view('pages.contractors.details', [
             'contractor' => $contractor,
             'manager' => $manager,
             'region' => $region,
             'status' => $status,
+            'contacts' => $contacts
         ]);
     }
 

@@ -20,4 +20,9 @@ class Contractor extends Model
     {
         return $this->hasOne('App\ContractorStatus');
     }
+
+    public function contacts()
+    {
+        return $this->hasOne('App\Contact');
+    }
 }
