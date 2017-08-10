@@ -30,10 +30,12 @@
             <div class="ibox-content">
                 <div class="box-body">
                     <div class="row">
-                        <div class="form-group col-md-6">
-                            <label>Телефоны</label><br>
-                            {!! $contractor->phone !!}
-                        </div>
+                        @if(!empty($contractor->phone))
+                            <div class="form-group col-md-6">
+                                <label>Телефоны</label><br>
+                                {!! $contractor->phone !!}
+                            </div>
+                        @endif
 
                         <div class="form-group col-md-6">
                             <label>Менеджер</label><br>

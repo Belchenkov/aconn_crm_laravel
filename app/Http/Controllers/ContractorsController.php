@@ -56,7 +56,7 @@ class ContractorsController extends Controller
             $contractors = Contractor::all();
             $managers = User::where('group_id', '=', '2')->get();
             $contractor_statuses = ContractorStatus::all();
-            $regions = Region::all();
+            $regions = Region::where('id', '>', '1')->get();
             $what_work = WhatWork::all();
             $periodicity = periodicity::all();
             $packing = packing::all();
@@ -88,22 +88,21 @@ class ContractorsController extends Controller
         $this->validate($request, [
                 'name' => 'required|unique:contractors|max:255',
                 'region_id' => 'required',
-                'inn' => 'unique:contractors|max:255',
+                'inn' => 'unique:contractors|max:12',
                 'phone' => 'required|unique:contractors|max:255',
-                'contract_number' => 'required|unique:contractors|max:255',
-                'packing_id' => 'required',
-                'periodicity_id' => 'required',
-                'what_work_id' => 'required',
+                'contract_number' => 'unique:contractors|max:255'
             ],
             $messages = array(
                 'required' => 'Поле :attribute обязательно',
-                'max' => 'Поле :attribute должно быть не более 255 символов',
-                'unique'   => 'Поле :attribute должно быть уникальным'
+                'max' => 'Поле :attribute должно быть не более 12 символов',
+                'unique'   => 'Поле :attribute должно быть уникальным',
+                'integer'   => 'Поле :attribute должно быть числовым',
+                'string'   => 'Поле :attribute должно быть строковым'
             )
         );
 
+        //dd($request);
         $contractor = new Contractor();
-
         $contractor->name = $request->input('name');
         $contractor->region_id = $request->input('region_id');
         $contractor->user_id = $request->input('manager');

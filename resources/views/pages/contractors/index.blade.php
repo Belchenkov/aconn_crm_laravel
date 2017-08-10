@@ -105,10 +105,11 @@
                                                         </thead>
                                                         <tbody>
                                                         @if(!empty($contractors))
+                                                            <?php $i = 1; ?>
                                                             @foreach($contractors as $contractor)
                                                                 @if(Auth()->user()->group_id != 2)
                                                                     <tr>
-                                                                        <td>{{$contractor->id}}</td>
+                                                                        <td>{{$i++}}</td>
                                                                         <td>
                                                                             <a href="/contractors/details/{{$contractor->id}}">{{$contractor->name}}</a>
                                                                         </td>
@@ -184,7 +185,7 @@
                                                                         <td>
                                                                             <a href="/contractors/details/{{$contractor->id}}">{{$contractor->name}}</a>
                                                                         </td>
-                                                                        <td>{!! $contractor->phone !!}</td>
+                                                                        {{--<td>{!! $contractor->phone !!}</td>--}}
                                                                         <td>
                                                                             @foreach($regions as $region)
                                                                                 @if($contractor->region_id === $region->id)

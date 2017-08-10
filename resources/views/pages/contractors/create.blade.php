@@ -15,10 +15,10 @@
                 <div class="ibox-content">
                     <div class="box-body">
                         <div class="row">
-                            @if(count($regions) > 0)
+                            @if(!empty($regions))
                                 <div class="form-group col-md-4">
                                     <label>Регион</label>
-                                    <select class="form-control" name="region_id" >
+                                    <select class="form-control" required="" name="region_id" >
                                         <option value="">Не выбран</option>
                                         @foreach($regions as $region)
                                             <option value="{{$region->id}}">{{$region->name}}</option>
@@ -46,16 +46,19 @@
 
                             <div class="form-group col-md-6">
                                 <label>ИНН</label>
-                                <input type="text" class="form-control" value="{{old('inn')}}" name="inn">
+                                <input type="text"  min="0" max="999999999999" maxlength="12" class="form-control" value="{{old('inn')}}" name="inn">
                             </div>
 
                             @if(count($managers) > 0)
                                 <div class="form-group col-md-6">
                                     <label>Менеджер</label>
                                     <select class="select2 form-control" name="manager" required="">
-                                        <option value="">Не выбран</option>
                                         @foreach($managers as $manager)
-                                            <option value="{{$manager->id}}">{{$manager->fio}}</option>
+                                            <option
+                                                    @if($manager->id === 10)
+                                                        selected
+                                                    @endif
+                                                    value="{{$manager->id}}">{{$manager->fio}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -64,7 +67,7 @@
                             <div class="form-group col-md-6">
                                 <br>
                                 <div class="checkbox checkbox-circle">
-                                    <input id="assign_manager" type="checkbox" name="assign_manager" value="{{old('assign_manager')}}">
+                                    <input id="assign_manager" type="checkbox" name="assign_manager" value="">
                                     <label for="assign_manager">
                                         Закрепить за менеджером
                                     </label>
@@ -75,7 +78,6 @@
                                 <div class="form-group col-md-6">
                                     <label>На чём работают</label>
                                     <select class="form-control" name="what_work_id" required="">
-                                        <option value="">Не выбран</option>
                                             @foreach($what_work as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
@@ -87,7 +89,6 @@
                                 <div class="form-group col-md-6">
                                     <label>Периодичность</label>
                                     <select class="form-control" name="periodicity_id" required="">
-                                        <option value="">Не выбрана</option>
                                         @foreach($periodicity as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
@@ -99,7 +100,6 @@
                                 <div class="form-group col-md-6">
                                     <label>Упаковка</label>
                                     <select class="select2 form-control" required="" name="packing_id">
-                                        <option value="">Не выбран</option>
                                         @foreach($packing as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
@@ -132,7 +132,7 @@
 
                             <div class="form-group col-md-6">
                                 <label>Номер договора</label>
-                                <input type="text" min="1" class="form-control" required="" value="{{old('contract_number')}}" name="contract_number">
+                                <input type="number" min="1" class="form-control" value="{{old('contract_number')}}" name="contract_number">
                             </div>
 
                             <div class="form-group col-md-6">
@@ -150,7 +150,7 @@
 
                             <div class="form-group col-md-12">
                                 <label>Комментарии</label>
-                                <textarea rows="4" class="form-control" name="comments">{{old('comments ')}}</textarea>
+                                <textarea rows="4" class="form-control" name="comments">{{old('comments')}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -165,7 +165,6 @@
                     <div class="ibox-content">
                         <div class="box-body" id="status">
                             <select class="form-control" required="" name="contractor_status_id">
-                                <option value="">Не выбран</option>
                                 @foreach($contractor_statuses as $contractor_status)
                                     <option value="{{$contractor_status->id}}">{{$contractor_status->name}}</option>
                                 @endforeach
