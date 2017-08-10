@@ -1,7 +1,10 @@
 var checkRepeat = false;
+var count = 1;
 
 function add_contact_person() {
-	$('#listContacts').append('<div class="ibox float-e-margins">' +
+
+	$('#listContacts').append(
+	'<div class="ibox float-e-margins">' +
 		'<div class="ibox-title">' +
 			'<h5>Контакт №'+count+'</h5>' +
 			'<div class="ibox-tools">' +
@@ -23,8 +26,8 @@ function add_contact_person() {
 				'<div class="form-group col-md-5">' +
 					'<label>ЛПР</label>' +
 					'<div class="col-md-12">' +
-						'<div class="checkbox-inline i-checks"><label> <input type="radio" value="1" name="contact['+count+'][lpr]"> <i></i> Да </label></div>' +
-						'<div class="checkbox-inline i-checks"><label> <input type="radio" checked="true" value="0" name="contact['+count+'][lpr]"> <i></i> Нет </label></div>' +
+						'<div class="checkbox-inline checkbox-circle"><label> <input type="radio" value="1" name="contact['+count+'][lpr]"> <i></i> Да </label></div>' +
+						'<div class="checkbox-inline checkbox-circle"><label> <input type="radio" checked="true" value="0" name="contact['+count+'][lpr]"> <i></i> Нет </label></div>' +
 					'</div>' +
 				'</div>' +
 				'<div class="form-group col-md-7">' +
@@ -47,7 +50,7 @@ function add_contact_person() {
 	count++;
 	$('.i-checks').iCheck({
 		checkboxClass: 'icheckbox_square-green',
-		radioClass: 'iradio_square-green',
+		radioClass: 'iradio_square-green'
 	});
 }
 
@@ -115,7 +118,7 @@ $(document).ready(function() {
 
 	$('.i-checks').iCheck({
 		checkboxClass: 'icheckbox_square-green',
-		radioClass: 'iradio_square-green',
+		radioClass: 'iradio_square-green'
 	});
 	$('#status').on('change', 'select[name="status"]', function(){
 		$(this).nextAll('select[name="status"]').remove();

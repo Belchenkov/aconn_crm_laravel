@@ -10,6 +10,7 @@ use App\Region;
 use App\WhatWork;
 use App\Periodicity;
 use App\Packing;
+use App\Contact;
 
 class ContractorsController extends Controller
 {
@@ -88,9 +89,9 @@ class ContractorsController extends Controller
         $this->validate($request, [
                 'name' => 'required|unique:contractors|max:255',
                 'region_id' => 'required',
-                'inn' => 'unique:contractors|max:12',
+                'inn' => 'max:12',
                 'phone' => 'required|unique:contractors|max:255',
-                'contract_number' => 'unique:contractors|max:255'
+                'contract_number' => 'max:255'
             ],
             $messages = array(
                 'required' => 'Поле :attribute обязательно',
@@ -123,12 +124,41 @@ class ContractorsController extends Controller
         $contractor->contractor_status_id = $request->input('contractor_status_id');
 
         $phones = '';
+
         foreach ($request->input('phone') as $phone) {
             $phones .=  $phone ."<br>";
         }
         $contractor->phone = $phones;
 
         $contractor->save();
+
+        $contractor_id = $contractor->id;
+        $contacts = $request->input('contact');
+
+        foreach ($contacts as $item) {
+            $contact = new Contact();
+
+            $contact->fio = $item['fio'];
+            $contact->contractors_id = $contractor_id;
+            $contact->position = $item['dolgnost'];
+            $contact->email = $item['email'];
+            $contact->lpr = $item['lpr'];
+            $contact->comment = $item['comment'];
+
+            /*$phones_contacts = '';
+            dd($item);
+            foreach ($item['phones'] as $phone) {
+                $phones_contacts .=  $phone ."<br>";
+            }
+            $contact->phones = $phones_contacts;
+            dd($contact->phones);
+            */
+            $contact->save();
+        }
+
+
+
+
         //dd($contractor);
         return redirect('/contractors')->with('success', 'Организация добавлена');
     }
@@ -233,6 +263,12 @@ class ContractorsController extends Controller
         $contractor->comments = $request->input('comments');
         $contractor->contractor_status_id = $request->input('contractor_status_id');
 
+        $phones = '';
+        foreach ($request->input('phone') as $phone) {
+            $phones .=  $phone ."<br>";
+        }
+        $contractor->phone = $phones;
+
          //dd($contractor);
 
         $contractor->save();
@@ -250,6 +286,7 @@ class ContractorsController extends Controller
         if(!Auth()->user()->group_id) {
             $contractor = Contractor::find($id);
             $contractor->delete();
+
             return redirect('/contractors')->with('success', 'Организация удалена');
         }
         else {
