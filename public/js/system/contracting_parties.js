@@ -78,6 +78,26 @@ function add_office() {
 $(".select2_cities").select2();
 
 $(document).ready(function() {
+
+    /*$('#add_comment').on('submit', function (e) {
+        e.preventDefault();
+        var comment = $("#comment").val();
+        $.ajax({
+            type: "POST",
+            url: "/comments/add",
+            data: {
+				'comment': comment
+			},
+            success: function(res){
+                console.log(res);
+                location.reload();
+			},
+			error: function () {
+                console.log('Fails');
+            }
+        });
+    });*/
+
 	$("#newForm").submit(function () {
 		if (!checkRepeat) {
 			$.ajax({

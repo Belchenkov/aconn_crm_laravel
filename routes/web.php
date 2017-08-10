@@ -21,6 +21,12 @@ Route::group(['prefix'=>'contractors','middleware'=>'auth'], function() {
     Route::post('/delete/{id}', 'ContractorsController@destroy')->name('contractors_delete');
 });
 
+Route::group(['prefix'=>'comments','middleware'=>'auth'], function() {
+    Route::get('/', 'CommentsController@index')->name('comments');
+    Route::post('/add', 'CommentsController@store')->name('comments_add');
+});
+
+
 Route::group(['prefix'=>'employees','middleware'=>'auth'], function() {
     Route::get('/', 'EmployeesController@index')->name('employees');
 });
