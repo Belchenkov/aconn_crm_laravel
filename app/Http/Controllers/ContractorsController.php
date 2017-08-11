@@ -11,6 +11,8 @@ use App\WhatWork;
 use App\Periodicity;
 use App\Packing;
 use App\Contact;
+use Illuminate\Support\Facades\Input;
+use DB;
 
 class ContractorsController extends Controller
 {
@@ -31,6 +33,8 @@ class ContractorsController extends Controller
         $packing = Packing::all();
         $manager_contractors = Contractor::where('user_id', '=', Auth()->user()->id)->get();
 
+        //dd($request->input('search'));
+
         return view('pages.contractors.index', [
             'contractors' => $contractors,
             'manager_contractors' => $manager_contractors,
@@ -44,6 +48,68 @@ class ContractorsController extends Controller
         ]);
     }
 
+    public function post()
+    {
+        //dd($request->input('search'));
+        $search = Input::get('search');
+        $region = Input::get('regions');
+        $manager = Input::get('client_manager');
+        $status = Input::get('status');
+
+        $is_not_first = false;
+
+        $where = 'SELECT * FROM contractors';
+        //$where .= 'region_id=' . $region;
+        if ($region && $region !== 1) {
+            $where .= ' WHERE region_id=' . $region;
+            $is_not_first = true;
+            echo $where;
+        }
+
+        if ($manager && $manager !== 1) {
+            if ($is_not_first) {
+                $where .= ' AND user_id=' . $manager;
+                echo $where;
+            } else {
+                $where .= ' WHERE user_id=' . $manager;
+                echo $where;
+            }
+        }
+
+        if ($status && $status !== 1) {
+            if ($is_not_first) {
+                $where .= ' AND contractor_statuses=' . $status;
+                echo $where;
+            } else {
+                $where .= ' WHERE contractor_statuses=' . $status;
+                echo $where;
+            }
+        }
+
+        //echo $where;
+        //$contractors = DB::select($where);
+        //echo json_encode($contractors);
+
+
+        //echo $contractors;
+
+        /*$contractors = Contractor::orderBy('id', 'desc')
+                                    ->where('region_id', '=', $region)
+                                    ->where('user_id', '=', $manager)
+                                    ->where('contractor_status_id', '=', $status)->get();*/
+
+        $users = User::all();
+        $managers = User::where('group_id', '=', '2')->get();
+        $contractor_statuses = ContractorStatus::all();
+        $regions = Region::where('id', '>', '1')->get();
+        $what_work = WhatWork::all();
+        $periodicity = Periodicity::all();
+        $packing = Packing::all();
+        $manager_contractors = Contractor::where('user_id', '=', Auth()->user()->id)->get();
+
+
+        //dd($contractors);
+    }
     /**
      * Show the form for creating a new resource.
      *

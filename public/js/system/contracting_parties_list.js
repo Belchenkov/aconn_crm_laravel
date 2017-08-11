@@ -4,22 +4,34 @@ function getPage(page) {
 	/* Сохраняем значения фильтров и номер страницы*/
 	localStorage.setItem('orgSearch', $('input[name="filter[search]"]').val());
 	localStorage.setItem('orgPage', page);
-	localStorage.setItem('orgDirections', $('select[name="filter[directions]"]').val());
+	localStorage.setItem('orgDirections', $('select[name="filter[regions]"]').val());
 	localStorage.setItem('orgManager', $('select[name="filter[client_manager]"]').val());
 	localStorage.setItem('orgStatus', $('select[name="filter[status]"]').val());
-	$.ajax({
-		type: 'POST',
-		url: '/contracting_parties/printPage',
-		data: 'search='+$('input[name="filter[search]"]').val()+'&page='+page+'&directions='+$('select[name="filter[directions]"]').val()+'&client_manager='+$('select[name="filter[client_manager]"]').val()+'&status='+$('select[name="filter[status]"]').val(),
-		success: function(data){
-			//console.log(data);
-			data = JSON.parse(data);
-			$('#pagination, #pagination2').bootpag({
-				'maxVisible': 25,
+    //console.log('search='+$('input[name="filter[search]"]').val()+'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()+'&client_manager='+$('select[name="filter[client_manager]"]').val()+'&status='+$('select[name="filter[status]"]').val());
+
+    $.ajax({
+		type: 'GET',
+		url: '/contractors/post',
+		data: 'search='+$('input[name="filter[search]"]').val()+'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()+'&client_manager='+$('select[name="filter[client_manager]"]').val()+'&status='+$('select[name="filter[status]"]').val(),
+        success: function(data){
+            //data = JSON.parse(data);
+            console.log(data);
+            /*var table_row = '';
+            for (var i = 0; i < data.length; i++) {
+                table_row += '<tr>' +
+                                    '<td>' + (i+1) + '</td>' +
+                                    '<td><a href="/contractors/details/' + data[i]['id'] + '">'+ data[i]['name'] +'</a></td>' +
+                                    '<td>'+ data[i]['phone'] +'</td>' +
+                            '</tr>';
+                //console.log(data[i]);
+            }*/
+
+            $('#pagination, #pagination2').bootpag({
+				'maxVisible': 5,
 				'total': data.allPage,
-				'page': data.currentPage,
+				'page': data.currentPage
 			});
-			$('#currentPage').html(data.html);
+			$('#currentPage').html(/*table_row*/);
 			$('#pagination, #pagination2').show();
 		}
 	});
@@ -27,7 +39,7 @@ function getPage(page) {
 
 $(document).ready(function() {
 	$('#pagination, #pagination2').bootpag({
-		'maxVisible': 10
+		'maxVisible': 5
 	}).on('page', function(event, num){
 		if ($.isNumeric(num)) getPage(num);
 	});
@@ -49,6 +61,7 @@ $(document).ready(function() {
 	// Перерисовка списков
 	$('.select2').select2('destroy');
 	$('.select2').select2();
+    getPage(localStorage.getItem('orgPage'));
 	if (localStorage.getItem('orgPage') > 0) {
 		getPage(localStorage.getItem('orgPage'));
 	} else {

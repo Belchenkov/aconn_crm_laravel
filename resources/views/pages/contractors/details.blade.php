@@ -201,7 +201,7 @@
                                     <div class="form-group col-md-6">
                                         <div class="input-group clockpicker" data-autoclose="true">
                                             <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
-                                            <input type="text" class="form-control" name="notification_time">
+                                            <input type="time" class="form-control" name="notification_time">
                                         </div>
                                     </div>
                                 </div>

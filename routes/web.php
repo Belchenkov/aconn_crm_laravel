@@ -13,6 +13,8 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'contractors','middleware'=>'auth'], function() {
     Route::get('/', 'ContractorsController@index')->name('contractors');
+    Route::get('/post', 'ContractorsController@post')->name('contractors_post');
+    Route::post('/post', 'ContractorsController@post')->name('contractors_post');
     Route::get('/create', 'ContractorsController@create')->name('contractors_add');
     Route::get('/edit/{id}', 'ContractorsController@edit')->name('contractors_edit');
     Route::post('/edit/{id}', 'ContractorsController@update')->name('contractors_update');

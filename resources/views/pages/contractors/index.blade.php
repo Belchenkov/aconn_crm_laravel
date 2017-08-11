@@ -19,8 +19,8 @@
                                         @if(!empty($regions))
                                             <div class="col-md-4">
                                                 <b>Регион:</b>
-                                                <select class="select2 form-control" name="filter[directions]">
-                                                    <option value="0">Все</option>
+                                                <select class="select2 form-control" name="filter[regions]">
+                                                    <option value="0" selected>Все</option>
                                                         @foreach($regions as $region)
                                                             <option value="{{$region->id}}">{{$region->name}}</option>
                                                         @endforeach
@@ -31,8 +31,8 @@
                                         @if(!empty($contractor_statuses))
                                             <div class="col-md-4">
                                                 <b>Статус:</b>
-                                                <select class="select2 form-control" name="filter[directions]">
-                                                    <option value="0">Все</option>
+                                                <select class="select2 form-control" name="filter[status]">
+                                                    <option value="0" selected>Все</option>
                                                     @foreach($contractor_statuses as $status)
                                                         <option value="{{$status->id}}">{{$status->name}}</option>
                                                     @endforeach
@@ -43,7 +43,7 @@
                                         <div class="col-md-4">
                                             <b>Менеджер:</b>
                                             <select class="select2 form-control" name="filter[client_manager]">
-                                                <option value="0">Все</option>
+                                                <option value="0" selected>Все</option>
                                                 @if(!empty($managers))
                                                     @foreach($managers as $manager)
                                                         <option value="{{$manager->id}}">{{$manager->fio}}</option>
@@ -52,11 +52,11 @@
                                             </select>
                                         </div>
                                         <div class="col-md-12"><br></div>
-                                            
+
                                         <div class="col-md-4">
                                             <b>На чем работают:</b>
-                                            <select class="select2 form-control" name="filter[client_manager]">
-                                                <option value="0">Все</option>
+                                            <select class="select2 form-control" name="filter[]">
+                                                <option value="0" selected>Все</option>
                                                 @if(!empty($what_work))
                                                     @foreach($what_work as $item)
                                                         <option value="{{$item->id}}">{{$item->name}}</option>
@@ -80,36 +80,39 @@
                                 </div>
                             </div>
 
+                            <div id="pagination" style="display: block;"><ul class="pagination bootpag"><li data-lp="1" class="prev disabled"><a href="javascript:void(0);">«</a></li><li data-lp="1" class="active"><a href="javascript:void(0);">1</a></li><li data-lp="2"><a href="javascript:void(0);">2</a></li><li data-lp="2" class="next"><a href="javascript:void(0);">»</a></li></ul></div>
+
                             <div class="wrapper wrapper-content animated fadeInRight">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="ibox float-e-margins">
                                             <div class="ibox-content">
 
-                                                <div class="table-responsive">
+                                                <div class="table-responsive" >
                                                     <table class="table table-striped table-bordered table-hover dataTables-example" >
                                                         <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Наименование(s)</th>
-                                                            {{--<th>Телефон</th>--}}
-                                                            <th>Регион</th>
-                                                            <th>Менеджер</th>
-                                                            <th>Закреплено</th>
-                                                            <th>Работают</th>
-                                                            <th>Периодичность</th>
-                                                            <th>Упаковка</th>
-                                                            @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
-                                                                <th>Управление</th>
-                                                            @endif
-                                                        </tr>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Наименование(s)</th>
+                                                                {{--<th>Телефон</th>--}}
+                                                                <th>Регион</th>
+                                                                <th>Менеджер</th>
+                                                                <th>Закреплено</th>
+                                                                <th>Работают</th>
+                                                                <th>Периодичность</th>
+                                                                <th>Упаковка</th>
+                                                                @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
+                                                                    <th>Управление</th>
+                                                                @endif
+                                                            </tr>
                                                         </thead>
-                                                        <tbody>
+                                                        <tbody id="currentPage">
+
                                                         @if(!empty($contractors))
-                                                            <?php $i = 1; ?>
+                                                            <?php $i = 0; ?>
                                                             @foreach($contractors as $contractor)
                                                                 @if(Auth()->user()->group_id != 2)
-                                                                    <tr>
+                                                                    <tr id="currentPage">
                                                                         <td>{{$i++}}</td>
                                                                         <td>
                                                                             <a href="/contractors/details/{{$contractor->id}}">{{$contractor->name}}</a>
