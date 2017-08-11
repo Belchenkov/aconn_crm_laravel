@@ -1,10 +1,7 @@
 var checkRepeat = false;
-var count = 1;
 
 function add_contact_person() {
-
-	$('#listContacts').append(
-	'<div class="ibox float-e-margins">' +
+	$('#listContacts').append('<div class="ibox float-e-margins">' +
 		'<div class="ibox-title">' +
 			'<h5>Контакт №'+count+'</h5>' +
 			'<div class="ibox-tools">' +
@@ -26,8 +23,8 @@ function add_contact_person() {
 				'<div class="form-group col-md-5">' +
 					'<label>ЛПР</label>' +
 					'<div class="col-md-12">' +
-						'<div class="checkbox-inline checkbox-circle"><label> <input type="radio" value="1" name="contact['+count+'][lpr]"> <i></i> Да </label></div>' +
-						'<div class="checkbox-inline checkbox-circle"><label> <input type="radio" checked="true" value="0" name="contact['+count+'][lpr]"> <i></i> Нет </label></div>' +
+						'<div class="checkbox-inline i-checks"><label> <input type="radio" value="1" name="contact['+count+'][lpr]"> <i></i> Да </label></div>' +
+						'<div class="checkbox-inline i-checks"><label> <input type="radio" checked="true" value="0" name="contact['+count+'][lpr]"> <i></i> Нет </label></div>' +
 					'</div>' +
 				'</div>' +
 				'<div class="form-group col-md-7">' +
@@ -50,20 +47,20 @@ function add_contact_person() {
 	count++;
 	$('.i-checks').iCheck({
 		checkboxClass: 'icheckbox_square-green',
-		radioClass: 'iradio_square-green'
+		radioClass: 'iradio_square-green',
 	});
 }
 
 function add_phone() {
 	$('#listPhones').append('<div class="input-group">' +
-		'<input type="text" class="form-control" name="phone[]" data-mask="+7 (999) 999-9999">' +
+		'<input type="text" class="form-control" name="phones[]" data-mask="+7 (999) 999-9999">' +
 		'<div class="input-group-addon"><a href="#" onclick="$(this).parent(\'.input-group-addon\').parent(\'.input-group\').remove(); return false;"><i class="fa fa-trash"></i></a></div>' +
 	'</div>');
 }
 
 function addPhoneContact(element, id) {
 	$(element).siblings('.phones').append('<div class="input-group">' +
-		'<input type="text" class="form-control" name="contact['+id+'][phone][]" data-mask="+7 (999) 999-9999">' +
+		'<input type="text" class="form-control" name="contact['+id+'][phones][]" data-mask="+7 (999) 999-9999">' +
 		'<div class="input-group-addon"><a href="#" onclick="$(this).parent(\'.input-group-addon\').parent(\'.input-group\').remove(); return false;"><i class="fa fa-trash"></i></a></div>' +
 	'</div>');
 }
@@ -78,26 +75,6 @@ function add_office() {
 $(".select2_cities").select2();
 
 $(document).ready(function() {
-
-    /*$('#add_comment').on('submit', function (e) {
-        e.preventDefault();
-        var comment = $("#comment").val();
-        $.ajax({
-            type: "POST",
-            url: "/comments/add",
-            data: {
-				'comment': comment
-			},
-            success: function(res){
-                console.log(res);
-                location.reload();
-			},
-			error: function () {
-                console.log('Fails');
-            }
-        });
-    });*/
-
 	$("#newForm").submit(function () {
 		if (!checkRepeat) {
 			$.ajax({
@@ -138,7 +115,7 @@ $(document).ready(function() {
 
 	$('.i-checks').iCheck({
 		checkboxClass: 'icheckbox_square-green',
-		radioClass: 'iradio_square-green'
+		radioClass: 'iradio_square-green',
 	});
 	$('#status').on('change', 'select[name="status"]', function(){
 		$(this).nextAll('select[name="status"]').remove();

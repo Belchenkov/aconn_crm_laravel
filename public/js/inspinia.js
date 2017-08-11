@@ -1,12 +1,49 @@
 /*
  *
  *   INSPINIA - Responsive Admin Theme
- *   version 2.7.1
+ *   version 2.4
  *
  */
-
 $(document).ready(function () {
+	var checker = true;
 
+	toastr.options = {
+		closeButton: true,
+		progressBar: false,
+		showMethod: 'slideDown',
+		timeOut: 0
+	};
+
+	/* Дрочилка
+	setInterval(function(){
+		if (checker) {
+			$.ajax({
+				type: 'POST',
+				url: '/notifications',
+				success: function(data){
+					if (data != '') {
+						var obj = jQuery.parseJSON(data);
+						$.each(obj, function( index, value ) {
+							console.log(value);
+							if (value.type == 'warning') {
+								toastr.warning(value.desc, value.title);
+							} else if (value.type == 'success') {
+								toastr.success(value.desc, value.title);
+							} else if (value.type == 'info') {
+								toastr.info(value.desc, value.title);
+							}
+						});
+					}
+				}
+			});
+		}
+
+	}, 1500);
+	*/
+
+
+
+	if ($(".select2")) $(".select2").select2();
 
     // Add body-small class if window less than 768px
     if ($(this).width() < 769) {
@@ -15,14 +52,29 @@ $(document).ready(function () {
         $('body').removeClass('body-small')
     }
 
-    // MetisMenu
+    // MetsiMenu
     $('#side-menu').metisMenu();
 
-    // Collapse ibox function
-    $('.collapse-link').on('click', function () {
+	$('#value-input').val($("#basic_slider").val());
+
+	$("#basic_slider").change(function() {
+		$('#value-input').val($("#basic_slider").val());
+	});
+
+	$('#data_1 .input-group.date').datepicker({
+		todayBtn: "linked",
+		keyboardNavigation: false,
+		forceParse: false,
+		calendarWeeks: true,
+		autoclose: true,
+		format: "dd.mm.yyyy"
+	});
+
+	// Collapse ibox function
+    $('.collapse-link').click(function () {
         var ibox = $(this).closest('div.ibox');
         var button = $(this).find('i');
-        var content = ibox.children('.ibox-content');
+        var content = ibox.find('div.ibox-content');
         content.slideToggle(200);
         button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
         ibox.toggleClass('').toggleClass('border-bottom');
@@ -32,14 +84,8 @@ $(document).ready(function () {
         }, 50);
     });
 
-    // Close ibox function
-    $('.close-link').on('click', function () {
-        var content = $(this).closest('div.ibox');
-        content.remove();
-    });
-
     // Fullscreen ibox function
-    $('.fullscreen-link').on('click', function () {
+    $('.fullscreen-link').click(function () {
         var ibox = $(this).closest('div.ibox');
         var button = $(this).find('i');
         $('body').toggleClass('fullscreen-ibox-mode');
@@ -51,7 +97,7 @@ $(document).ready(function () {
     });
 
     // Close menu in canvas mode
-    $('.close-canvas-menu').on('click', function () {
+    $('.close-canvas-menu').click(function () {
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();
     });
@@ -63,7 +109,7 @@ $(document).ready(function () {
     });
 
     // Open close right sidebar
-    $('.right-sidebar-toggle').on('click', function () {
+    $('.right-sidebar-toggle').click(function () {
         $('#right-sidebar').toggleClass('sidebar-open');
     });
 
@@ -75,7 +121,7 @@ $(document).ready(function () {
     });
 
     // Open close small chat
-    $('.open-small-chat').on('click', function () {
+    $('.open-small-chat').click(function () {
         $(this).children().toggleClass('fa-comments').toggleClass('fa-remove');
         $('.small-chat-box').toggleClass('active');
     });
@@ -87,7 +133,7 @@ $(document).ready(function () {
     });
 
     // Small todo handler
-    $('.check-link').on('click', function () {
+    $('.check-link').click(function () {
         var button = $(this).find('i');
         var label = $(this).next('span');
         button.toggleClass('fa-check-square').toggleClass('fa-square-o');
@@ -103,39 +149,38 @@ $(document).ready(function () {
     //});
 
     // Minimalize menu
-    $('.navbar-minimalize').on('click', function (event) {
-        event.preventDefault();
+    $('.navbar-minimalize').click(function () {
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();
 
     });
 
     // Tooltips demo
-    $('.tooltip-demo').tooltip({
-        selector: "[data-toggle=tooltip]",
-        container: "body"
-    });
+	$('[data-toggle="tooltip"]').tooltip()
 
+    // Move modal to body
+    // Fix Bootstrap backdrop issu with animation.css
+    $('.modal').appendTo("body");
 
     // Full height of sidebar
     function fix_height() {
         var heightWithoutNavbar = $("body > #wrapper").height() - 61;
-        $(".sidebar-panel").css("min-height", heightWithoutNavbar + "px");
+        $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
 
-        var navbarheight = $('nav.navbar-default').height();
-        var wrapperHeight = $('#page-wrapper').height();
+        var navbarHeigh = $('nav.navbar-default').height();
+        var wrapperHeigh = $('#page-wrapper').height();
 
-        if (navbarheight > wrapperHeight) {
-            $('#page-wrapper').css("min-height", navbarheight + "px");
+        if (navbarHeigh > wrapperHeigh) {
+            $('#page-wrapper').css("min-height", navbarHeigh + "px");
         }
 
-        if (navbarheight < wrapperHeight) {
+        if (navbarHeigh < wrapperHeigh) {
             $('#page-wrapper').css("min-height", $(window).height() + "px");
         }
 
         if ($('body').hasClass('fixed-nav')) {
-            if (navbarheight > wrapperHeight) {
-                $('#page-wrapper').css("min-height", navbarheight + "px");
+            if (navbarHeigh > wrapperHeigh) {
+                $('#page-wrapper').css("min-height", navbarHeigh - 60 + "px");
             } else {
                 $('#page-wrapper').css("min-height", $(window).height() - 60 + "px");
             }
@@ -192,7 +237,7 @@ $(window).bind("resize", function () {
 // Local Storage functions
 // Set proper body class and plugins based on user configuration
 $(document).ready(function () {
-    if (localStorageSupport()) {
+    if (localStorageSupport) {
 
         var collapse = localStorage.getItem("collapse_menu");
         var fixedsidebar = localStorage.getItem("fixedsidebar");
@@ -294,5 +339,3 @@ function WinMove() {
         })
         .disableSelection();
 }
-
-

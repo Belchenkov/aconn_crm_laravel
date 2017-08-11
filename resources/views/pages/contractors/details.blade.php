@@ -175,7 +175,7 @@
                         ?>
 						<b><?= $date[1]; ?></b>
 						<i class="fa fa-clock-o"></i>
-                        <?= $date[0]; ?> <br/><small></small>
+                        <?= $date[0]; ?> <br/>
 					</span>
                 </div>
             </div>
@@ -195,13 +195,13 @@
                                     <div class="form-group col-md-6">
                                         <div class="input-group date">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            <input type="date" class="form-control inputmask" name="notification_date">
+                                            <input type="text" class="form-control inputmask" name="notification_date">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <div class="input-group clockpicker" data-autoclose="true">
                                             <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
-                                            <input type="time" class="form-control" name="notification_time">
+                                            <input type="text" class="form-control" name="notification_time">
                                         </div>
                                     </div>
                                 </div>

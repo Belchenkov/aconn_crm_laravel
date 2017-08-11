@@ -10,12 +10,11 @@
                             <div class="row">
                                     @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                         <div class="col-md-3">
-                                                <a href="contractors/create" class="btn btn-success"><i class="fa fa-plus"></i> Добавить организацию</a><br>
-
+                                            <a href="contractors/create" class="btn btn-success"><i class="fa fa-plus"></i> Добавить организацию</a><br>
                                         </div>
                                     @endif
 
-                                <form action="http://homestead.app/contracting_parties/exportExcel" method="POST" target="_blank">
+                                <form action="{{--http://homestead.app/contracting_parties/exportExcel--}}" method="POST" target="_blank">
                                     <div class="col-md-9" id="filters">
                                         @if(!empty($regions))
                                             <div class="col-md-4">
@@ -29,17 +28,17 @@
                                             </div>
                                         @endif
 
-                                        <div class="col-md-4">
-                                            <b>Статусы:</b>
-                                            <select class="select2 form-control" name="filter[status]">
-                                                <option value="0">Все</option>
-                                                @if(!empty($contractor_statuses))
-                                                    @foreach($contractor_statuses as $contractor_status)
-                                                        <option value="{{$contractor_status->id}}">{{$contractor_status->name}}</option>
+                                        @if(!empty($contractor_statuses))
+                                            <div class="col-md-4">
+                                                <b>Статус:</b>
+                                                <select class="select2 form-control" name="filter[directions]">
+                                                    <option value="0">Все</option>
+                                                    @foreach($contractor_statuses as $status)
+                                                        <option value="{{$status->id}}">{{$status->name}}</option>
                                                     @endforeach
-                                                @endif
-                                            </select>
-                                        </div>
+                                                </select>
+                                            </div>
+                                        @endif
 
                                         <div class="col-md-4">
                                             <b>Менеджер:</b>
@@ -52,7 +51,8 @@
                                                 @endif
                                             </select>
                                         </div>
-
+                                        <div class="col-md-12"><br></div>
+                                            
                                         <div class="col-md-4">
                                             <b>На чем работают:</b>
                                             <select class="select2 form-control" name="filter[client_manager]">
@@ -75,8 +75,9 @@
                                             <b>Поиск по названию организации:</b>
                                             <input type="text" name="filter[search]" class="form-control">
                                         </div>
-                                    </div>
-                                </form>
+                                         </div>
+                                   </form>
+                                </div>
                             </div>
 
                             <div class="wrapper wrapper-content animated fadeInRight">

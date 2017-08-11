@@ -21,17 +21,15 @@ class ContractorsController extends Controller
      */
     public function index()
     {
-        $contractors = Contractor::all();
+        $contractors = Contractor::orderBy('id', 'desc')->get();
         $users = User::all();
         $managers = User::where('group_id', '=', '2')->get();
         $contractor_statuses = ContractorStatus::all();
-        $regions = Region::all();
+        $regions = Region::where('id', '>', '1')->get();
         $what_work = WhatWork::all();
         $periodicity = Periodicity::all();
         $packing = Packing::all();
         $manager_contractors = Contractor::where('user_id', '=', Auth()->user()->id)->get();
-        //dd($manager_contractors);
-
 
         return view('pages.contractors.index', [
             'contractors' => $contractors,
