@@ -185,7 +185,7 @@
                     {{csrf_field()}}
                     <div class="vertical-timeline-icon blue-bg"><i class="fa fa-comments"></i></div>
                     <div class="vertical-timeline-content">
-                        <input type="hidden" name="contractors_id" value="{{$contractor->id}}">
+                        <input type="hidden" name="contractor_id" value="{{$contractor->id}}">
                         <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
 
                         <div class="row">
@@ -195,49 +195,46 @@
                                     <div class="form-group col-md-6">
                                         <div class="input-group date">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            <input type="text" class="form-control inputmask" name="notification_date">
+                                            <input type="date" class="form-control inputmask" name="notification_date">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <div class="input-group clockpicker" data-autoclose="true">
                                             <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
-                                            <input type="text" class="form-control" name="notification_time">
+                                            <input type="time" class="form-control" name="notification_time">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-
                         <div class="row">
                             <div class="form-group col-md-4 col-md-offset-2">
                                 <label>Напоминание</label><br>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="contract_yes" value="1" name="notification">
-                                    <label for="contract_yes"> Да </label>
+                                    <input type="radio" id="notification_yes" value="1" name="notification">
+                                    <label for="notification_yes"> Да </label>
                                 </div>
                                 <br>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="contract_no" value="0" name="notification">
-                                    <label for="contract_no"> Нет </label>
+                                    <input type="radio" id="notification_no" value="0" name="notification">
+                                    <label for="notification_no"> Нет </label>
                                 </div>
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label>Напоминание активно</label><br>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="contract_yes" value="1" name="notification_active">
-                                    <label for="contract_yes"> Да </label>
+                                    <input type="radio" id="notification_active" value="1" name="notification_active">
+                                    <label for="notification_active"> Да </label>
                                 </div>
                                 <br>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="contract_no" value="0" name="notification_active">
-                                    <label for="contract_no"> Нет </label>
+                                    <input type="radio" id="notification_active_no" value="0" name="notification_active">
+                                    <label for="notification_active_no"> Нет </label>
                                 </div>
                             </div>
                         </div>
-
-
 
                         <div>
                             <textarea id="comment" class="form-control" name="comment" rows="3"></textarea>

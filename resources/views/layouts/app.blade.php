@@ -10,14 +10,26 @@
 
     <title>{{ config('app.name', 'AconnCRM') }}</title>
 
+    <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}">
+
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
-    <link href="{{ asset('js/plugins/gritter/jquery.gritter.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/nouslider/jquery.nouislider.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/select2/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/iCheck/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/touchspin/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/c3/c3.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/clockpicker/clockpicker.css') }}" rel="stylesheet">
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+
 </head>
 <body class="skin-1 pace-done">
 <div id="wrapper">
