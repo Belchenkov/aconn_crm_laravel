@@ -3,7 +3,9 @@
 @section('content')
 
     <div class="row  border-bottom white-bg dashboard-header">
-        ﻿<a href="http://homestead.app/users/add" class="btn btn-success"><i class="fa fa-plus"></i> Добавить сотрудника</a><br><br>
+        @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
+        ﻿   <a href="{{route('employees_create')}}" class="btn btn-success"><i class="fa fa-plus"></i> Добавить сотрудника</a><br><br>
+        @endif
         <div class="box">
             <div class="box-body">
                 <div class="tabs-container">

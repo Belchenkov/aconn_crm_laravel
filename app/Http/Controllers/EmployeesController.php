@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 
 class EmployeesController extends Controller
@@ -19,13 +20,67 @@ class EmployeesController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
+            return view('pages.employees.create');
+        }
+        else {
+            abort(401);
+        }
+    }
+
+    public function store(Request $request)
+    {
+        if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
+            // Validate
+            $this->validate($request, [
+                'fio' => 'required|max:255',
+                'login' => 'required|max:255',
+                'password' => 'required|max:255|min:6',
+            ],
+                $messages = array(
+                    'required' => 'Поле :attribute обязательно',
+                    'max' => 'Поле :attribute должно быть не более 255 символов',
+                    'min' => 'Пароль должен быть не менее 6 символов',
+                )
+            );
+
+            $password = Hash::make($request->input('password'));
+
+            $user = new User();
+            $user->email = $request->input('login');
+            $user->fio = $request->input('fio');
+            $user->group_id = $request->input('group');
+            $user->position = $request->input('position');
+            $user->status = $request->input('status');
+            $user->password = $password;
+
+            $user->save();
+
+            return redirect('/employees')->with('success', 'Сотрудник добавлен');
+        }
+        else {
+            abort(401);
+        }
+    }
+
     public function edit($id)
     {
-        $employe = User::find($id);
-        //dd($employe_group);
-        return view('pages.employees.edit', [
-            'employe' => $employe,
-        ]);
+        if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
+            $employe = User::find($id);
+            return view('pages.employees.edit', [
+                'employe' => $employe,
+            ]);
+        }
+        else {
+            abort(401);
+        }
+    }
+
+    public function update($id)
+    {
+        return 'Update';
     }
 
 }

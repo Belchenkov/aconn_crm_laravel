@@ -12,10 +12,11 @@
 
                 @if(!empty($employe))
                     <form action="{{route('employees_update', ['id' => $employe->id])}}" method="post">
+                        {{csrf_field()}}
                         <div class="box-body">
                             <div class="form-group">
                                 <label>ФИО</label>
-                                <input type="text" class="form-control" id="fio" name="fio" value="{{$employe->fio}}">
+                                <input type="text" class="form-control" id="fio" required="" name="fio" value="{{$employe->fio}}">
                             </div>
                             <div class="form-group">
                                 <label>Должность</label>
@@ -23,11 +24,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Логин</label>
-                                <input type="text" class="form-control" id="login" name="login" value="{{$employe->email}}">
+                                <input type="text" class="form-control" id="login" required="" name="login" value="{{$employe->email}}">
                             </div>
                             <div class="form-group">
                                 <label>Новый пароль</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Старый пароль будет сброшен">
+                                <input type="password" class="form-control" id="password" required="" name="password" placeholder="Старый пароль будет сброшен">
                             </div>
                             <div class="form-group">
                                 <label>Группа</label>
