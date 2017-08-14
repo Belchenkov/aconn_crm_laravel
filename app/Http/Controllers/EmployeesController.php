@@ -78,9 +78,38 @@ class EmployeesController extends Controller
         }
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        return 'Update';
+        if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
+            // Validate
+            $this->validate($request, [
+                'fio' => 'required|max:255',
+                'login' => 'required|max:255',
+                'password' => 'required|max:255|min:6',
+            ],
+                $messages = array(
+                    'required' => 'Поле :attribute обязательно',
+                    'max' => 'Поле :attribute должно быть не более 255 символов',
+                    'min' => 'Пароль должен быть не менее 6 символов',
+                )
+            );
+
+            $password = Hash::make($request->input('password'));
+
+            $user = User::find($id);
+            $user->email = $request->input('login');
+            $user->fio = $request->input('fio');
+            $user->group_id = $request->input('group');
+            $user->position = $request->input('position');
+            $user->status = $request->input('status');
+            $user->password = $password;
+
+            $user->save();
+
+            return redirect('/employees')->with('success', 'Данные о сотруднике обновлены');
+        } else {
+            abort(401);
+        }
     }
 
 }

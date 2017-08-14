@@ -24,7 +24,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Логин</label>
-                                <input type="text" class="form-control" id="login" required="" name="login" value="{{$employe->email}}">
+                                <input type="text" class="form-control" id="login" required="" name="login" placeholder="email@email.com" value="{{$employe->email}}">
                             </div>
                             <div class="form-group">
                                 <label>Новый пароль</label>
@@ -57,7 +57,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Статус</label>
-                                <select class="form-control" name="active">
+                                <select class="form-control" name="status">
                                     <option
                                             value="1"
                                             @if($employe->status == 1)

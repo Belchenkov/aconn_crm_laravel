@@ -27,7 +27,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        @if(!empty($employees_active))
+                                        @if(!empty($employees_active) && count($employees_active) > 0)
                                             <?php
                                                 $i = 1;
                                                 $group = '';
@@ -87,8 +87,8 @@
                                                 </div>
 
                                             @endforeach
-                                            @else
-                                                <tr><td colspan="5">Сотрудники не найдены</td></tr>
+                                        @else
+                                            <tr><td colspan="5">Сотрудники не найдены</td></tr>
                                         @endif
                                     </tbody>
                                 </table>
