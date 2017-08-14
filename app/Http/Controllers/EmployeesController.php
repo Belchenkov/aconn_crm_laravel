@@ -11,7 +11,9 @@ class EmployeesController extends Controller
 {
     public function index()
     {
+        // Активные сотрудники
         $employees_active = User::where('id', '<>', 10)->where('status', '=', '1')->get();
+        // Уволенные сотрудники
         $employees_dismiss = User::where('id', '<>', 10)->where('status', '=', '0')->get();
 
         return view('pages.employees.index', [
@@ -22,6 +24,7 @@ class EmployeesController extends Controller
 
     public function create()
     {
+        // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
             return view('pages.employees.create');
         }
@@ -32,6 +35,7 @@ class EmployeesController extends Controller
 
     public function store(Request $request)
     {
+        // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
             // Validate
             $this->validate($request, [
@@ -46,12 +50,15 @@ class EmployeesController extends Controller
                 )
             );
 
+            // Хешируем введенные пароль
             $password = Hash::make($request->input('password'));
 
             $user = new User();
             $user->email = $request->input('login');
             $user->fio = $request->input('fio');
+            // Из какой группы
             $user->group_id = $request->input('group');
+            // Должность
             $user->position = $request->input('position');
             $user->status = $request->input('status');
             $user->password = $password;
@@ -67,8 +74,11 @@ class EmployeesController extends Controller
 
     public function edit($id)
     {
+        // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
+
             $employe = User::find($id);
+
             return view('pages.employees.edit', [
                 'employe' => $employe,
             ]);
@@ -80,6 +90,7 @@ class EmployeesController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
             // Validate
             $this->validate($request, [

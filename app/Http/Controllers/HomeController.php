@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Contractor;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // Общее количество контрагентов(организаций)
+        $count_contractors = Contractor::get()->count();
+
+        return view('home', [
+            'count_contractors' => $count_contractors
+        ]);
     }
 }

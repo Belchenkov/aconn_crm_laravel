@@ -16,9 +16,10 @@ class RegionsController extends Controller
      */
     public function index()
     {
+        // Если суперадмин
         if(!Auth()->user()->group_id) {
+
             $managers = User::where('group_id', '=', '2')->get();
-            //dd($managers);
             $regions = Region::where('id', '>', '1')->get();
 
             return view('settings.regions.index', [
@@ -32,17 +33,6 @@ class RegionsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -50,6 +40,7 @@ class RegionsController extends Controller
      */
     public function store(Request $request)
     {
+        // Если суперадмин
         if(!Auth()->user()->group_id) {
 
             // Validate
@@ -66,6 +57,7 @@ class RegionsController extends Controller
 
             $region = new Region();
             $region->name = $request->input('name');
+            // Назначенный менеджер
             $region->user_id = $request->input('manager');
             $region->save();
 
@@ -76,18 +68,7 @@ class RegionsController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
+     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -95,10 +76,10 @@ class RegionsController extends Controller
      */
     public function edit($id)
     {
+        // Если суперадмин
         if(!Auth()->user()->group_id) {
 
             $managers = User::where('group_id', '=', '2')->get();
-            //dd($managers);
             $region = Region::find($id);
 
             return view('settings.regions.edit', [
@@ -120,31 +101,38 @@ class RegionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validate
-        $this->validate($request, [
-            'name' => 'required|max:255',
-        ],
-            $messages = array(
-                'required' => 'Поле :attribute обязательно',
-                'max' => 'Поле :attribute должно быть не более 255 символов',
-            )
-        );
-        $contractors_region = Contractor::where('region_id', '=', $id)->get();
-        $region = Region::find($id);
+        // Если суперадмин
+        if(!Auth()->user()->group_id) {
+            // Validate
+            $this->validate($request, [
+                'name' => 'required|max:255',
+            ],
+                $messages = array(
+                    'required' => 'Поле :attribute обязательно',
+                    'max' => 'Поле :attribute должно быть не более 255 символов',
+                )
+            );
+            // Контрагенты привязанные к текущему региону
+            $contractors_region = Contractor::where('region_id', '=', $id)->get();
+            $region = Region::find($id);
 
-        if (!empty($contractors_region)) {
-            foreach ($contractors_region as $item) {
-                if ($item->assign_manager !== 1) {
-                    $item->user_id = $request->input('manager');
+            if (!empty($contractors_region)) {
+                // При изменении менеджера у текущего региона
+                foreach ($contractors_region as $item) {
+                    // Если менеджер не закреплен за контрагентом
+                    if ($item->assign_manager !== 1) {
+                        // Меняем менеджера у контрагента
+                        $item->user_id = $request->input('manager');
+                    }
+                    $item->save();
                 }
-                $item->save();
             }
-        }
-        $region->name = $request->input('name');
-        $region->user_id = $request->input('manager');
-        $region->save();
+            $region->name = $request->input('name');
+            $region->user_id = $request->input('manager');
+            $region->save();
 
-        return redirect('/settings/regions')->with('success', 'Регион отредактирован');
+            return redirect('/settings/regions')->with('success', 'Регион отредактирован');
+        }
     }
 
     /**
@@ -155,12 +143,15 @@ class RegionsController extends Controller
      */
     public function destroy($id)
     {
+        // Если суперадмин
         if(!Auth()->user()->group_id) {
             $region = Region::find($id);
+            // Контрагенты в текущем регионе
             $contractors_region = Contractor::where('region_id', '=', $id)->get();
 
             if (!empty($contractors_region)) {
                 foreach ($contractors_region as $item) {
+                    // Меняем регион у контрагентов на отсутствует
                     $item->region_id = 1;
                     $item->save();
                 }

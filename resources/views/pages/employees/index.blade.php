@@ -3,6 +3,7 @@
 @section('content')
 
     <div class="row  border-bottom white-bg dashboard-header">
+        {{--Если (суперадмин, руководитель, менеджер)--}}
         @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
         ﻿   <a href="{{route('employees_create')}}" class="btn btn-success"><i class="fa fa-plus"></i> Добавить сотрудника</a><br><br>
         @endif
@@ -23,7 +24,6 @@
                                         <th>ФИО</th>
                                         <th>Должность</th>
                                         <th>Группа</th>
-                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -50,7 +50,6 @@
                                                         <?php $group = 'Сотрудник'; ?>
                                                         <td><span id="rus_group">{{$group}}</span></td>
                                                     @endif
-                                                    <td><a href="" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
 
                                                 {{-- Modal Window--}}

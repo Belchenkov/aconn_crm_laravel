@@ -9,14 +9,14 @@ function getPage(page) {
 	localStorage.setItem('orgStatus', $('select[name="filter[status]"]').val());
     //console.log('search='+$('input[name="filter[search]"]').val()+'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()+'&client_manager='+$('select[name="filter[client_manager]"]').val()+'&status='+$('select[name="filter[status]"]').val());
 
-    $.ajax({
+   /* $.ajax({
 		type: 'GET',
 		url: '/contractors/post',
 		data: 'search='+$('input[name="filter[search]"]').val()+'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()+'&client_manager='+$('select[name="filter[client_manager]"]').val()+'&status='+$('select[name="filter[status]"]').val(),
         success: function(data){
             //data = JSON.parse(data);
             console.log(data);
-            /*var table_row = '';
+            /!*var table_row = '';
             for (var i = 0; i < data.length; i++) {
                 table_row += '<tr>' +
                                     '<td>' + (i+1) + '</td>' +
@@ -24,17 +24,17 @@ function getPage(page) {
                                     '<td>'+ data[i]['phone'] +'</td>' +
                             '</tr>';
                 //console.log(data[i]);
-            }*/
+            }*!/
 
             $('#pagination, #pagination2').bootpag({
 				'maxVisible': 5,
 				'total': data.allPage,
 				'page': data.currentPage
 			});
-			$('#currentPage').html(/*table_row*/);
+			$('#currentPage').html(/!*table_row*!/);
 			$('#pagination, #pagination2').show();
 		}
-	});
+	});*/
 }
 
 $(document).ready(function() {

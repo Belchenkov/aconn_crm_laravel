@@ -68,6 +68,7 @@
                 <li>
                     <a href="{{route('contractors')}}"><i class="fa fa-briefcase"></i> <span class="nav-label">Организации</span></a>
                 </li>
+                {{-- Если суперадмин --}}
                 @if(!Auth()->user()->group_id)
                     <li>
                         <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Настройки</span> <span class="fa arrow"></span></a>
@@ -156,16 +157,12 @@
                             {{ csrf_field() }}
                         </form>
                     </li>
-                    {{--<li>
-                        <a class="right-sidebar-toggle">
-                            <i class="fa fa-tasks"></i>
-                        </a>
-                    </li>--}}
                 </ul>
             </nav>
         </div>
         <br>
 
+        {{-- Вывод оповещений --}}
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
                 <div class="alert alert-danger">
@@ -193,7 +190,7 @@
                 V. 1.0
             </div>
             <div>
-                <strong>UnixCRM </strong> © 2016 - 2017
+                <strong>UnixCRM </strong> © 2016 - <?php echo date('Y')?>
             </div>
         </div>
 
@@ -232,6 +229,7 @@
     <script src="{{ asset('js/plugins/jasny/jasny-bootstrap.min.js')}}"></script>
     <script src="{{ asset('js/plugins/clockpicker/clockpicker.js')}}"></script>
     <script src="{{ asset('js/plugins/touchspin/jquery.bootstrap-touchspin.min.js')}}" ></script>
+    <script src="{{ asset('js/system/contracting_parties.js')}}"></script>
     <script src="{{ asset('js/system/contracting_parties_list.js')}}"></script>
     <script src="{{ asset('js/jquery.bootpag.min.js')}}"></script>
 

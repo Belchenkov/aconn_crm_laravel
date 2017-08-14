@@ -23,17 +23,24 @@ class ContractorsController extends Controller
      */
     public function index()
     {
+        // Контрагенты
         $contractors = Contractor::orderBy('id', 'desc')->get();
+        // Пользователи
         $users = User::all();
+        // Менеджеры -- group_id = 2
         $managers = User::where('group_id', '=', '2')->get();
+        // Статус контрагента
         $contractor_statuses = ContractorStatus::all();
+        // Регионы
         $regions = Region::where('id', '>', '1')->get();
+        // На чем работают
         $what_work = WhatWork::all();
+        // Периодичность
         $periodicity = Periodicity::all();
+        // Упаковка
         $packing = Packing::all();
+        // Контрагенты принадлежащие текущему менеджеру
         $manager_contractors = Contractor::where('user_id', '=', Auth()->user()->id)->get();
-
-        //dd($request->input('search'));
 
         return view('pages.contractors.index', [
             'contractors' => $contractors,
@@ -50,12 +57,12 @@ class ContractorsController extends Controller
 
     public function post()
     {
-        //dd($request->input('search'));
         $search = Input::get('search');
         $region = Input::get('regions');
         $manager = Input::get('client_manager');
         $status = Input::get('status');
 
+        // Если условие не первое
         $is_not_first = false;
 
         $where = 'SELECT * FROM contractors';
@@ -97,18 +104,23 @@ class ContractorsController extends Controller
                                     ->where('region_id', '=', $region)
                                     ->where('user_id', '=', $manager)
                                     ->where('contractor_status_id', '=', $status)->get();*/
-
+        // Пользователи
         $users = User::all();
+        // Менеджеры --  group_id = 2
         $managers = User::where('group_id', '=', '2')->get();
+        // Статус контрагента
         $contractor_statuses = ContractorStatus::all();
+        // Регионы
         $regions = Region::where('id', '>', '1')->get();
+        // На чем работают
         $what_work = WhatWork::all();
+        // Периодичность
         $periodicity = Periodicity::all();
+        // Упаковка
         $packing = Packing::all();
+        // Контрагенты принадлежащие текущему менеджеру
         $manager_contractors = Contractor::where('user_id', '=', Auth()->user()->id)->get();
 
-
-        //dd($contractors);
     }
     /**
      * Show the form for creating a new resource.
@@ -117,13 +129,21 @@ class ContractorsController extends Controller
      */
     public function create()
     {
+        // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
+            // Контрагенты
             $contractors = Contractor::all();
+            // Менеджеры group_id =2
             $managers = User::where('group_id', '=', '2')->get();
+            // Статусы контрагентов
             $contractor_statuses = ContractorStatus::all();
+            // Регионы
             $regions = Region::where('id', '>', '1')->get();
+            // На чем работают
             $what_work = WhatWork::all();
+            // Периодичность
             $periodicity = periodicity::all();
+            // Упаковка
             $packing = packing::all();
 
             return view('pages.contractors.create',  [
@@ -149,6 +169,7 @@ class ContractorsController extends Controller
      */
     public function store(Request $request)
     {
+        // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
             // Validate
             $this->validate($request, [
@@ -167,25 +188,35 @@ class ContractorsController extends Controller
                 )
             );
 
-            //dd($request);
             $contractor = new Contractor();
             $contractor->name = $request->input('name');
             $contractor->region_id = $request->input('region_id');
             $contractor->user_id = $request->input('manager');
             $contractor->email = $request->input('email');
+            // Юридеский адрес
             $contractor->ur_address = $request->input('ur_address');
             $contractor->site_company = $request->input('site_company');
             $contractor->inn = $request->input('inn');
+            // Закреплен ли менеджер
             $contractor->assign_manager = $request->input('assign_manager');
+            // На чем работают
             $contractor->what_work_id = $request->input('what_work_id');
+            // Периодичность
             $contractor->periodicity_id = $request->input('periodicity_id');
+            // В каких объемах берут
             $contractor->take_amount = $request->input('take_amount');
+            // Адресс доставки
             $contractor->delivery_address = $request->input('delivery_address');
+            // Чья доставка
             $contractor->delivery = $request->input('delivery');
+            // Упаковка
             $contractor->packing_id = $request->input('packing_id');
+            // Номер контракта
             $contractor->contract_number = $request->input('contract_number');
+            // Есть ли контракт
             $contractor->contract_exist = $request->input('contract_exist');
             $contractor->comments = $request->input('comments');
+            // Статус контрагента
             $contractor->contractor_status_id = $request->input('contractor_status_id');
 
             $phones = '';
@@ -197,7 +228,9 @@ class ContractorsController extends Controller
 
             $contractor->save();
 
+            // ID сохраненного контрагента
             $contractor_id = $contractor->id;
+            // Контактное лицо(-ца)
             $contacts = $request->input('contact');
 
             foreach ($contacts as $item) {
@@ -236,9 +269,11 @@ class ContractorsController extends Controller
     public function show($id)
     {
         $contractor = Contractor::find($id);
+        // Список контактных лиц
         $contacts =Contact::where('contractors_id', '=', $id)->get();
         $manager = User::find($contractor->user_id)->contractors()->getParent()->fio;
         $region = Region::find($contractor->region_id)->contractor()->getParent()->name;
+        // Статус контрагента
         $status = ContractorStatus::find($contractor->contractor_status_id)->contractor()->getParent()->name;
 
         return view('pages.contractors.details', [
@@ -258,9 +293,11 @@ class ContractorsController extends Controller
      */
     public function edit($id)
     {
+        // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
             $contractor = Contractor::find($id);
             $managers = User::where('group_id', '=', '2')->get();
+            // Статус контрагента
             $contractor_statuses = ContractorStatus::all();
             $regions = Region::all();
             $what_work = WhatWork::all();
@@ -290,6 +327,7 @@ class ContractorsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
             // Validate
             $this->validate($request, [
@@ -314,30 +352,40 @@ class ContractorsController extends Controller
             $contractor->region_id = $request->input('region_id');
             $contractor->user_id = $request->input('manager');
             $contractor->email = $request->input('email');
+            // Юридеский адрес
             $contractor->ur_address = $request->input('ur_address');
             $contractor->site_company = $request->input('site_company');
             $contractor->inn = $request->input('inn');
+            // Закреплен ли менеджер
             $contractor->assign_manager = $request->input('assign_manager');
+            // На чем работают
             $contractor->what_work_id = $request->input('what_work_id');
+            // Периодичность
             $contractor->periodicity_id = $request->input('periodicity_id');
+            // В каких объемах берут
             $contractor->take_amount = $request->input('take_amount');
+            // Адресс доставки
             $contractor->delivery_address = $request->input('delivery_address');
+            // Чья доставка
             $contractor->delivery = $request->input('delivery');
+            // Упаковка
             $contractor->packing_id = $request->input('packing_id');
+            // Номер контракта
             $contractor->contract_number = $request->input('contract_number');
+            // Есть ли контракт
             $contractor->contract_exist = $request->input('contract_exist');
             $contractor->comments = $request->input('comments');
+            // Статус контрагента
             $contractor->contractor_status_id = $request->input('contractor_status_id');
 
+            // Формирование строки телефонов
             $phones = '';
             foreach ($request->input('phone') as $phone) {
                 $phones .= $phone . "<br>";
             }
             $contractor->phone = $phones;
-
-            //dd($contractor);
-
             $contractor->save();
+
             return redirect('/contractors')->with('success', 'Данные об организации обновлены');
         } else {
             abort('401');
@@ -352,6 +400,7 @@ class ContractorsController extends Controller
      */
     public function destroy($id)
     {
+        // Если (суперадмин -- group_id = 0)
         if(!Auth()->user()->group_id) {
             $contractor = Contractor::find($id);
             $contractor->delete();

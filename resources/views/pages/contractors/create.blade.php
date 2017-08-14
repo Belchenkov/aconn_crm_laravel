@@ -3,13 +3,13 @@
 @section('content')
 
 <div class="row border-bottom white-bg dashboard-header">
-    <form action="/contractors/store" method="post">
+    <form action="{{route('contractors_add')}}" method="post">
 
     {{ csrf_field() }}
 
     <div class="row">
         <div class="col-md-7">
-            <a href="/contractors"  class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a><br><br>
+            <a href="{{route('contractors')}}"  class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a><br><br>
             <div class="ibox float-e-margins">
                 <h2>Основная информация</h2>
                 <div class="ibox-content">
@@ -49,7 +49,7 @@
                                 <input type="text"  min="0" max="999999999999" maxlength="12" class="form-control" value="{{old('inn')}}" name="inn">
                             </div>
 
-                            @if(count($managers) > 0)
+                            @if(!empty($managers))
                                 <div class="form-group col-md-6">
                                     <label>Менеджер</label>
                                     <select class="select2 form-control" name="manager" required="">
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
 
-                            @if(count($what_work) > 0)
+                            @if(!empty($what_work))
                                 <div class="form-group col-md-6">
                                     <label>На чём работают</label>
                                     <select class="form-control" name="what_work_id" required="">
@@ -85,7 +85,7 @@
                                 </div>
                             @endif
 
-                            @if(count($periodicity) > 0)
+                            @if(!empty($periodicity))
                                 <div class="form-group col-md-6">
                                     <label>Периодичность</label>
                                     <select class="form-control" name="periodicity_id" required="">
@@ -96,7 +96,7 @@
                                 </div>
                             @endif
 
-                            @if(count($packing) > 0)
+                            @if(!empty($packing))
                                 <div class="form-group col-md-6">
                                     <label>Упаковка</label>
                                     <select class="select2 form-control" required="" name="packing_id">
@@ -159,7 +159,7 @@
         </div>
         <div class="col-md-5">
 
-            @if(count($contractor_statuses) > 0)
+            @if(!empty($contractor_statuses))
                 <div class="ibox float-e-margins">
                     <h2>Статус</h2>
                     <div class="ibox-content">
@@ -179,7 +179,7 @@
                 <div class="ibox-content">
                     <input type="text" class="form-control" name="phone[]" required data-mask="+7 (999) 999-9999">
                     <div id="listPhones"></div>
-                    <a href="" class="btn btn-outline btn-success" style="margin-top: 10px;" onclick="add_phone();return false;"><i class="fa fa-plus"></i> Добавить телефон</a>
+                    <a href=""  class="btn btn-outline btn-success" style="margin-top: 10px;" onclick="add_phone();return false;"><i class="fa fa-plus"></i> Добавить телефон</a>
                 </div>
             </div>
             <div class="ibox float-e-margins">
@@ -189,7 +189,7 @@
                         <div id="listContacts" class="col-md-12"></div>
                     </div>
                     <div class="box-footer">
-                        <a href="" class="btn btn-outline btn-success" onclick="add_contact_person();return false;"><i class="fa fa-plus"></i> Добавить контактное лицо</a>
+                        <a href="" id="add-contact-person" class="btn btn-outline btn-success" onclick="add_contact_person();return false;"><i class="fa fa-plus"></i> Добавить контактное лицо</a>
                     </div>
                 </div>
             </div>

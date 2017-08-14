@@ -15,6 +15,7 @@ class WhatWorksController extends Controller
          */
     public function index()
     {
+        // Если (суперадмин -- group_id = 0)
         if(!Auth()->user()->group_id) {
 
             $what_works = WhatWork::where('id', '>', '1')->get();
@@ -29,16 +30,6 @@ class WhatWorksController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -46,6 +37,7 @@ class WhatWorksController extends Controller
      */
     public function store(Request $request)
     {
+        // Если (суперадмин -- group_id = 0)
         if(!Auth()->user()->group_id) {
 
             // Validate
@@ -70,17 +62,6 @@ class WhatWorksController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -88,6 +69,7 @@ class WhatWorksController extends Controller
      */
     public function edit($id)
     {
+        // Если (суперадмин -- group_id = 0)
         if(!Auth()->user()->group_id) {
 
             $what_works = WhatWork::find($id);
@@ -108,21 +90,24 @@ class WhatWorksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validate
-        $this->validate($request, [
-            'name' => 'required|max:255',
-        ],
-            $messages = array(
-                'required' => 'Поле :attribute обязательно',
-                'max' => 'Поле :attribute должно быть не более 255 символов'
-            )
-        );
+        // Если (суперадмин -- group_id = 0)
+        if(!Auth()->user()->group_id) {
+            // Validate
+            $this->validate($request, [
+                'name' => 'required|max:255',
+            ],
+                $messages = array(
+                    'required' => 'Поле :attribute обязательно',
+                    'max' => 'Поле :attribute должно быть не более 255 символов'
+                )
+            );
 
-        $what_work = WhatWork::find($id);
-        $what_work->name = $request->input('name');
-        $what_work->save();
+            $what_work = WhatWork::find($id);
+            $what_work->name = $request->input('name');
+            $what_work->save();
 
-        return redirect('/settings/what-works')->with('success', 'Запись отредактирована');
+            return redirect('/settings/what-works')->with('success', 'Запись отредактирована');
+        }
     }
 
     /**
@@ -133,12 +118,15 @@ class WhatWorksController extends Controller
      */
     public function destroy($id)
     {
+        // Если (суперадмин -- group_id = 0)
         if(!Auth()->user()->group_id) {
             $what_work = WhatWork::find($id);
+            // Контрагенты работающее с данным товаром
             $contractors_what_works = Contractor::where('what_work_id', '=', $id)->get();
 
             if (!empty($contractors_what_works)) {
                 foreach ($contractors_what_works as $item) {
+                    // Меняем на чем работают на отсутствует
                     $item->what_work_id = 1;
                     $item->save();
                 }

@@ -11,7 +11,11 @@
                         </div>
                         <div class="col-xs-8 text-right">
                             <span>Организации</span>
-                            <h2 class="font-bold">55</h2>
+                            <h2 class="font-bold">
+                                @if(!empty($count_contractors))
+                                    {{$count_contractors}}
+                                @endif
+                            </h2>
                         </div>
                     </div>
                 </div>
@@ -24,7 +28,7 @@
                         </div>
                         <div class="col-xs-8 text-right">
                             <span>Задачи в работе</span>
-                            <h2 class="font-bold">12</h2>
+                            <h2 class="font-bold">?</h2>
                         </div>
                     </div>
                 </div>
@@ -37,12 +41,12 @@
                         </div>
                         <div class="col-xs-8 text-right">
                             <span>Задачи на сегодня</span>
-                            <h2 class="font-bold">0</h2>
+                            <h2 class="font-bold">?</h2>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-7">
+            {{--<div class="col-md-7">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title"><h5>Мои задачи на сегодня</h5></div>
                     <div class="ibox-content">
@@ -69,7 +73,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--}}
         <br><br>
     </div>
 

@@ -1,4 +1,5 @@
 var checkRepeat = false;
+var count = 1;
 
 function add_contact_person() {
 	$('#listContacts').append('<div class="ibox float-e-margins">' +
@@ -75,6 +76,7 @@ function add_office() {
 $(".select2_cities").select2();
 
 $(document).ready(function() {
+
 	$("#newForm").submit(function () {
 		if (!checkRepeat) {
 			$.ajax({

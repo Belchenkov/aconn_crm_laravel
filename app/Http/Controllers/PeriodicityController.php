@@ -15,9 +15,10 @@ class PeriodicityController extends Controller
      */
     public function index()
     {
+        // Если суперадмин
         if(!Auth()->user()->group_id) {
 
-            $periodicity =   Periodicity::where('id', '>', '1')->get();
+            $periodicity = Periodicity::where('id', '>', '1')->get();
 
             return view('settings.periodicity.index', [
                 'periodicity' => $periodicity,
@@ -29,16 +30,6 @@ class PeriodicityController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -46,6 +37,7 @@ class PeriodicityController extends Controller
      */
     public function store(Request $request)
     {
+        // Если суперадмин
         if(!Auth()->user()->group_id) {
 
             // Validate
@@ -69,18 +61,7 @@ class PeriodicityController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
+     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -88,6 +69,7 @@ class PeriodicityController extends Controller
      */
     public function edit($id)
     {
+        // Если суперадмин
         if(!Auth()->user()->group_id) {
 
             $periodicity = Periodicity::find($id);
@@ -108,21 +90,24 @@ class PeriodicityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validate
-        $this->validate($request, [
-            'name' => 'required|max:255',
-        ],
-            $messages = array(
-                'required' => 'Поле :attribute обязательно',
-                'max' => 'Поле :attribute должно быть не более 255 символов'
-            )
-        );
+        // Если суперадмин
+        if(!Auth()->user()->group_id) {
+            // Validate
+            $this->validate($request, [
+                'name' => 'required|max:255',
+            ],
+                $messages = array(
+                    'required' => 'Поле :attribute обязательно',
+                    'max' => 'Поле :attribute должно быть не более 255 символов'
+                )
+            );
 
-        $periodicity = Periodicity::find($id);
-        $periodicity->name = $request->input('name');
-        $periodicity->save();
+            $periodicity = Periodicity::find($id);
+            $periodicity->name = $request->input('name');
+            $periodicity->save();
 
-        return redirect('/settings/periodicity')->with('success', 'Запись отредактирована');
+            return redirect('/settings/periodicity')->with('success', 'Запись отредактирована');
+        }
     }
 
     /**
@@ -133,11 +118,14 @@ class PeriodicityController extends Controller
      */
     public function destroy($id)
     {
+        // Если суперадмин
         if(!Auth()->user()->group_id) {
             $periodicity = Periodicity::find($id);
+            // Все контрагенты с удаляемой периодичностью
             $contractors_periodicity = Contractor::where('periodicity_id', '=', $id)->get();
 
             if (!empty($contractors_periodicity)) {
+                // Меняем на отсутствует у контрагентов с удаленной периодичностью
                 foreach ($contractors_periodicity as $item) {
                     $item->periodicity_id = 1;
                     $item->save();

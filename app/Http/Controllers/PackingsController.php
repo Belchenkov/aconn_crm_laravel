@@ -15,6 +15,7 @@ class PackingsController extends Controller
      */
     public function index()
     {
+        // Если суперадмин
         if(!Auth()->user()->group_id) {
 
             $packing = Packing::where('id', '>', '1')->get();
@@ -29,16 +30,6 @@ class PackingsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -46,6 +37,7 @@ class PackingsController extends Controller
      */
     public function store(Request $request)
     {
+        // Если суперадмин
         if(!Auth()->user()->group_id) {
 
             // Validate
@@ -70,17 +62,6 @@ class PackingsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -88,6 +69,7 @@ class PackingsController extends Controller
      */
     public function edit($id)
     {
+        // Если суперадмин
         if(!Auth()->user()->group_id) {
 
             $packing = Packing::find($id);
@@ -108,21 +90,24 @@ class PackingsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validate
-        $this->validate($request, [
-            'name' => 'required|max:255',
-        ],
-            $messages = array(
-                'required' => 'Поле :attribute обязательно',
-                'max' => 'Поле :attribute должно быть не более 255 символов'
-            )
-        );
+        // Если суперадмин
+        if(!Auth()->user()->group_id) {
+            // Validate
+            $this->validate($request, [
+                'name' => 'required|max:255',
+            ],
+                $messages = array(
+                    'required' => 'Поле :attribute обязательно',
+                    'max' => 'Поле :attribute должно быть не более 255 символов'
+                )
+            );
 
-        $packing = Packing::find($id);
-        $packing->name = $request->input('name');
-        $packing->save();
+            $packing = Packing::find($id);
+            $packing->name = $request->input('name');
+            $packing->save();
 
-        return redirect('/settings/packings')->with('success', 'Запись отредактирована');
+            return redirect('/settings/packings')->with('success', 'Запись отредактирована');
+        }
     }
 
     /**
@@ -133,11 +118,14 @@ class PackingsController extends Controller
      */
     public function destroy($id)
     {
+        // Если суперадмин
         if(!Auth()->user()->group_id) {
             $packing = Packing::find($id);
+            // Контрагенты ищеюмие данный тип упаковки
             $contractors_packing = Contractor::where('packing_id', '=', $id)->get();
 
             if (!empty($contractors_packing)) {
+                // Меняем тип упаковки на отсутствует у контрагентов с удаленной упаковкой
                 foreach ($contractors_packing as $item) {
                     $item->packing_id = 1;
                     $item->save();
