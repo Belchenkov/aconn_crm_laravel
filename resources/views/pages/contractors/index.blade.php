@@ -106,7 +106,7 @@
                                                                 @endif
                                                             </tr>
                                                         </thead>
-                                                        <tbody id="currentPage">
+                                                        <tbody {{--id="currentPage"--}}>
 
                                                         @if(!empty($contractors))
                                                             <?php $i = 0; ?>

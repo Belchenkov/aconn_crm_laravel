@@ -24,49 +24,32 @@
                                         <th></th>
                                     </tr>
                                     </thead>
-                                    <tbody><tr>
-                                        <td>1</td>
-                                        <td><a data-toggle="modal" href="#showprofile1">Василий Чураков </a></td>
-                                        <td>Администратор</td>
-                                        <td><span id="rus_group">администратор</span></td>
-                                        <td><a href="http://homestead.app/tasks/add/0/1" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a></td>
-                                    </tr><tr>
-                                        <td>2</td>
-                                        <td><a data-toggle="modal" href="#showprofile2">Роман Милованов</a></td>
-                                        <td>Директор</td>
-                                        <td><span id="rus_group">администратор</span></td>
-                                        <td><a href="http://homestead.app/tasks/add/0/2" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a></td>
-                                    </tr><tr>
-                                        <td>3</td>
-                                        <td><a data-toggle="modal" href="#showprofile3">Андрей Благовидов</a></td>
-                                        <td>Главный программист</td>
-                                        <td><span id="rus_group">администратор</span></td>
-                                        <td><a href="http://homestead.app/tasks/add/0/3" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a></td>
-                                    </tr><tr>
-                                        <td>4</td>
-                                        <td> <a href="http://homestead.app/users/log_in_user/4" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="" data-original-title="Зайти как пользователь"><i class="fa fa-exchange"></i></a> <a href="http://homestead.app/users/edit/4" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Редактировать"><i class="fa fa-edit"></i></a> <a data-toggle="modal" href="#showprofile4">Дмитрий Исайкин</a></td>
-                                        <td>Главный менеджер отдела продаж</td>
-                                        <td><span id="rus_group">менеджер</span></td>
-                                        <td><a href="http://homestead.app/tasks/add/0/4" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a></td>
-                                    </tr><tr>
-                                        <td>5</td>
-                                        <td> <a href="http://homestead.app/users/log_in_user/5" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="" data-original-title="Зайти как пользователь"><i class="fa fa-exchange"></i></a> <a href="http://homestead.app/users/edit/5" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Редактировать"><i class="fa fa-edit"></i></a> <a data-toggle="modal" href="#showprofile5">Второй Манагер</a></td>
-                                        <td>Менеджер отдела продаж</td>
-                                        <td><span id="rus_group">менеджер</span></td>
-                                        <td><a href="http://homestead.app/tasks/add/0/5" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a></td>
-                                    </tr><tr>
-                                        <td>6</td>
-                                        <td><a data-toggle="modal" href="#showprofile6"></a></td>
-                                        <td></td>
-                                        <td><span id="rus_group">администратор</span></td>
-                                        <td><a href="http://homestead.app/tasks/add/0/6" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a></td>
-                                    </tr><tr>
-                                        <td>7</td>
-                                        <td><a data-toggle="modal" href="#showprofile7">Алексей Бельченков</a></td>
-                                        <td></td>
-                                        <td><span id="rus_group">администратор</span></td>
-                                        <td><a href="http://homestead.app/tasks/add/0/7" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a></td>
-                                    </tr></tbody>
+                                    <tbody>
+                                        @if(!empty($employees_active))
+                                            <?php
+                                                $i = 1;
+                                            ?>
+                                            @foreach($employees_active as $employe)
+                                                <tr>
+                                                    <td>{{ $i++ }}</td>
+                                                    <td><a data-toggle="modal" href="#showprofile1">{{ $employe->fio }}</a></td>
+                                                    <td>{{ $employe->position }}</td>
+                                                    @if($employe->group_id == 0)
+                                                        <td><span id="rus_group">Администратор</span></td>
+                                                    @elseif($employe->group_id == 1)
+                                                        <td><span id="rus_group">Руководитель</span></td>
+                                                    @elseif($employe->group_id == 2)
+                                                         <td><span id="rus_group">Менеджер</span></td>
+                                                    @else
+                                                        <td><span id="rus_group">Сотрудник</span></td>
+                                                    @endif
+                                                    <td><a href="http://homestead.app/tasks/add/0/1" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a></td>
+                                                </tr>
+                                            @endforeach
+                                            @else
+                                                <tr><td colspan="5">Сотрудники не найдены</td></tr>
+                                        @endif
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -81,7 +64,31 @@
                                         <th>Группа</th>
                                     </tr>
                                     </thead>
-                                    <tbody><tr><td colspan="5">Сотрудники не найдены</td></tr></tbody>
+                                    <tbody>
+                                    @if(!empty($employees_dismiss) && count($employees_dismiss) > 0)
+                                        <?php
+                                            $i = 1;
+                                        ?>
+                                        @foreach($employees_dismiss as $employe)
+                                            <tr>
+                                                <td>{{ $i++ }}</td>
+                                                <td><a data-toggle="modal" href="#showprofile1">{{ $employe->fio }}</a></td>
+                                                <td>{{ $employe->position }}</td>
+                                                @if($employe->group_id == 0)
+                                                    <td><span id="rus_group">Администратор</span></td>
+                                                @elseif($employe->group_id == 1)
+                                                    <td><span id="rus_group">Руководитель</span></td>
+                                                @elseif($employe->group_id == 2)
+                                                    <td><span id="rus_group">Менеджер</span></td>
+                                                @else
+                                                    <td><span id="rus_group">Сотрудник</span></td>
+                                                @endif
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr><td colspan="5">Сотрудники не найдены</td></tr>
+                                    @endif
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
