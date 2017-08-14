@@ -31,6 +31,9 @@ Route::group(['prefix'=>'comments','middleware'=>'auth'], function() {
 
 Route::group(['prefix'=>'employees','middleware'=>'auth'], function() {
     Route::get('/', 'EmployeesController@index')->name('employees');
+    Route::get('/create', 'EmployeesController@create')->name('employees_create');
+    Route::get('/edit/{id}', 'EmployeesController@edit')->name('employees_edit');
+    Route::post('/edit/{id}', 'EmployeesController@update')->name('employees_update');
 });
 
 Route::group(['prefix'=>'tasks','middleware'=>'auth'], function() {

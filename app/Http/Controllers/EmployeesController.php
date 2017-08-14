@@ -18,4 +18,14 @@ class EmployeesController extends Controller
             'employees_dismiss' => $employees_dismiss
         ]);
     }
+
+    public function edit($id)
+    {
+        $employe = User::find($id);
+        //dd($employe_group);
+        return view('pages.employees.edit', [
+            'employe' => $employe,
+        ]);
+    }
+
 }

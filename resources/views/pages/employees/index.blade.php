@@ -28,23 +28,62 @@
                                         @if(!empty($employees_active))
                                             <?php
                                                 $i = 1;
+                                                $group = '';
                                             ?>
                                             @foreach($employees_active as $employe)
                                                 <tr>
                                                     <td>{{ $i++ }}</td>
-                                                    <td><a data-toggle="modal" href="#showprofile1">{{ $employe->fio }}</a></td>
+                                                    <td><a data-toggle="modal" href="#showprofile{{$employe->id}}">{{ $employe->fio }}</a></td>
                                                     <td>{{ $employe->position }}</td>
                                                     @if($employe->group_id == 0)
-                                                        <td><span id="rus_group">Администратор</span></td>
+                                                        <?php $group = 'Администратор'; ?>
+                                                        <td><span id="rus_group">{{$group}}</span></td>
                                                     @elseif($employe->group_id == 1)
-                                                        <td><span id="rus_group">Руководитель</span></td>
+                                                        <?php $group = 'Руководитель'; ?>
+                                                        <td><span id="rus_group">{{$group}}</span></td>
                                                     @elseif($employe->group_id == 2)
-                                                         <td><span id="rus_group">Менеджер</span></td>
+                                                        <?php $group = 'Менеджер'; ?>
+                                                         <td><span id="rus_group">{{$group}}</span></td>
                                                     @else
-                                                        <td><span id="rus_group">Сотрудник</span></td>
+                                                        <?php $group = 'Сотрудник'; ?>
+                                                        <td><span id="rus_group">{{$group}}</span></td>
                                                     @endif
-                                                    <td><a href="http://homestead.app/tasks/add/0/1" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a></td>
+                                                    <td><a href="" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a></td>
                                                 </tr>
+
+                                                {{-- Modal Window--}}
+                                                <div id="showprofile{{$employe->id}}" class="modal fade" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                <h4 class="modal-title" id="exampleModalLabel">Профиль {{ $employe->fio }}</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="form-group row">
+                                                                    <label class="col-lg-3 control-label">ФИО</label>
+                                                                    <div class="col-lg-9">{{ $employe->fio }}</div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-lg-3 control-label">Логин</label>
+                                                                    <div class="col-lg-9">{{ $employe->email }}</div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-lg-3 control-label">Должность</label>
+                                                                    <div class="col-lg-9">{{ $employe->position }}</div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-lg-3 control-label">Группа</label>
+                                                                    <div class="col-lg-9">{{$group}}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a href="{{ route('employees_edit', ['id' => $employe->id]) }}" class="btn btn-success">Редактировать</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             @endforeach
                                             @else
                                                 <tr><td colspan="5">Сотрудники не найдены</td></tr>
@@ -72,7 +111,7 @@
                                         @foreach($employees_dismiss as $employe)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td><a data-toggle="modal" href="#showprofile1">{{ $employe->fio }}</a></td>
+                                                <td><a data-toggle="modal" href="#showprofile{{$employe->id}}">{{ $employe->fio }}</a></td>
                                                 <td>{{ $employe->position }}</td>
                                                 @if($employe->group_id == 0)
                                                     <td><span id="rus_group">Администратор</span></td>
@@ -84,6 +123,38 @@
                                                     <td><span id="rus_group">Сотрудник</span></td>
                                                 @endif
                                             </tr>
+                                            {{-- Modal Window--}}
+                                            <div id="showprofile{{$employe->id}}" class="modal fade" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="exampleModalLabel">Профиль {{ $employe->fio }}</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group row">
+                                                                <label class="col-lg-3 control-label">ФИО</label>
+                                                                <div class="col-lg-9">{{ $employe->fio }}</div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-lg-3 control-label">Логин</label>
+                                                                <div class="col-lg-9">{{ $employe->email }}</div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-lg-3 control-label">Должность</label>
+                                                                <div class="col-lg-9">{{ $employe->position }}</div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-lg-3 control-label">Группа</label>
+                                                                <div class="col-lg-9">{{$group}}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a href="{{ route('employees_edit', ['id' => $employe->id]) }}" class="btn btn-success">Редактировать</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     @else
                                         <tr><td colspan="5">Сотрудники не найдены</td></tr>
