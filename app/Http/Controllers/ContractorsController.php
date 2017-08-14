@@ -334,7 +334,7 @@ class ContractorsController extends Controller
                 'name' => 'required|max:255',
                 'region_id' => 'required',
                 'inn' => 'max:12',
-                'phone' => 'required|unique:contractors|max:255',
+                'phone' => 'required',
                 'contract_number' => 'max:255'
             ],
                 $messages = array(

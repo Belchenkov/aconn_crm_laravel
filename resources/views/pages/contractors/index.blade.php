@@ -8,13 +8,14 @@
                     <div class="ibox-content">
                         <div class="box-body">
                             <div class="row">
+                                    {{-- Если (суперадмин, руководитель, менеджер)--}}
                                     @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                         <div class="col-md-3">
-                                            <a href="contractors/create" class="btn btn-success"><i class="fa fa-plus"></i> Добавить организацию</a><br>
+                                            <a href="{{route('contractors_add')}}" class="btn btn-success"><i class="fa fa-plus"></i> Добавить организацию</a><br>
                                         </div>
                                     @endif
 
-                                <form action="{{--http://homestead.app/contracting_parties/exportExcel--}}" method="POST" target="_blank">
+                                <form action="{{route('contractors_add')}}" method="POST" target="_blank">
                                     <div class="col-md-9" id="filters">
                                         @if(!empty($regions))
                                             <div class="col-md-4">
@@ -106,16 +107,17 @@
                                                                 @endif
                                                             </tr>
                                                         </thead>
-                                                        <tbody {{--id="currentPage"--}}>
+                                                        <tbody id="currentPage">
 
                                                         @if(!empty($contractors))
                                                             <?php $i = 0; ?>
                                                             @foreach($contractors as $contractor)
+                                                                {{-- Зашел не менеджер --}}
                                                                 @if(Auth()->user()->group_id != 2)
                                                                     <tr id="currentPage">
                                                                         <td>{{$i++}}</td>
                                                                         <td>
-                                                                            <a href="/contractors/details/{{$contractor->id}}">{{$contractor->name}}</a>
+                                                                            <a href="{{route('contractors_details', ['id' => $contractor->id])}}">{{$contractor->name}}</a>
                                                                         </td>
                                                                         {{--<td>{!! $contractor->phone !!}</td>--}}
                                                                         <td>
@@ -165,10 +167,9 @@
 
                                                                         @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                             <td>
-                                                                                <a href="/tasks/add/" class="btn btn-default btn-outline btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить задачу" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a>
-                                                                                <a href="/contractors/edit/{{$contractor->id}}" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a>
+                                                                                <a href="{{route('contractors_edit', ['id' => $contractor->id] )}}" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a>
                                                                                 @if(!Auth()->user()->group_id)
-                                                                                    <form action="/contractors/delete/{{$contractor->id}}" method="post" style="display: inline;">
+                                                                                    <form action="{{route('contractors_delete', ['id' => $contractor->id])}}" method="post" style="display: inline;">
                                                                                         {{ csrf_field() }}
                                                                                         <button class="btn btn-danger btn-bitbucket" onclick="return confirm('Удалить?')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button>
                                                                                     </form>
@@ -180,14 +181,14 @@
                                                             @endforeach
                                                         @endif
 
-                                                        {{-- if entered as manager --}}
+                                                        {{-- Если зашел как менеджер --}}
                                                         @if(!empty($manager_contractors))
                                                             @foreach($manager_contractors as $contractor)
                                                                 @if(Auth()->user()->group_id == 2)
                                                                     <tr>
                                                                         <td>{{$contractor->id}}</td>
                                                                         <td>
-                                                                            <a href="/contractors/details/{{$contractor->id}}">{{$contractor->name}}</a>
+                                                                            <a href="{{route('contractors_details', ['id' => $contractor->id] ) }}">{{$contractor->name}}</a>
                                                                         </td>
                                                                         {{--<td>{!! $contractor->phone !!}</td>--}}
                                                                         <td>
@@ -237,10 +238,9 @@
 
                                                                         @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                             <td>
-                                                                                <a href="/tasks/add/" class="btn btn-default btn-outline btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Добавить задачу" data-original-title="Добавить задачу"><i class="fa fa-plus"></i></a>
-                                                                                <a href="/contractors/edit/{{$contractor->id}}" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a>
+                                                                                <a href="{{route('contractors_edit', ['id', $contractor->id] )}}" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a>
                                                                                 @if(!Auth()->user()->group_id)
-                                                                                    <form action="/contractors/delete/{{$contractor->id}}" method="post" style="display: inline;">
+                                                                                    <form action="{{route('contractors_delete', ['id' => $contractor->id] )}}" method="post" style="display: inline;">
                                                                                         {{ csrf_field() }}
                                                                                         <button class="btn btn-danger btn-bitbucket" onclick="return confirm('Удалить?')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button>
                                                                                     </form>

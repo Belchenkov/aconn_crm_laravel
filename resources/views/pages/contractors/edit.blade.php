@@ -90,7 +90,7 @@
                                                 @foreach($what_work as $item)
                                                     <option
                                                             @if($item->id === $contractor->what_work_id)
-                                                            selected
+                                                                selected
                                                             @endif
                                                             value="{{$item->id}}">{{$item->name}}
                                                     </option>
@@ -143,18 +143,34 @@
 
                                     <div class="form-group col-md-12">
                                         <label>Номер договора</label>
-                                        <input type="text" min="1" class="form-control" value="{{$contractor->contract_number}}" name="contract_number">
+                                        <input type="text" min="1" disabled  class="contract_number form-control" value="{{$contractor->contract_number}}" name="contract_number">
                                     </div>
 
                                     <div class="form-group col-md-12">
                                         <label>Наличие договора</label><br>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="contract_yes" value="1" name="contract_exist">
+                                            <input class="contract_number_yes"
+                                                    type="radio"
+                                                    id="contract_yes"
+                                                    value="1"
+                                                    name="contract_exist"
+                                                    @if($contractor->contract_exist == 1)
+                                                        checked
+                                                    @endif
+                                            >
                                             <label for="contract_yes"> Да </label>
                                         </div>
                                         <br>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="contract_no" value="0" name="contract_exist">
+                                            <input  class="contract_number_no"
+                                                    type="radio"
+                                                    id="contract_no"
+                                                    value="0"
+                                                    name="contract_exist"
+                                                    @if($contractor->contract_exist !== 1)
+                                                        checked
+                                                    @endif
+                                            >
                                             <label for="contract_no"> Нет </label>
                                         </div>
                                     </div>
@@ -182,12 +198,28 @@
                                     <div class="form-group col-md-12">
                                         <label>Доставка</label><br>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="delivery_our" value="наша" name="delivery">
+                                            <input
+                                                    type="radio"
+                                                    id="delivery_our"
+                                                    value="наша"
+                                                    name="delivery"
+                                                    @if($contractor->delivery == 'наша')
+                                                        checked
+                                                    @endif
+                                            >
                                             <label for="delivery_our"> Наша </label>
                                         </div>
                                         <br>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="delivery_self" value="сам" name="delivery">
+                                            <input
+                                                    type="radio"
+                                                    id="delivery_self"
+                                                    value="сам"
+                                                    name="delivery"
+                                                    @if($contractor->delivery == 'сам')
+                                                        checked
+                                                    @endif
+                                            >
                                             <label for="delivery_self"> Сам </label>
                                         </div>
                                     </div>

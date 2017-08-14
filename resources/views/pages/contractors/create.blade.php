@@ -132,18 +132,29 @@
 
                             <div class="form-group col-md-6">
                                 <label>Номер договора</label>
-                                <input type="number" min="1" class="form-control" value="{{old('contract_number')}}" name="contract_number">
+                                <input type="text" class="contract_number form-control" value="{{old('contract_number')}}" name="contract_number">
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label>Наличие договора</label><br>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="contract_yes" value="1" name="contract_exist">
+                                    <input
+                                           type="radio"
+                                           id="contract_yes"
+                                           value="1"
+                                           name="contract_exist"
+                                           class="contract_number_yes"
+                                    >
                                     <label for="contract_yes"> Да </label>
                                 </div>
                                 <br>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="contract_no" value="0" name="contract_exist">
+                                    <input type="radio"
+                                           id="contract_no"
+                                           value="0"
+                                           name="contract_exist"
+                                           class="contract_number_no"
+                                    >
                                     <label for="contract_no"> Нет </label>
                                 </div>
                             </div>

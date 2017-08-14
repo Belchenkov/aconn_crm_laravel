@@ -9,9 +9,10 @@
                 <div class="ibox-content">
                     <div class="box-footer">
                         <a href="/contractors" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
+                        {{-- Если (админ, руководитель, менеджер) --}}
                         @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
-                            {{--<a href="/tasks/add" class="btn btn-default"><i class="fa fa-plus"></i> Добавить задачу</a>--}}
                             <a href="/contractors/edit/{{$contractor->id}}" class="btn btn-default"><i class="fa fa-edit"></i> Редактировать</a>
+                            {{-- Если админ - удалять могут только админы --}}
                             @if(!Auth()->user()->group_id)
                                 <form action="/contractors/delete/{{$contractor->id}}" method="post" style="display: inline;">
                                     {{ csrf_field() }}
@@ -171,11 +172,12 @@
                     <p>Организация добавлена</p>
                     <span class="vertical-date">
                         <?php
+                            // Разбиваем на время и дату
                             $date = explode(" ", $contractor->created_at);
                         ?>
-						<b><?= $date[1]; ?></b>
+						<b><?= $date[1]; // Время ?></b>
 						<i class="fa fa-clock-o"></i>
-                        <?= $date[0]; ?> <br/>
+                        <?= $date[0]; // Дата ?> <br/>
 					</span>
                 </div>
             </div>
