@@ -61,41 +61,88 @@ class ContractorsController extends Controller
         $region = Input::get('regions');
         $manager = Input::get('client_manager');
         $status = Input::get('status');
-
+        $what_works = Input::get('what_works');
+        //echo $what_works;
         // Если условие не первое
-        $is_not_first = false;
+        $and = false;
+        $where = false;
 
         $where = 'SELECT * FROM contractors';
         //$where .= 'region_id=' . $region;
         if ($region && $region !== 1) {
             $where .= ' WHERE region_id=' . $region;
-            $is_not_first = true;
-            echo $where;
+            $and = true;
+            //echo $where;
         }
 
         if ($manager && $manager !== 1) {
-            if ($is_not_first) {
+            if ($and) {
                 $where .= ' AND user_id=' . $manager;
-                echo $where;
+                //echo $where;
             } else {
                 $where .= ' WHERE user_id=' . $manager;
-                echo $where;
+                $and = true;
+                //echo $where;
             }
         }
 
         if ($status && $status !== 1) {
-            if ($is_not_first) {
-                $where .= ' AND contractor_statuses=' . $status;
-                echo $where;
+            if ($and) {
+                $where .= ' AND contractor_status_id=' . $status;
+                //echo $where;
             } else {
-                $where .= ' WHERE contractor_statuses=' . $status;
-                echo $where;
+                if ($where && $and) {
+                    $where .= ' AND contractor_status_id=' . $status;
+                    //echo $where;
+                } else {
+                    $where .= ' WHERE contractor_status_id=' . $status;
+                    $and = true;
+                    //echo $where;
+                }
+                //echo $where;
+            }
+        }
+
+        if ($what_works && $what_works !== 1) {
+            if ($and) {
+                $where .= ' AND what_work_id=' . $what_works;
+                //echo $where;
+            } else {
+                if ($where && $and) {
+                    $where .= ' AND what_work_id=' . $what_works;
+                    //echo $where;
+                } else {
+                    $where .= ' WHERE what_work_id=' . $what_works;
+                    $and = true;
+                    //echo $where;
+
+                }
+                //echo $where;
+            }
+        }
+
+        if ($search) {
+            if ($and) {
+                $where .= ' AND name LIKE \'%' . $search . '%\'';
+                //echo $where;
+            } else {
+                if ($where && $and) {
+                    $where .= ' AND name LIKE \'%' . $search . '%\'';
+                    //echo $where;
+                } else {
+                    $where .= ' WHERE name LIKE \'%' . $search . '%\'';
+                    $and = true;
+                    //echo $where;
+
+                }
+                //echo $where;
             }
         }
 
         //echo $where;
-        //$contractors = DB::select($where);
-        //echo json_encode($contractors);
+        $contractors = DB::select($where);
+        //echo $contractors;
+        echo json_encode($contractors);
 
 
         //echo $contractors;

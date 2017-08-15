@@ -56,7 +56,7 @@
 
                                         <div class="col-md-4">
                                             <b>На чем работают:</b>
-                                            <select class="select2 form-control" name="filter[]">
+                                            <select class="select2 form-control" name="filter[what_works]">
                                                 <option value="0" selected>Все</option>
                                                 @if(!empty($what_work))
                                                     @foreach($what_work as $item)

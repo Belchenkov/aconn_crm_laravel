@@ -7,34 +7,35 @@ function getPage(page) {
 	localStorage.setItem('orgDirections', $('select[name="filter[regions]"]').val());
 	localStorage.setItem('orgManager', $('select[name="filter[client_manager]"]').val());
 	localStorage.setItem('orgStatus', $('select[name="filter[status]"]').val());
+	localStorage.setItem('orgWhat_works', $('select[name="filter[what_works]"]').val());
     //console.log('search='+$('input[name="filter[search]"]').val()+'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()+'&client_manager='+$('select[name="filter[client_manager]"]').val()+'&status='+$('select[name="filter[status]"]').val());
 
-   /* $.ajax({
+    $.ajax({
 		type: 'GET',
 		url: '/contractors/post',
-		data: 'search='+$('input[name="filter[search]"]').val()+'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()+'&client_manager='+$('select[name="filter[client_manager]"]').val()+'&status='+$('select[name="filter[status]"]').val(),
+		data: 'search='+$('input[name="filter[search]"]').val()+'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()+'&client_manager='+$('select[name="filter[client_manager]"]').val()+'&status='+$('select[name="filter[status]"]').val()+'&what_works='+$('select[name="filter[what_works]"]').val(),
         success: function(data){
-            //data = JSON.parse(data);
+            data = JSON.parse(data);
             console.log(data);
-            /!*var table_row = '';
-            for (var i = 0; i < data.length; i++) {
+            var table_row = '';
+            /*for (var i = 0; i < data.length; i++) {
                 table_row += '<tr>' +
                                     '<td>' + (i+1) + '</td>' +
                                     '<td><a href="/contractors/details/' + data[i]['id'] + '">'+ data[i]['name'] +'</a></td>' +
                                     '<td>'+ data[i]['phone'] +'</td>' +
                             '</tr>';
                 //console.log(data[i]);
-            }*!/
+            }*/
 
             $('#pagination, #pagination2').bootpag({
 				'maxVisible': 5,
 				'total': data.allPage,
 				'page': data.currentPage
 			});
-			$('#currentPage').html(/!*table_row*!/);
+			$('#currentPage').html(table_row);
 			$('#pagination, #pagination2').show();
 		}
-	});*/
+	});
 }
 
 $(document).ready(function() {
@@ -54,6 +55,10 @@ $(document).ready(function() {
 		$('select[name="filter[status]"] option[value="' + localStorage.getItem('orgStatus') + '"]').attr('selected', 'true');
 		$('select[name="filter[status]"]').val(localStorage.getItem('orgStatus'));
 	}
+    if (localStorage.getItem('orgWhat_works')) {
+        $('select[name="filter[what_works]"] option[value="' + localStorage.getItem('orgWhat_works') + '"]').attr('selected', 'true');
+        $('select[name="filter[what_works]"]').val(localStorage.getItem('orgWhat_works'));
+    }
 	if (localStorage.getItem('orgManager')) {
 		$('select[name="filter[client_manager]"] option[value="' + localStorage.getItem('orgManager') + '"]').attr('selected', 'true');
 		$('select[name="filter[client_manager]"]').val(localStorage.getItem('orgManager'));
