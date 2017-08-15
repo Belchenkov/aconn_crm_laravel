@@ -27,11 +27,18 @@
                                     <div class="form-group col-md-12">
                                         @if(!empty($regions))
                                             <label>Регион</label>
-                                            <select class="form-control" name="region_id">
+                                            <select
+                                                    class="form-control"
+                                                    name="region_id"
+                                                    onmousedown="return(false)" onkeydown="return(false)"
+                                                    @if(Auth()->user()->group_id > 1 )
+                                                        readonly=""
+                                                    @endif
+                                            >
                                                 @foreach($regions as $region)
                                                     <option
                                                             @if($region->id === $contractor->region_id)
-                                                            selected
+                                                                selected
                                                             @endif
                                                             value="{{$region->id}}">{{$region->name}}
                                                     </option>
@@ -111,7 +118,13 @@
                                     <div class="form-group col-md-12">
                                         @if(!empty($managers))
                                             <label>Менеджер</label>
-                                            <select class="form-control" name="manager">
+                                            <select
+                                                    class="form-control"
+                                                    name="manager"
+                                                    @if(Auth()->user()->group_id > 1 )
+                                                        disabled
+                                                    @endif
+                                            >
                                                 @foreach($managers as $manager)
                                                     <option
                                                             @if($manager->id === $contractor->user_id)
@@ -128,6 +141,9 @@
                                         <br>
                                         <div class="checkbox checkbox-circle">
                                             <input id="assign_manager"
+                                                   @if(Auth()->user()->group_id > 1 )
+                                                        disabled
+                                                   @endif
                                                    type="checkbox"
                                                    name="assign_manager"
                                                    value="1"

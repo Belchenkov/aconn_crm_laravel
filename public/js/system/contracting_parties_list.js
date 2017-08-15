@@ -10,21 +10,22 @@ function getPage(page) {
 	localStorage.setItem('orgWhat_works', $('select[name="filter[what_works]"]').val());
     //console.log('search='+$('input[name="filter[search]"]').val()+'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()+'&client_manager='+$('select[name="filter[client_manager]"]').val()+'&status='+$('select[name="filter[status]"]').val());
 
+    /*
     $.ajax({
-		type: 'GET',
-		url: '/contractors/post',
-		data: 'search='+$('input[name="filter[search]"]').val()+'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()+'&client_manager='+$('select[name="filter[client_manager]"]').val()+'&status='+$('select[name="filter[status]"]').val()+'&what_works='+$('select[name="filter[what_works]"]').val(),
+        type: 'GET',
+        url: '/contractors/post',
+        data: 'search='+$('input[name="filter[search]"]').val()+'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()+'&client_manager='+$('select[name="filter[client_manager]"]').val()+'&status='+$('select[name="filter[status]"]').val()+'&what_works='+$('select[name="filter[what_works]"]').val(),
         success: function(data){
             data = JSON.parse(data);
-			//console.log(data);
+            //console.log(data);
             var table_row = '';
             for (var i = 0; i < data.length; i++) {
-            	var id = data[i]['id'];
+                var id = data[i]['id'];
                 //console.log(id);
-            	var name = data[i]['name'];
-            	var phone =  data[i]['phone'];
-            	var region_id = data[i]['region_id'];
-            	var user_id = data[i]['user_id'];
+                var name = data[i]['name'];
+                var phone =  data[i]['phone'];
+                var region_id = data[i]['region_id'];
+                var user_id = data[i]['user_id'];
 
                 table_row += '<tr>' +
                     '<td>' + (i+1) + '</td>' +
@@ -37,18 +38,18 @@ function getPage(page) {
                     '<td>'+ data[i]['periodicity_id'] +'</td>' +
                     '<td>'+ data[i]['packing_id'] +'</td>' +
                     '<td>'+
-                    	'<a href="contractors/edit/'+id+'" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a>' +
-                    	'<form action="contractors/delete/'+id+'" method="post" style="display: inline;">' +
-			            	'<button class="btn btn-danger btn-bitbucket" onclick="return confirm("Удалить?")" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button>' +
-                    	'</form>' +
-					'</td>' +
+                        '<a href="contractors/edit/'+id+'" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a>' +
+                        '<form action="contractors/delete/'+id+'" method="post" style="display: inline;">' +
+                            '<button class="btn btn-danger btn-bitbucket" onclick="return confirm("Удалить?")" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button>' +
+                        '</form>' +
+                    '</td>' +
                     '</tr>';
 
-                /*$.ajax({
+                $.ajax({
                     type: 'GET',
                     url: '/contractors/getParam',
                     data: 'region_id='+region_id+'&user_id='+user_id,
-					success: function (data) {
+                    success: function (data) {
                         data = JSON.parse(data);
                         //console.log(data);
 
@@ -56,10 +57,10 @@ function getPage(page) {
 
 
                     },
-					error: function (err) {
-						console.log(err);
+                    error: function (err) {
+                        console.log(err);
                     }
-				});*/
+                });
 
             }
 
@@ -71,7 +72,7 @@ function getPage(page) {
 			// $('#currentPage').html(table_row);
 			$('#pagination, #pagination2').show();
 		}
-	});
+	});*/
 }
 
 $(document).ready(function() {

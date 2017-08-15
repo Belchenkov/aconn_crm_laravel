@@ -236,7 +236,7 @@
 
                                                                            @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                                <td>
-                                                                                   <a href="{{route('contractors_edit', ['id', $contractor->id] )}}" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a>
+                                                                                   <a href="{{route('contractors_edit', ['id' => $contractor->id] )}}" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a>
                                                                                    @if(!Auth()->user()->group_id)
                                                                                        <form action="{{route('contractors_delete', ['id' => $contractor->id] )}}" method="post" style="display: inline;">
                                                                                            {{ csrf_field() }}

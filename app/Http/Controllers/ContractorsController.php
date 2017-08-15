@@ -354,7 +354,7 @@ class ContractorsController extends Controller
             // Validate
             $this->validate($request, [
                 'name' => 'required|max:255',
-                'region_id' => 'required',
+                //'region_id' => 'required',
                 'inn' => 'max:12',
                 'phone' => 'required',
                 'contract_number' => 'max:255'
@@ -367,7 +367,7 @@ class ContractorsController extends Controller
                     'string' => 'Поле :attribute должно быть строковым'
                 )
             );
-
+            dd($request);
             $contractor = Contractor::find($id);
 
             $contractor->name = $request->input('name');
