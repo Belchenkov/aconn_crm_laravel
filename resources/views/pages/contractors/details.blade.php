@@ -32,9 +32,15 @@
                 <div class="box-body">
                     <div class="row">
                         @if(!empty($contractor->phone))
+
                             <div class="form-group col-md-6">
-                                <label>Телефоны</label><br>
-                                {!! $contractor->phone !!}
+                                <div style="width: 160px">
+                                    <label>Телефоны</label><br>
+                                    <button class="copyButton btn btn-info" title="Копировать в буфер">
+                                        <i class="fa fa-copy"></i>
+                                    </button>
+                                    <span class="cont pull-right">{!! $contractor->phone !!}</span>
+                                </div>
                             </div>
                         @endif
 
@@ -47,8 +53,11 @@
 
                         <div class="form-group col-md-6">
                             <label>E-mail</label><br>
+                            <button  class="copyButton btn btn-info" title="Копировать в буфер">
+                                <i class="fa fa-copy"></i>
+                            </button>
                             @if (!empty($contractor->email))
-                                {{$contractor->email}}
+                                <span class="cont" style="margin-left: 3px"> {{$contractor->email}}</span>
                             @else
                                 Отсутствует
                             @endif

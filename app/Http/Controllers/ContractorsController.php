@@ -57,118 +57,93 @@ class ContractorsController extends Controller
 
     public function post()
     {
+        // Данные из фильтра
         $search = Input::get('search');
         $region = Input::get('regions');
         $manager = Input::get('client_manager');
         $status = Input::get('status');
         $what_works = Input::get('what_works');
-        //echo $what_works;
+
+        // Менеджеры -- group_id = 2
+        $managers = User::where('group_id', '=', '2')->get();
+
+        // Формируем строку запроса к базе с данными из фильтра
         // Если условие не первое
         $and = false;
         $where = false;
 
         $where = 'SELECT * FROM contractors';
-        //$where .= 'region_id=' . $region;
         if ($region && $region !== 1) {
             $where .= ' WHERE region_id=' . $region;
             $and = true;
-            //echo $where;
         }
 
         if ($manager && $manager !== 1) {
             if ($and) {
                 $where .= ' AND user_id=' . $manager;
-                //echo $where;
             } else {
                 $where .= ' WHERE user_id=' . $manager;
                 $and = true;
-                //echo $where;
             }
         }
 
         if ($status && $status !== 1) {
             if ($and) {
                 $where .= ' AND contractor_status_id=' . $status;
-                //echo $where;
             } else {
                 if ($where && $and) {
                     $where .= ' AND contractor_status_id=' . $status;
-                    //echo $where;
                 } else {
                     $where .= ' WHERE contractor_status_id=' . $status;
                     $and = true;
-                    //echo $where;
                 }
-                //echo $where;
             }
         }
 
         if ($what_works && $what_works !== 1) {
             if ($and) {
                 $where .= ' AND what_work_id=' . $what_works;
-                //echo $where;
             } else {
                 if ($where && $and) {
                     $where .= ' AND what_work_id=' . $what_works;
-                    //echo $where;
                 } else {
                     $where .= ' WHERE what_work_id=' . $what_works;
                     $and = true;
-                    //echo $where;
-
                 }
-                //echo $where;
             }
         }
 
         if ($search) {
             if ($and) {
                 $where .= ' AND name LIKE \'%' . $search . '%\'';
-                //echo $where;
             } else {
                 if ($where && $and) {
                     $where .= ' AND name LIKE \'%' . $search . '%\'';
-                    //echo $where;
                 } else {
                     $where .= ' WHERE name LIKE \'%' . $search . '%\'';
                     $and = true;
-                    //echo $where;
 
                 }
-                //echo $where;
             }
         }
+        //  Выполняем запрос
+        $contractors_filter = DB::select($where);
 
-        //echo $where;
-        $contractors = DB::select($where);
-        //echo $contractors;
-        echo json_encode($contractors);
-
-
-        //echo $contractors;
-
-        /*$contractors = Contractor::orderBy('id', 'desc')
-                                    ->where('region_id', '=', $region)
-                                    ->where('user_id', '=', $manager)
-                                    ->where('contractor_status_id', '=', $status)->get();*/
-        // Пользователи
-        $users = User::all();
-        // Менеджеры --  group_id = 2
-        $managers = User::where('group_id', '=', '2')->get();
-        // Статус контрагента
-        $contractor_statuses = ContractorStatus::all();
-        // Регионы
-        $regions = Region::where('id', '>', '1')->get();
-        // На чем работают
-        $what_work = WhatWork::all();
-        // Периодичность
-        $periodicity = Periodicity::all();
-        // Упаковка
-        $packing = Packing::all();
-        // Контрагенты принадлежащие текущему менеджеру
-        $manager_contractors = Contractor::where('user_id', '=', Auth()->user()->id)->get();
-
+        // Отдаем на клиент
+        echo json_encode($contractors_filter);
     }
+
+    public function getParam()
+    {
+        $region_id = Input::get('region_id');
+        $user_id = Input::get('user_id');
+
+        $region_id = Region::where('id', '=', $region_id)->get();
+
+
+        echo json_encode($region_id);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

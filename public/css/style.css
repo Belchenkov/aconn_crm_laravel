@@ -4059,9 +4059,13 @@ a.close-canvas-menu:hover {
   z-index: 2050 !important;
 }
 .spiner-example {
-  height: 200px;
-  padding-top: 70px;
+    height: 200px;
+    padding-top: 70px;
+    display: flex!important;
+    justify-content: center !important;
 }
+
+
 /* MARGINS & PADDINGS */
 .p-xxs {
   padding: 5px;
@@ -5983,9 +5987,9 @@ body.body-small .vote-icon {
  *
  */
 .sk-spinner-three-bounce.sk-spinner {
-  margin: 0 auto;
+  margin: 0 auto!important;
   width: 70px;
-  text-align: center;
+  text-align: center!important;
 }
 .sk-spinner-three-bounce div {
   width: 18px;
