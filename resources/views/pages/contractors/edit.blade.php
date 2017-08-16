@@ -30,8 +30,8 @@
                                             <select
                                                     class="form-control"
                                                     name="region_id"
-                                                    onmousedown="return(false)" onkeydown="return(false)"
                                                     @if(Auth()->user()->group_id > 1 )
+                                                        onmousedown="return(false)" onkeydown="return(false)"
                                                         readonly=""
                                                     @endif
                                             >
@@ -122,7 +122,8 @@
                                                     class="form-control"
                                                     name="manager"
                                                     @if(Auth()->user()->group_id > 1 )
-                                                        disabled
+                                                        onmousedown="return(false)" onkeydown="return(false)"
+                                                        readonly=""
                                                     @endif
                                             >
                                                 @foreach($managers as $manager)
@@ -137,12 +138,14 @@
                                             </select>
                                         @endif
                                     </div>
+
                                     <div class="form-group col-md-12">
                                         <br>
                                         <div class="checkbox checkbox-circle">
                                             <input id="assign_manager"
                                                    @if(Auth()->user()->group_id > 1 )
-                                                        disabled
+                                                   onclick="return(false)"
+                                                   readonly=""
                                                    @endif
                                                    type="checkbox"
                                                    name="assign_manager"
@@ -277,16 +280,15 @@
                                     <div class="form-group col-md-12">
                                         <div id="listPhones">
                                             @if (!empty($contractor->phone))
-
-                                                <?php $phones = explode('<br>', $contractor->phone); ?>
-
-                                                    @for ($i = 0; $i < count($phones); $i++)
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" name="phone[]" data-mask="+7 (999) 999-9999" value="{{$phones[$i]}}">
-                                                            <div class="input-group-addon"><a href="#" onclick="$(this).parent('.input-group-addon').parent('.input-group').remove(); return false;"><i class="fa fa-trash"></i></a></div>
-                                                        </div>
-                                                    @endfor
-
+                                                <?php
+                                                    $phones = explode('<br>', $contractor->phone);
+                                                ?>
+                                                @for ($i = 0; $i < count($phones); $i++)
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" name="phone[]" data-mask="+7 (999) 999-9999" value="{{$phones[$i]}}">
+                                                        <div class="input-group-addon"><a href="#" onclick="$(this).parent('.input-group-addon').parent('.input-group').remove(); return false;"><i class="fa fa-trash"></i></a></div>
+                                                    </div>
+                                                @endfor
                                             @endif
                                         </div>
                                         <a href="" class="btn btn-xs btn-outline btn-success" style="margin-top: 10px;" onclick="add_phone();return false;"><i class="fa fa-plus"></i> Добавить телефон</a>

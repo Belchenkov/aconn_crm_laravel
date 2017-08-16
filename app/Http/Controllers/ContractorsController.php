@@ -244,7 +244,7 @@ class ContractorsController extends Controller
             $phones = '';
 
             foreach ($request->input('phone') as $phone) {
-                $phones .= $phone . "<br>";
+                $phones .= $phone . " ";
             }
             $contractor->phone = $phones;
 
@@ -254,7 +254,7 @@ class ContractorsController extends Controller
             $contractor_id = $contractor->id;
             // Контактное лицо(-ца)
             $contacts = $request->input('contact');
-
+            //dd($contacts);
             foreach ($contacts as $item) {
                 $contact = new Contact();
 
@@ -265,14 +265,15 @@ class ContractorsController extends Controller
                 $contact->lpr = $item['lpr'];
                 $contact->comment = $item['comment'];
 
-                /*$phones_contacts = '';
-                dd($item);
+                $phones_contacts = '';
+                //dd($item['phones']);
                 foreach ($item['phones'] as $phone) {
                     $phones_contacts .=  $phone ."<br>";
                 }
                 $contact->phones = $phones_contacts;
-                dd($contact->phones);
-                */
+                //echo $contact->phones . "<br>";
+
+                //dd($contact);
                 $contact->save();
             }
 
@@ -349,6 +350,7 @@ class ContractorsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //dd($request);
         // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
             // Validate
@@ -367,7 +369,6 @@ class ContractorsController extends Controller
                     'string' => 'Поле :attribute должно быть строковым'
                 )
             );
-            dd($request);
             $contractor = Contractor::find($id);
 
             $contractor->name = $request->input('name');
@@ -406,7 +407,35 @@ class ContractorsController extends Controller
                 $phones .= $phone . "<br>";
             }
             $contractor->phone = $phones;
+
             $contractor->save();
+
+
+            if (!empty($request->input('contact'))) {
+                // ID сохраненного контрагента
+                $contractor_id = $contractor->id;
+                // Контактное лицо(-ца)
+                $contacts = $request->input('contact');
+
+                foreach ($contacts as $item) {
+                    $contact = new Contact();
+
+                    $contact->fio = $item['fio'];
+                    $contact->contractors_id = $contractor_id;
+                    $contact->position = $item['dolgnost'];
+                    $contact->email = $item['email'];
+                    $contact->lpr = $item['lpr'];
+                    $contact->comment = $item['comment'];
+
+                    $phones_contacts = '';
+                    foreach ($item['phones'] as $phone) {
+                        $phones_contacts .= $phone . "<br>";
+                    }
+                    $contact->phones = $phones_contacts;
+
+                    $contact->save();
+                }
+            }
 
             return redirect('/contractors')->with('success', 'Данные об организации обновлены');
         } else {
@@ -425,6 +454,9 @@ class ContractorsController extends Controller
         // Если (суперадмин -- group_id = 0)
         if(!Auth()->user()->group_id) {
             $contractor = Contractor::find($id);
+            $contacts = Contact::where('contractors_id', '=', $id);
+
+            $contacts->delete();
             $contractor->delete();
 
             return redirect('/contractors')->with('success', 'Организация удалена');

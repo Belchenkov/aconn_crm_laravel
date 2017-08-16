@@ -95,11 +95,11 @@ $(document).ready(function() {
 
 		var button = document.querySelectorAll('.copyButton');
 		for (var i = 0; i < button.length; i++) {
-			console.log(button[i]);
+			//console.log(button[i]);
 			button[i].addEventListener('click', function (el) {
-				var parent = el.target.parentNode;
-				console.log(parent);
-				var ta = parent.nextElementSibling;
+				var ta = el.target.parentNode;
+				//console.log(parent);
+				//var ta = parent.nextElementSibling;
                 //производим его выделение
                 var range = document.createRange();
                 range.selectNode(ta);
