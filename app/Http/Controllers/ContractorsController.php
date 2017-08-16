@@ -23,10 +23,6 @@ class ContractorsController extends Controller
      */
     public function index()
     {
-        // Контрагенты
-        $contractors = Contractor::orderBy('id', 'desc')->get();
-        // Пользователи
-        $users = User::all();
         // Менеджеры -- group_id = 2
         $managers = User::where('group_id', '=', '2')->get();
         // Статус контрагента
@@ -35,117 +31,17 @@ class ContractorsController extends Controller
         $regions = Region::where('id', '>', '1')->get();
         // На чем работают
         $what_work = WhatWork::all();
-        // Периодичность
-        $periodicity = Periodicity::all();
-        // Упаковка
-        $packing = Packing::all();
-        // Контрагенты принадлежащие текущему менеджеру
-        $manager_contractors = Contractor::where('user_id', '=', Auth()->user()->id)->get();
+
 
         return view('pages.contractors.index', [
-            'contractors' => $contractors,
-            'manager_contractors' => $manager_contractors,
             'managers' => $managers,
             'contractor_statuses' => $contractor_statuses,
             'regions' => $regions,
-            'users' => $users,
             'what_work' => $what_work,
-            'periodicity' => $periodicity,
-            'packing' => $packing,
         ]);
     }
 
-    public function post()
-    {
-        // Данные из фильтра
-        $search = Input::get('search');
-        $region = Input::get('regions');
-        $manager = Input::get('client_manager');
-        $status = Input::get('status');
-        $what_works = Input::get('what_works');
 
-        // Менеджеры -- group_id = 2
-
-        // Формируем строку запроса к базе с данными из фильтра
-        // Если условие не первое
-        $and = false;
-        $where = false;
-
-        $where = 'SELECT * FROM contractors';
-        if ($region && $region !== 1) {
-            $where .= ' WHERE region_id=' . $region;
-            $and = true;
-        }
-
-        if ($manager && $manager !== 1) {
-            if ($and) {
-                $where .= ' AND user_id=' . $manager;
-            } else {
-                $where .= ' WHERE user_id=' . $manager;
-                $and = true;
-            }
-        }
-
-        if ($status && $status !== 1) {
-            if ($and) {
-                $where .= ' AND contractor_status_id=' . $status;
-            } else {
-                if ($where && $and) {
-                    $where .= ' AND contractor_status_id=' . $status;
-                } else {
-                    $where .= ' WHERE contractor_status_id=' . $status;
-                    $and = true;
-                }
-            }
-        }
-
-        if ($what_works && $what_works !== 1) {
-            if ($and) {
-                $where .= ' AND what_work_id=' . $what_works;
-            } else {
-                if ($where && $and) {
-                    $where .= ' AND what_work_id=' . $what_works;
-                } else {
-                    $where .= ' WHERE what_work_id=' . $what_works;
-                    $and = true;
-                }
-            }
-        }
-
-        if ($search) {
-            if ($and) {
-                $where .= ' AND name LIKE \'' . $search . '%\'';
-            } else {
-                if ($where && $and) {
-                    $where .= ' AND name LIKE \'' . $search . '%\'';
-                } else {
-                    $where .= ' WHERE name LIKE \'' . $search . '%\'';
-                    $and = true;
-
-                }
-            }
-        }
-        //  Выполняем запрос
-        $where .= " ORDER BY id DESC";
-        $contractors_filter = DB::select($where);
-        $managers = User::where('group_id', '=', '2')->get();
-        $regions = Region::all();
-
-        // Отдаем на клиент
-        echo json_encode(array('managers' => $managers, 'contractors' => $contractors_filter, 'regions' => $regions));
-    }
-
-    public function getParam()
-    {
-        $region_id = Input::get('region_id');
-        $manager = Input::get('user_id');
-
-
-        $region_id = Region::where('id', '=', $region_id)->get();
-
-
-        echo json_encode($region_id);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -196,6 +92,7 @@ class ContractorsController extends Controller
     {
         // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
+
             // Validate
             $this->validate($request, [
                 'name' => 'required|unique:contractors|max:255',
@@ -353,13 +250,12 @@ class ContractorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //dd($request);
         // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
             // Validate
             $this->validate($request, [
                 'name' => 'required|max:255',
-                //'region_id' => 'required',
+                'region_id' => 'required',
                 'inn' => 'max:12',
                 'phone' => 'required',
                 'contract_number' => 'max:255'
@@ -467,5 +363,121 @@ class ContractorsController extends Controller
         else {
             abort(401);
         }
+    }
+    public function contractorsGetAjax()
+    {
+        // Данные из фильтра
+        $search = Input::get('search');
+        $region = Input::get('regions');
+        $manager = Input::get('client_manager');
+        $status = Input::get('status');
+        $what_works = Input::get('what_works');
+        $currentUserGroup = Input::get('currentUserGroup');
+        $currentUserID = Input::get('currentUserID');
+
+        // Формируем строку запроса к базе с данными из фильтра
+
+        // Если условие не первое
+        $and = false;
+        $where = false;
+
+        $where = 'SELECT * FROM contractors';
+
+        if ($currentUserGroup == 2) {
+            $where = 'SELECT * FROM contractors WHERE user_id='. $currentUserID;
+            $and = true;
+        }
+
+        if ($region && $region !== 1) {
+            if ($and) {
+                $where .= ' AND region_id=' . $region;
+            } else {
+                $where .= ' WHERE region_id=' . $region;
+                $and = true;
+            }
+        }
+
+        if ($currentUserGroup < 2) {
+            if ($manager && $manager !== 1) {
+                if ($and) {
+                    $where .= ' AND user_id=' . $manager;
+                } else {
+                    $where .= ' WHERE user_id=' . $manager;
+                    $and = true;
+                }
+            }
+        }
+
+        if ($currentUserGroup == 2) {
+            if ($manager && $manager !== 1) {
+                if ($and) {
+                    $where .= ' AND user_id=' . $manager;
+                } else {
+                    $where .= ' WHERE user_id=' . $manager;
+                    $and = true;
+                }
+            }
+        }
+
+
+        if ($status && $status !== 1) {
+            if ($and) {
+                $where .= ' AND contractor_status_id=' . $status;
+            } else {
+                if ($where && $and) {
+                    $where .= ' AND contractor_status_id=' . $status;
+                } else {
+                    $where .= ' WHERE contractor_status_id=' . $status;
+                    $and = true;
+                }
+            }
+        }
+
+        if ($what_works && $what_works !== 1) {
+            if ($and) {
+                $where .= ' AND what_work_id=' . $what_works;
+            } else {
+                if ($where && $and) {
+                    $where .= ' AND what_work_id=' . $what_works;
+                } else {
+                    $where .= ' WHERE what_work_id=' . $what_works;
+                    $and = true;
+                }
+            }
+        }
+
+        if ($search) {
+            if ($and) {
+                $where .= ' AND name LIKE \'' . $search . '%\'';
+            } else {
+                if ($where && $and) {
+                    $where .= ' AND name LIKE \'' . $search . '%\'';
+                } else {
+                    $where .= ' WHERE name LIKE \'' . $search . '%\'';
+                    $and = true;
+
+                }
+            }
+        }
+        //  Выполняем запрос
+        $where .= " ORDER BY id DESC";
+        $contractors_filter = DB::select($where);
+        $managers = User::where('group_id', '=', '2')->get();
+        $regions = Region::all();
+
+        // Отдаем на клиент
+        echo json_encode([
+            'managers' => $managers,
+            'contractors' => $contractors_filter,
+            'regions' => $regions,
+            'user' => $currentUserID
+        ]);
+    }
+
+    public function contractorsGetCurrentUser()
+    {
+        $currentUser = Auth()->user();
+
+        echo json_encode($currentUser);
     }
 }

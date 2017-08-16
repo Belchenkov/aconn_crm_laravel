@@ -8234,3 +8234,11 @@ body.md-skin {
 select[name="status"] {
 	margin: 10px 0;
 }
+
+.copyButton.fa.fa-copy {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #3875d7;
+    color: #fff;
+    border-radius: 4px;
+}

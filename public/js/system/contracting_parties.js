@@ -92,17 +92,26 @@ $(document).ready(function() {
     });
 
     // Модуль копирование текста
-
 		var button = document.querySelectorAll('.copyButton');
 		for (var i = 0; i < button.length; i++) {
 			//console.log(button[i]);
 			button[i].addEventListener('click', function (el) {
-				var ta = el.target.parentNode;
-				//console.log(parent);
-				//var ta = parent.nextElementSibling;
+				var elem = el.target;
+				//console.log(elem);
+				var ta = elem.nextElementSibling;
+                console.log(ta);
                 //производим его выделение
                 var range = document.createRange();
                 range.selectNode(ta);
+
+                try {
+                    // современный объект Selection
+                    window.getSelection().removeAllRanges();
+                } catch (e) {
+                    // для IE8-
+                    document.selection.empty();
+                }
+
                 window.getSelection().addRange(range);
 
                 //пытаемся скопировать текст в буфер обмена
@@ -115,6 +124,7 @@ $(document).ready(function() {
                 window.getSelection().removeAllRanges();
             });
 		}
+
 
 	$("#newForm").submit(function () {
 		if (!checkRepeat) {

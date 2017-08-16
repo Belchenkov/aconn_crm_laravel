@@ -31,13 +31,12 @@
             <div class="ibox-content">
                 <div class="box-body">
                     <div class="row">
+
                         @if(!empty($contractor->phone))
                             <div class="form-group col-md-6">
                                 <div style="width: 160px">
                                     <label>Телефоны</label><br>
-                                    <button class="copyButton btn btn-info" title="Копировать в буфер">
-                                        <i class="fa fa-copy"></i>
-                                    </button>
+                                    <i class="copyButton fa fa-copy" title="Копировать в буфер"></i>
                                     <span class="cont pull-right">{!! $contractor->phone !!}</span>
                                 </div>
                             </div>
@@ -54,9 +53,7 @@
                             <label>E-mail</label><br>
 
                             @if (!empty($contractor->email))
-                                <button  class="copyButton btn btn-info" title="Копировать в буфер">
-                                    <i class="fa fa-copy"></i>
-                                </button>
+                                <i class="copyButton fa fa-copy" style="cursor: pointer;" title="Копировать в буфер"></i>
                                 <span class="cont" style="margin-left: 3px"> {{$contractor->email}}</span>
                             @else
                                 Отсутствует

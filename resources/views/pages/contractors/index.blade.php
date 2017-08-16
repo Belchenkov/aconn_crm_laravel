@@ -43,7 +43,13 @@
 
                                         <div class="col-md-4">
                                             <b>Менеджер:</b>
-                                            <select class="select2 form-control" name="filter[client_manager]">
+                                            <select
+                                                    class="select2 form-control"
+                                                    name="filter[client_manager]"
+                                                    @if(Auth()->user()->group_id == 2 )
+                                                        disabled
+                                                    @endif
+                                            >
                                                 <option value="0" selected>Все</option>
                                                 @if(!empty($managers))
                                                     @foreach($managers as $manager)
@@ -103,6 +109,7 @@
                                                                 <th>Работают</th>
                                                                 <th>Периодичность</th>
                                                                 <th>Упаковка</th>--}}
+
                                                                 @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                     <th>Управление</th>
                                                                 @endif
@@ -259,7 +266,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
+                        <div id="pagination" style="display: block;"><ul class="pagination bootpag"><li data-lp="1" class="prev disabled"><a href="javascript:void(0);">«</a></li><li data-lp="1" class="active"><a href="javascript:void(0);">1</a></li><li data-lp="2"><a href="javascript:void(0);">2</a></li><li data-lp="2" class="next"><a href="javascript:void(0);">»</a></li></ul></div>
+
+                    </div>
                     </div>
                 </div>
             </div>
