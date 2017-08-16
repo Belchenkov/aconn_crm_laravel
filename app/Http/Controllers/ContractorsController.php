@@ -65,7 +65,6 @@ class ContractorsController extends Controller
         $what_works = Input::get('what_works');
 
         // Менеджеры -- group_id = 2
-        $managers = User::where('group_id', '=', '2')->get();
 
         // Формируем строку запроса к базе с данными из фильтра
         // Если условие не первое
@@ -115,28 +114,32 @@ class ContractorsController extends Controller
 
         if ($search) {
             if ($and) {
-                $where .= ' AND name LIKE \'%' . $search . '%\'';
+                $where .= ' AND name LIKE \'' . $search . '%\'';
             } else {
                 if ($where && $and) {
-                    $where .= ' AND name LIKE \'%' . $search . '%\'';
+                    $where .= ' AND name LIKE \'' . $search . '%\'';
                 } else {
-                    $where .= ' WHERE name LIKE \'%' . $search . '%\'';
+                    $where .= ' WHERE name LIKE \'' . $search . '%\'';
                     $and = true;
 
                 }
             }
         }
         //  Выполняем запрос
+        $where .= " ORDER BY id DESC";
         $contractors_filter = DB::select($where);
+        $managers = User::where('group_id', '=', '2')->get();
+        $regions = Region::all();
 
         // Отдаем на клиент
-        echo json_encode($contractors_filter);
+        echo json_encode(array('managers' => $managers, 'contractors' => $contractors_filter, 'regions' => $regions));
     }
 
     public function getParam()
     {
         $region_id = Input::get('region_id');
-        $user_id = Input::get('user_id');
+        $manager = Input::get('user_id');
+
 
         $region_id = Region::where('id', '=', $region_id)->get();
 

@@ -98,18 +98,19 @@
                                                                 <th>Телефон</th>
                                                                 <th>Регион</th>
                                                                 <th>Менеджер</th>
-                                                                <th>Закреплено</th>
+                                                                <th>Email</th>
+                                                                {{--<th>Закреплено</th>
                                                                 <th>Работают</th>
                                                                 <th>Периодичность</th>
-                                                                <th>Упаковка</th>
+                                                                <th>Упаковка</th>--}}
                                                                 @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                     <th>Управление</th>
                                                                 @endif
                                                             </tr>
                                                         </thead>
-                                                        <tbody {{--id="currentPage"--}}>
+                                                        <tbody id="currentPage">
 
-                                                       @if(!empty($contractors))
+                                                       <!--{{--@if(!empty($contractors))
                                                                <?php $i = 1; ?>
                                                                @foreach($contractors as $contractor)
                                                                    @if(Auth()->user()->group_id != 2)
@@ -248,7 +249,7 @@
                                                                        </tr>
                                                                    @endif
                                                                @endforeach
-                                                           @endif
+                                                           @endif--}}-->
                                                         </tbody>
 
                                                     </table>
