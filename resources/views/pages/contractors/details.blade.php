@@ -8,13 +8,13 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="box-footer">
-                        <a href="/contractors" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
+                        <a href="{{route('contractors')}}" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
                         {{-- Если (админ, руководитель, менеджер) --}}
                         @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
-                            <a href="/contractors/edit/{{$contractor->id}}" class="btn btn-default"><i class="fa fa-edit"></i> Редактировать</a>
+                            <a href="{{route('contractors_edit', ['contractor_id' => $contractor->id])}}" class="btn btn-default"><i class="fa fa-edit"></i> Редактировать</a>
                             {{-- Если админ - удалять могут только админы --}}
                             @if(!Auth()->user()->group_id)
-                                <form action="/contractors/delete/{{$contractor->id}}" method="post" style="display: inline;">
+                                <form action="{{route('contractors_delete', ['contractor_id' => $contractor->id])}}" method="post" style="display: inline;">
                                     {{ csrf_field() }}
                                     <button class="btn btn-danger" onclick="return confirm('Удалить?')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i> Удалить</button>
                                 </form>

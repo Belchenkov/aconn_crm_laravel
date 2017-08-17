@@ -20,7 +20,8 @@ Route::group(['prefix'=>'contractors','middleware'=>'auth'], function () {
     Route::post('/edit/{id}', 'ContractorsController@update')->name('contractors_update');
     Route::get('/details/{id}', 'ContractorsController@show')->name('contractors_details');
     Route::post('/store', 'ContractorsController@store')->name('contractors_store');
-    Route::put('/delete/{id}', 'ContractorsController@destroy')->name('contractors_delete');
+    //Route::post('/delete/{id}', 'ContractorsController@destroy')->name('contractors_delete');
+    Route::get('/delete/{id}', 'ContractorsController@destroy')->name('contractors_delete');
     Route::get('/contractorsGetCurrentUser', 'ContractorsController@contractorsGetCurrentUser')->name('contractors_contractorsGetCurrentUser');
 });
 

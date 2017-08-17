@@ -74,12 +74,15 @@ function getPage(page) {
 
                             }
                             //console.log(currentUserGroup);
+
                             if (currentUserGroup < 2) {
-                                var delete_btn = '<form action="contractors/delete/'+id+'" method="post" style="display: inline;">' +
-                                    '<input type="hidden" name="_method" value="PUT">' +
-                                    '<input type="hidden" name="_token" value="mdAwoNCFlWQHfaJXXRJIqQKXUolp6ZVdjH7BmpZI">' +
-                                    '<button class="btn btn-danger btn-bitbucket" onclick="return confirm(\'Удалить?\')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button>' +
-                                    '</form>';
+                                var delete_btn = '<a href="contractors/delete/'+id+'""><button class="btn btn-danger btn-bitbucket" onclick="return confirm(\'Удалить?\')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button></a>'
+                                    /*'<form action="contractors/delete/'+id+'" method="post" style="display: inline;">' +
+                                        '<input type="hidden" name="_method" value="POST">' +
+                                        '<input type="hidden" name="_token" value="1234:5ad02792a3285252e524ccadeeda3401">' +
+                                        '<button class="btn btn-danger btn-bitbucket" onclick="return confirm(\'Удалить?\')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button>' +
+                                    '</form>'*/
+                                ;
                             } else {
                                 delete_btn = '';
                             }

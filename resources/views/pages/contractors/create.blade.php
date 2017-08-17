@@ -190,7 +190,11 @@
                 <div class="ibox-content">
                     <input type="text" class="form-control" name="phone[]" required data-mask="+7 (999) 999-9999">
                     <div id="listPhones"></div>
-                    <a href="" class="btn btn-outline btn-success" style="margin-top: 10px;" onclick="add_phone();return false;"><i class="fa fa-plus"></i> Добавить телефон</a>
+                    <a href="" class="btn btn-outline btn-success" style="margin-top: 10px;"
+                       onclick="add_phone();return false;">
+                        <i class="fa fa-plus"></i>
+                        Добавить телефон
+                    </a>
                 </div>
             </div>
             <div class="ibox float-e-margins">

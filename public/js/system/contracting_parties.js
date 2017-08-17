@@ -54,7 +54,7 @@ function add_contact_person() {
 
 function add_phone() {
 	$('#listPhones').append('<div class="input-group">' +
-		'<input type="text" class="form-control" name="phones[]" data-mask="+7 (999) 999-9999">' +
+		'<input type="text" class="form-control" name="phone[]" data-mask="+7 (999) 999-9999">' +
 		'<div class="input-group-addon"><a href="#" onclick="$(this).parent(\'.input-group-addon\').parent(\'.input-group\').remove(); return false;"><i class="fa fa-trash"></i></a></div>' +
 	'</div>');
 }

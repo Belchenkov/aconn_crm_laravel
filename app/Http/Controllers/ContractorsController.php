@@ -141,41 +141,43 @@ class ContractorsController extends Controller
             // Статус контрагента
             $contractor->contractor_status_id = $request->input('contractor_status_id');
 
+            // Собираем телефоны в одну строку
             $phones = '';
-
             foreach ($request->input('phone') as $phone) {
-                $phones .= $phone . " ";
+                $phones .= $phone . "<br>";
             }
             $contractor->phone = $phones;
-
             $contractor->save();
 
             // ID сохраненного контрагента
             $contractor_id = $contractor->id;
-            // Контактное лицо(-ца)
-            $contacts = $request->input('contact');
-            //dd($contacts);
-            foreach ($contacts as $item) {
-                $contact = new Contact();
+            if (!empty($contacts)) {
+                // Контактное лицо(-ца)
+                $contacts = $request->input('contact');
+                //dd($contacts);
+                foreach ($contacts as $item) {
+                    $contact = new Contact();
 
-                $contact->fio = $item['fio'];
-                $contact->contractors_id = $contractor_id;
-                $contact->position = $item['dolgnost'];
-                $contact->email = $item['email'];
-                $contact->lpr = $item['lpr'];
-                $contact->comment = $item['comment'];
+                    $contact->fio = $item['fio'];
+                    $contact->contractors_id = $contractor_id;
+                    $contact->position = $item['dolgnost'];
+                    $contact->email = $item['email'];
+                    $contact->lpr = $item['lpr'];
+                    $contact->comment = $item['comment'];
 
-                $phones_contacts = '';
-                //dd($item['phones']);
-                foreach ($item['phones'] as $phone) {
-                    $phones_contacts .=  $phone ."<br>";
+                    $phones_contacts = '';
+                    //dd($item['phones']);
+                    foreach ($item['phones'] as $phone) {
+                        $phones_contacts .=  $phone ."<br>";
+                    }
+                    $contact->phones = $phones_contacts;
+                    //echo $contact->phones . "<br>";
+
+                    //dd($contact);
+                    $contact->save();
                 }
-                $contact->phones = $phones_contacts;
-                //echo $contact->phones . "<br>";
-
-                //dd($contact);
-                $contact->save();
             }
+
 
             return redirect('/contractors')->with('success', 'Организация добавлена');
         } else {
