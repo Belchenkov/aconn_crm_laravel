@@ -35,7 +35,16 @@
                                             @foreach($employees_active as $employe)
                                                 <tr>
                                                     <td>{{ $i++ }}</td>
-                                                    <td><a data-toggle="modal" href="#showprofile{{$employe->id}}">{{ $employe->fio }}</a></td>
+                                                    <td>
+                                                        <a data-toggle="modal" href="#showprofile{{$employe->id}}">
+                                                            @if (Auth()->user()->group_id == 0 && $employe->group_id == 2)
+                                                                <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="" data-original-title="Зайти как пользователь">
+                                                                    <i class="fa fa-exchange"></i>
+                                                                </a>
+                                                            @endif
+                                                            {{ $employe->fio }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $employe->position }}</td>
                                                     @if($employe->group_id == 0)
                                                         <?php $group = 'Администратор'; ?>
@@ -63,7 +72,14 @@
                                                             <div class="modal-body">
                                                                 <div class="form-group row">
                                                                     <label class="col-lg-3 control-label">ФИО</label>
-                                                                    <div class="col-lg-9">{{ $employe->fio }}</div>
+                                                                    <div class="col-lg-9">
+                                                                        @if (Auth()->user()->group_id == 0 && $employe->group_id == 2)
+                                                                            <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="" data-original-title="Зайти как пользователь">
+                                                                                <i class="fa fa-exchange"></i>
+                                                                            </a>
+                                                                        @endif
+                                                                        {{ $employe->fio }}
+                                                                    </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <label class="col-lg-3 control-label">Логин</label>
@@ -84,7 +100,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             @endforeach
                                         @else
                                             <tr><td colspan="5">Сотрудники не найдены</td></tr>
@@ -124,6 +139,7 @@
                                                     <td><span id="rus_group">Сотрудник</span></td>
                                                 @endif
                                             </tr>
+
                                             {{-- Modal Window--}}
                                             <div id="showprofile{{$employe->id}}" class="modal fade" aria-hidden="true">
                                                 <div class="modal-dialog">

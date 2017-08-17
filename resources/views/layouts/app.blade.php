@@ -20,6 +20,8 @@
     <link href="{{ asset('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/nouslider/jquery.nouislider.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/chosen/chosen.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/select2/select2.min.css') }}" rel="stylesheet">
@@ -216,6 +218,8 @@
     <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
     <script src="{{ asset('js/plugins/gritter/jquery.gritter.min.js') }}"></script>
     {{--<script src="{{ asset('js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>--}}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
     <script src="{{ asset('js/demo/sparkline-demo.js')}}"></script>
     <script src="{{ asset('js/plugins/sweetalert/sweetalert.min.js')}}"></script>

@@ -15,6 +15,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::group(['prefix'=>'contractors','middleware'=>'auth'], function () {
     Route::get('/', 'ContractorsController@index')->name('contractors');
     Route::get('/contractorsGetAjax', 'ContractorsController@contractorsGetAjax')->name('contractors_contractorsGetAjax');
+    Route::post('/contractorsGetAjax', 'ContractorsController@contractorsGetAjax')->name('contractors_contractorsGetAjax');
     Route::get('/create', 'ContractorsController@create')->name('contractors_add');
     Route::get('/edit/{id}', 'ContractorsController@edit')->name('contractors_edit');
     Route::post('/edit/{id}', 'ContractorsController@update')->name('contractors_update');

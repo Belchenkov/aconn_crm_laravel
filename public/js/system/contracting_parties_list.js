@@ -13,6 +13,24 @@ function getPage(page) {
 	// Запрос осуществляем только на странице /contractors
     if (window.location.pathname == '/contractors') {
 
+        //DataTables
+        /*$('#example').DataTable( {
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "/contractors/contractorsGetAjax",
+                "type": "POST"
+            },
+            "columns": [
+                { "data": "first_name" },
+                { "data": "last_name" },
+                { "data": "position" },
+                { "data": "office" },
+                { "data": "start_date" },
+                { "data": "salary" }
+            ]
+        } );*/
+
         // Получаем группу текущего пользователя
         $.ajax({
             type: 'GET',
@@ -22,7 +40,6 @@ function getPage(page) {
                 // Текущий пользователь
                 var currentUserGroup = data['group_id'];
                 var currentUserID = data['id'];
-
                 // Отправляем данные из фильтра
                 $.ajax({
                     type: 'GET',
@@ -36,52 +53,69 @@ function getPage(page) {
                     +'&currentUserGroup='+currentUserGroup
                     +'&currentUserID='+currentUserID,
                     success: function(data) {
-                        var contractors = data.contractors;
-                        var managers = data.managers;
-                        var regions = data.regions;
+                        console.log(data);
 
-                        var table_row = '';
+                        //DataTables
+                        $('#example').DataTable( {
+                            "ajax": {
+                                "url": "data/json.txt",
+                            },
+                            "columns": [
+                                { "data": "id" },
+                                { "data": "name" },
+                                { "data": "phone" },
+                                { "data": "region_id" },
+                                { "data": "user_id" },
+                                { "data": "email" },
+                            ],
+                        } );
 
-                        for (var i = 0; i < contractors.length; i++) {
-                            var id = contractors[i]['id'];
-                            var name = contractors[i]['name'];
-                            var phone =  contractors[i]['phone'];
-                            var region_id = contractors[i]['region_id'];
-                            var manager_id = contractors[i]['user_id'];
-                            var email = contractors[i]['email'];
+                         /*               var contractors = data.contractors;
+                                        var managers = data.managers;
+                                        var regions = data.regions;
 
-                            // Если email = null
-                            if (!email) {
-                                email = 'Отсутствует';
-                            }
+                                        var table_row = '';
 
-                            var manager = '';
-                            // Текущей менеджер
-                            for (var j = 0; j < managers.length; j++) {
-                                if (manager_id == managers[j]['id']) {
-                                    manager = managers[j]['fio'];
-                                    break;
-                                }
-                            }
+                                        for (var i = 0; i < contractors.length; i++) {
+                                            var id = contractors[i]['id'];
+                                            var name = contractors[i]['name'];
+                                            var phone =  contractors[i]['phone'];
+                                            var region_id = contractors[i]['region_id'];
+                                            var manager_id = contractors[i]['user_id'];
+                                            var email = contractors[i]['email'];
 
-                            var region = '';
-                            // Текущей регион
-                            for (var k = 0; k < regions.length; k++) {
-                                if (region_id == regions[k]['id'] ) {
-                                    region = regions[k]['name'];
-                                    break;
-                                }
+                                            // Если email = null
+                                            if (!email) {
+                                                email = 'Отсутствует';
+                                            }
 
-                            }
-                            //console.log(currentUserGroup);
+                                            var manager = '';
+                                            // Текущей менеджер
+                                            for (var j = 0; j < managers.length; j++) {
+                                                if (manager_id == managers[j]['id']) {
+                                                    manager = managers[j]['fio'];
+                                                    break;
+                                                }
+                                            }
 
-                            if (currentUserGroup < 2) {
-                                var delete_btn = '<a href="contractors/delete/'+id+'""><button class="btn btn-danger btn-bitbucket" onclick="return confirm(\'Удалить?\')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button></a>'
-                                    /*'<form action="contractors/delete/'+id+'" method="post" style="display: inline;">' +
-                                        '<input type="hidden" name="_method" value="POST">' +
-                                        '<input type="hidden" name="_token" value="1234:5ad02792a3285252e524ccadeeda3401">' +
-                                        '<button class="btn btn-danger btn-bitbucket" onclick="return confirm(\'Удалить?\')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button>' +
-                                    '</form>'*/
+                                            var region = '';
+                                            // Текущей регион
+                                            for (var k = 0; k < regions.length; k++) {
+                                                if (region_id == regions[k]['id'] ) {
+                                                    region = regions[k]['name'];
+                                                    break;
+                                                }
+
+                                            }
+                                            //console.log(currentUserGroup);
+
+                                            if (currentUserGroup < 2) {
+                                                var delete_btn = '<a href="contractors/delete/'+id+'""><button class="btn btn-danger btn-bitbucket" onclick="return confirm(\'Удалить?\')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button></a>'
+                                                    /!*'<form action="contractors/delete/'+id+'" method="post" style="display: inline;">' +
+                                                        '<input type="hidden" name="_method" value="POST">' +
+                                                        '<input type="hidden" name="_token" value="1234:5ad02792a3285252e524ccadeeda3401">' +
+                                                        '<button class="btn btn-danger btn-bitbucket" onclick="return confirm(\'Удалить?\')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button>' +
+                                                    '</form>';*!/
                                 ;
                             } else {
                                 delete_btn = '';
@@ -89,7 +123,7 @@ function getPage(page) {
 
                             // Формируем таблицу
                             table_row +=
-                                '<tr>' +
+                                '<tr data-num='+ (i+1) +' class="num">' +
                                 '<td>' + (i+1) + '</td>' +
                                 '<td><a href="/contractors/details/' + id + '">'+ name +'</a></td>' +
                                 '<td>'+ phone +'</td>' +
@@ -103,7 +137,7 @@ function getPage(page) {
                                 '</tr>';
                         }
                         $('#currentPage').html(table_row);
-
+*/
                     },
                     error: function (err) {
                         console.log(err);
@@ -119,7 +153,7 @@ function getPage(page) {
                 $('#pagination, #pagination2').show();
 
             }
-        }); // end $.ajax()
+        }); // end $.ajax()*/
 	}
 }
 
@@ -129,6 +163,7 @@ $(document).ready(function() {
 	}).on('page', function(event, num){
 		if ($.isNumeric(num)) getPage(num);
 	});
+
 	/*if (localStorage.getItem('orgSearch')) {
 		$('input[name="filter[search]"]').val(localStorage.getItem('orgSearch'));
 	}

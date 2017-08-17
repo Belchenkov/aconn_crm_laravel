@@ -132,7 +132,7 @@
 
                             <div class="form-group col-md-6">
                                 <label>Номер договора</label>
-                                <input type="text" class="contract_number form-control" value="{{old('contract_number')}}" name="contract_number">
+                                <input type="text" disabled="" class="contract_number form-control" value="{{old('contract_number')}}" name="contract_number">
                             </div>
 
                             <div class="form-group col-md-6">
@@ -152,6 +152,7 @@
                                     <input type="radio"
                                            id="contract_no"
                                            value="0"
+                                           checked="checked"
                                            name="contract_exist"
                                            class="contract_number_no"
                                     >

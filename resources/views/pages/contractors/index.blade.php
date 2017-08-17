@@ -87,7 +87,8 @@
                                 </div>
                             </div>
 
-                            <div id="pagination" style="display: block;"><ul class="pagination bootpag"><li data-lp="1" class="prev disabled"><a href="javascript:void(0);">«</a></li><li data-lp="1" class="active"><a href="javascript:void(0);">1</a></li><li data-lp="2"><a href="javascript:void(0);">2</a></li><li data-lp="2" class="next"><a href="javascript:void(0);">»</a></li></ul></div>
+                            {{--<div id="pagination" style="display: block;"><ul class="pagination bootpag"><li data-lp="1" class="prev disabled"><a href="javascript:void(0);">«</a></li><li data-lp="1" class="active"><a href="javascript:void(0);">1</a></li><li data-lp="2"><a href="javascript:void(0);">2</a></li><li data-lp="2" class="next"><a href="javascript:void(0);">»</a></li></ul></div>--}}
+
 
                             <div class="wrapper wrapper-content animated fadeInRight">
                                 <div class="row">
@@ -96,7 +97,7 @@
                                             <div class="ibox-content">
 
                                                 <div class="table-responsive" >
-                                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                    <table id="example" class="display table table-striped table-bordered table-hover dataTables-example" >
                                                         <thead>
                                                             <tr>
                                                                 <th>ID</th>
@@ -105,18 +106,12 @@
                                                                 <th>Регион</th>
                                                                 <th>Менеджер</th>
                                                                 <th>Email</th>
-                                                                {{--<th>Закреплено</th>
-                                                                <th>Работают</th>
-                                                                <th>Периодичность</th>
-                                                                <th>Упаковка</th>--}}
-
                                                                 @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                     <th>Управление</th>
                                                                 @endif
                                                             </tr>
                                                         </thead>
                                                         <tbody id="currentPage">
-
                                                        <!--{{--@if(!empty($contractors))
                                                                <?php $i = 1; ?>
                                                                @foreach($contractors as $contractor)
@@ -266,9 +261,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                        <div id="pagination" style="display: block;"><ul class="pagination bootpag"><li data-lp="1" class="prev disabled"><a href="javascript:void(0);">«</a></li><li data-lp="1" class="active"><a href="javascript:void(0);">1</a></li><li data-lp="2"><a href="javascript:void(0);">2</a></li><li data-lp="2" class="next"><a href="javascript:void(0);">»</a></li></ul></div>
-
+                        {{--<div id="pagination" style="display: block;"><ul class="pagination bootpag"><li data-lp="1" class="prev disabled"><a href="javascript:void(0);">«</a></li><li data-lp="1" class="active"><a href="javascript:void(0);">1</a></li><li data-lp="2"><a href="javascript:void(0);">2</a></li><li data-lp="2" class="next"><a href="javascript:void(0);">»</a></li></ul></div>--}}
                     </div>
                     </div>
                 </div>

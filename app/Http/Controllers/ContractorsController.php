@@ -41,8 +41,6 @@ class ContractorsController extends Controller
         ]);
     }
 
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -177,7 +175,6 @@ class ContractorsController extends Controller
                     $contact->save();
                 }
             }
-
 
             return redirect('/contractors')->with('success', 'Организация добавлена');
         } else {
@@ -466,6 +463,12 @@ class ContractorsController extends Controller
         $contractors_filter = DB::select($where);
         $managers = User::where('group_id', '=', '2')->get();
         $regions = Region::all();
+
+        $data = json_encode( [
+            'data' => $contractors_filter,
+        ]);
+
+        file_put_contents('data/json.txt', $data);
 
         // Отдаем на клиент
         echo json_encode([
