@@ -18,7 +18,7 @@
                             @if(!empty($regions))
                                 <div class="form-group col-md-4">
                                     <label>Регион</label>
-                                    <select class="form-control" required="" name="region_id" >
+                                    <select class="form-control select2" required="" name="region_id" >
                                         <option value="">Не выбран</option>
                                         @foreach($regions as $region)
                                             <option value="{{$region->id}}">{{$region->name}}</option>
@@ -55,7 +55,7 @@
                                     <select class="select2 form-control" name="manager" required="">
                                         @foreach($managers as $manager)
                                             <option
-                                                    @if($manager->id === 10)
+                                                    @if($manager->id == 1)
                                                         selected
                                                     @endif
                                                     value="{{$manager->id}}">{{$manager->fio}}</option>
@@ -77,7 +77,7 @@
                             @if(!empty($what_work))
                                 <div class="form-group col-md-6">
                                     <label>На чём работают</label>
-                                    <select class="form-control" name="what_work_id" required="">
+                                    <select class="select2 form-control" name="what_work_id" required="">
                                             @foreach($what_work as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
@@ -88,7 +88,7 @@
                             @if(!empty($periodicity))
                                 <div class="form-group col-md-6">
                                     <label>Периодичность</label>
-                                    <select class="form-control" name="periodicity_id" required="">
+                                    <select class="select2 form-control" name="periodicity_id" required="">
                                         @foreach($periodicity as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
@@ -175,7 +175,7 @@
                     <h2>Статус</h2>
                     <div class="ibox-content">
                         <div class="box-body" id="status">
-                            <select class="form-control" required="" name="contractor_status_id">
+                            <select class="form-control select2" required="" name="contractor_status_id">
                                 @foreach($contractor_statuses as $contractor_status)
                                     <option value="{{$contractor_status->id}}">{{$contractor_status->name}}</option>
                                 @endforeach
@@ -190,7 +190,7 @@
                 <div class="ibox-content">
                     <input type="text" class="form-control" name="phone[]" required data-mask="+7 (999) 999-9999">
                     <div id="listPhones"></div>
-                    <a href=""  class="btn btn-outline btn-success" style="margin-top: 10px;" onclick="add_phone();return false;"><i class="fa fa-plus"></i> Добавить телефон</a>
+                    <a href="" class="btn btn-outline btn-success" style="margin-top: 10px;" onclick="add_phone();return false;"><i class="fa fa-plus"></i> Добавить телефон</a>
                 </div>
             </div>
             <div class="ibox float-e-margins">

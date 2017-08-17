@@ -24,11 +24,17 @@
                                     <tr>
                                         <td> {{$i++}}</td>
                                         <td>
-                                            <a href="what-works/edit/{{$what_work->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
+                                            <a href="{{route('what-works_edit', ['what-works_edit' => $what_work->id])}}"
+                                               class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right"
+                                               title="Редактировать" data-original-title="Редактировать"
+                                            >
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             @if(!Auth()->user()->group_id)
-                                                <form action="what-works/delete/{{$what_work->id}}" method="post" style="display: inline;">
+                                                <form action="{{ route('what-works_destroy', ['what_work->id' => $what_work->id]) }}"
+                                                      method="post"
+                                                      style="display: inline;"
+                                                >
                                                     {{ csrf_field() }}
                                                     <button onclick="return confirm('Удалить?')" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
                                                         <i class="fa fa-trash"></i>

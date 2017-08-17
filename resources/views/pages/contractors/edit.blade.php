@@ -66,7 +66,7 @@
 
                                     <div class="form-group col-md-12">
                                         <label>ИНН</label>
-                                        <input type="text" class="form-control" name="inn" value="{{$contractor->inn}}" placeholder="ИНН">
+                                        <input type="text"  min="0" max="999999999999" maxlength="12" class="form-control" name="inn" value="{{$contractor->inn}}" placeholder="ИНН">
                                     </div>
 
                                     @if(!empty($packing))

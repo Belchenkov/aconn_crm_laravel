@@ -94,13 +94,11 @@ $(document).ready(function() {
     // Модуль копирование текста
 		var button = document.querySelectorAll('.copyButton');
 		for (var i = 0; i < button.length; i++) {
-			//console.log(button[i]);
 			button[i].addEventListener('click', function (el) {
 				var elem = el.target;
-				//console.log(elem);
 				var ta = elem.nextElementSibling;
-                console.log(ta);
-                //производим его выделение
+
+				//производим его выделение
                 var range = document.createRange();
                 range.selectNode(ta);
 

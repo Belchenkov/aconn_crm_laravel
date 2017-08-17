@@ -4,7 +4,7 @@
     <div class="row  border-bottom white-bg dashboard-header">
         <div class="ibox float-e-margins col-md-6">
             <div class="ibox-content">
-                <form action="" method="post">
+                <form action="{{route('regions_update', ['region_id' => $region->id])}}" method="post">
                     {{csrf_field()}}
                     <div class="box-body">
                         @if(!empty($region))
@@ -16,11 +16,10 @@
                         @if(!empty($managers))
                             <label>Менеджер</label>
                             <select class="form-control" name="manager">
-                                <option value="0">Не выбран</option>
                                 @foreach($managers as $manager)
                                     <option
                                             @if($manager->id === $region->user_id)
-                                            selected
+                                                selected
                                             @endif
                                             value="{{$manager->id}}">
                                         {{$manager->fio}}
@@ -31,7 +30,7 @@
                     </div>
                     <br><br>
                     <div class="box-footer">
-                        <a href="/settings/regions" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
+                        <a href="{{route('regions')}}" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Сохранить</button>
                     </div>
                 </form>

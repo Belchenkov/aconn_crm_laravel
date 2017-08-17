@@ -4,7 +4,7 @@
     <div class="row  border-bottom white-bg dashboard-header">
         <div class="ibox float-e-margins col-md-6">
             <div class="ibox-content">
-                <form action="/settings/what-works/edit/{{$what_works->id}}" method="post">
+                <form action="{{route('what-works_update', ['what_works->id' => $what_works->id])}}" method="post">
                     {{ csrf_field() }}
                     <div class="box-body">
                         <div class="form-group">
@@ -13,7 +13,7 @@
                         </div>
                     </div>
                     <div class="box-footer">
-                        <a href="/settings/what-works" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
+                        <a href="{{route('what-works')}}" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Сохранить</button>
                     </div>
                 </form>

@@ -10,7 +10,9 @@
                     </div>
                     <div class="ibox-content">
                         <div class="panel-body">
-                            <table id="users" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="contacts_info">
+                            <table id="users" class="table table-bordered table-striped dataTable" role="grid"
+                                   aria-describedby="contacts_info"
+                            >
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -24,13 +26,22 @@
                                     <tr>
                                         <td> {{$i++}}</td>
                                         <td>
-                                            <a href="periodicity/edit/{{$item->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
+                                            <a href="{{route('periodicity_edit', ['item->id' => $item->id])}}"
+                                               class="btn btn-white btn-bitbucket"
+                                               data-toggle="tooltip" data-placement="right" title="Редактировать"
+                                               data-original-title="Редактировать"
+                                            >
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             @if(!Auth()->user()->group_id)
-                                                <form action="periodicity/delete/{{$item->id}}" method="post" style="display: inline;">
+                                                <form action="{{route('periodicity_destroy', ['item->id' => $item->id])}}"
+                                                      method="post" style="display: inline;"
+                                                >
                                                     {{ csrf_field() }}
-                                                    <button onclick="return confirm('Удалить?')" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
+                                                    <button onclick="return confirm('Удалить?')" class="btn btn-white btn-bitbucket"
+                                                            data-toggle="tooltip" data-placement="right" title="Удалить"
+                                                            data-original-title="Удалить"
+                                                    >
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                     {{$item->name}}
@@ -39,7 +50,6 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
                                 </tbody>
                             </table>
                         </div>
@@ -53,7 +63,7 @@
                         <h5>Добавить</h5>
                     </div>
                     <div class="ibox-content">
-                        <form action="periodicity/create" method="post">
+                        <form action="{{route('periodicity_store')}}" method="post">
                             {{csrf_field()}}
                             <div class="box-body">
                                 <div class="form-group">

@@ -1,6 +1,6 @@
 function getPage(page) {
 	$('#pagination, #pagination2').hide();
-	 $('#currentPage').html('<div class="spiner-example"><div class="sk-spinner sk-spinner-three-bounce" style="text-align: center"><div class="sk-bounce1"></div><div class="sk-bounce2"></div><div class="sk-bounce3"></div></div></div>');
+	 // $('#currentPage').html('<div class="spiner-example"><div class="sk-spinner sk-spinner-three-bounce" style="text-align: center"><div class="sk-bounce1"></div><div class="sk-bounce2"></div><div class="sk-bounce3"></div></div></div>');
 	/* Сохраняем значения фильтров и номер страницы*/
 	localStorage.setItem('orgSearch', $('input[name="filter[search]"]').val());
 	localStorage.setItem('orgPage', page);
@@ -10,7 +10,7 @@ function getPage(page) {
 	localStorage.setItem('orgWhat_works', $('select[name="filter[what_works]"]').val());
     //console.log('search='+$('input[name="filter[search]"]').val()+'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()+'&client_manager='+$('select[name="filter[client_manager]"]').val()+'&status='+$('select[name="filter[status]"]').val());
 
-	// Запрос осуществляем только на /contractors
+	// Запрос осуществляем только на странице /contractors
     if (window.location.pathname == '/contractors') {
 
         // Получаем группу текущего пользователя
@@ -77,7 +77,7 @@ function getPage(page) {
                             if (currentUserGroup < 2) {
                                 var delete_btn = '<form action="contractors/delete/'+id+'" method="post" style="display: inline;">' +
                                     '<input type="hidden" name="_method" value="PUT">' +
-                                    '<input type="hidden" name="_token" value="mdANoNCFlWQHfaJXXRJIqQKXUolp6ZVdjH7BmpZI">' +
+                                    '<input type="hidden" name="_token" value="mdAwoNCFlWQHfaJXXRJIqQKXUolp6ZVdjH7BmpZI">' +
                                     '<button class="btn btn-danger btn-bitbucket" onclick="return confirm(\'Удалить?\')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button>' +
                                     '</form>';
                             } else {

@@ -12,9 +12,9 @@ class EmployeesController extends Controller
     public function index()
     {
         // Активные сотрудники
-        $employees_active = User::where('id', '<>', 10)->where('status', '=', '1')->get();
+        $employees_active = User::where('id', '<>', 1)->where('status', '=', '1')->get();
         // Уволенные сотрудники
-        $employees_dismiss = User::where('id', '<>', 10)->where('status', '=', '0')->get();
+        $employees_dismiss = User::where('id', '<>', 1)->where('status', '=', '0')->get();
 
         return view('pages.employees.index', [
             'employees_active' => $employees_active,

@@ -36,7 +36,9 @@
                             <div class="form-group col-md-6">
                                 <div style="width: 160px">
                                     <label>Телефоны</label><br>
-                                    <i class="copyButton fa fa-copy" title="Копировать в буфер"></i>
+                                    <i class="copyButton fa fa-copy"
+                                      title="Копировать в буфер"
+                                    ></i>
                                     <span class="cont pull-right">{!! $contractor->phone !!}</span>
                                 </div>
                             </div>
@@ -53,8 +55,10 @@
                             <label>E-mail</label><br>
 
                             @if (!empty($contractor->email))
-                                <i class="copyButton fa fa-copy" style="cursor: pointer;" title="Копировать в буфер"></i>
-                                <span class="cont" style="margin-left: 3px"> {{$contractor->email}}</span>
+                                <i class="copyButton fa fa-copy"
+                                   title="Копировать в буфер"
+                                ></i>
+                                <span class="cont" style="margin-left: 15px"> {{$contractor->email}}</span>
                             @else
                                 Отсутствует
                             @endif
@@ -113,50 +117,51 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <div class="box-body row">
+                            @if (!empty($contact->fio))
                             <input type="text" value="3" name="contact[0][id]" class="hidden">
-                            <div class="form-group col-md-6">
-                                @if (!empty($contact->fio))
-                                    <h4>{{$contact->fio}} </h4>
-                                @else
-                                    Отсутствует
-                                @endif
+                                <div class="form-group col-md-6">
+                                    @if (!empty($contact->fio))
+                                        <h4>{{$contact->fio}} </h4>
+                                    @endif
 
-                                @if (!empty($contact->position))
-                                    <p>{{$contact->position}} </p>
-                                @else
-                                    Отсутствует
-                                @endif
+                                    @if (!empty($contact->position))
+                                        <p>{{$contact->position}} </p>
+                                    @endif
 
-                                @if (!empty($contact->comment))
-                                    <p>{{$contact->comment}} </p>
-                                @else
-                                    Отсутствует
-                                @endif
-                            </div>
+                                    @if (!empty($contact->comment))
+                                        <p>{{$contact->comment}} </p>
+                                    @endif
+                                </div>
 
-                            <div class="form-group col-md-6">
-                                @if ($contact->lpr == 1)
-                                    <span class="label label-danger pull-right"> ЛПР </span>
-                                @endif
+                                <div class="form-group col-md-6">
+                                    @if ($contact->lpr == 1)
+                                        <span class="label label-danger pull-right"> ЛПР </span>
+                                    @endif
 
-                                @if (!empty($contact->phones))
-                                    <p>{!! $contact->phones !!} </p>
-                                @else
-                                    Отсутствует
-                                @endif
+                                    @if (!empty($contact->phones) && count($contact->phones) > 0 && $contact->phones != '<br>')
+                                        <div style="width: 160px; margin-bottom: 30px;">
+                                            <i class="copyButton fa fa-copy"
+                                              title="Копировать в буфер"
+                                            ></i>
+                                            <div class="cont pull-right">{!! $contact->phones !!}</div>
+                                        </div>
+                                    @endif
 
-                                @if (!empty($contact->email))
-                                    <p>{{$contact->email}} </p>
-                                @else
-                                    Отсутствует
-                                @endif
-                            </div>
+                                    @if (!empty($contact->email))
+                                        <i class="copyButton fa fa-copy"
+                                           title="Копировать в буфер"
+                                        ></i>
+                                        <span class="cont" style="margin-left: 15px"> {{$contact->email}}</span>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             @endforeach
         @endif
     </div>
+
     <div class="col-md-6">
         <div class="ibox float-e-margins">
             <h2>Статус организации</h2>

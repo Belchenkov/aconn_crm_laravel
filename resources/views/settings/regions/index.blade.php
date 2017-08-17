@@ -26,11 +26,11 @@
                                     <tr>
                                         <td> {{$i++}}</td>
                                         <td>
-                                            <a href="regions/edit/{{$region->id}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
+                                            <a href="{{route('regions_edit', ['region->id' => $region->id])}}" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             @if(!Auth()->user()->group_id)
-                                                <form action="regions/delete/{{$region->id}}" method="post" style="display: inline;">
+                                                <form action="{{route('regions_delete', ['region->id' => $region->id])}}" method="post" style="display: inline;">
                                                     {{ csrf_field() }}
                                                     <button onclick="return confirm('Удалить?')" class="btn btn-white btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Удалить" data-original-title="Удалить">
                                                         <i class="fa fa-trash"></i>
@@ -62,7 +62,7 @@
                         <h5>Добавление региона</h5>
                     </div>
                     <div class="ibox-content">
-                        <form action="regions/create" method="post">
+                        <form action="{{route('regions_create')}}" method="post">
                             {{ csrf_field() }}
                             <div class="box-body">
                                 <div class="form-group">
@@ -73,7 +73,6 @@
                                     <div class="form-group">
                                         <label>Менеджер</label>
                                         <select class="form-control" required="" name="manager">
-                                            <option value="">Не выбран</option>
                                             @foreach($managers as $manager)
                                                 <option value="{{$manager->id}}">{{$manager->fio}}</option>
                                             @endforeach
