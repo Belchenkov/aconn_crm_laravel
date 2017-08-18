@@ -54,11 +54,31 @@ function getPage(page) {
                     +'&currentUserID='+currentUserID,
                     success: function(data) {
                         console.log(data);
-
+                        // $('#currentPage').children().remove();
+                        var i = 1;
                         //DataTables
                         $('#example').DataTable( {
-                            "ajax": {
+                            ajax: {
                                 "url": "data/json.txt",
+                            },
+                            rowId: 'staffId',
+                            "bDestroy": true,
+                            "bInfo": false,
+                            "bFilter": false,
+                            "bSearch": false,
+                            "oLanguage":{
+                                "sLengthMenu": "Отображено _MENU_ позиций на страницу",
+                                "sSearch": '',
+                                "sZeroRecords": "<strong style='padding: 30px'>Ничего не найдено - извините</strong>",
+                                "sInfo": "Показано с _START_ по _END_ из _TOTAL_ записей",
+                                "sInfoEmpty": "",
+                                "sInfoFiltered": "",
+                                "oPaginate": {
+                                    "sFirst": "Первая",
+                                    "sLast": "Посл.",
+                                    "sNext": "След.",
+                                    "sPrevious": "Пред."
+                                }
                             },
                             "columns": [
                                 { "data": "id" },
@@ -66,8 +86,27 @@ function getPage(page) {
                                 { "data": "phone" },
                                 { "data": "region_id" },
                                 { "data": "user_id" },
-                                { "data": "email" },
+                                { "data": "email"}
                             ],
+
+                            "aoColumnDefs": [
+                                {
+                                    "aTargets": [0],
+                                    "mData": "userId",
+                                    "mRender": function (data, type, full) {
+                                        return i++;
+                                    },
+                                },
+                                {
+                                    "aTargets": [6],
+                                    "mData": "userId",
+                                    "mRender": function (data, type, full) {
+                                        return '<span class="text-center"><a href="contractors/edit/36" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a> ' +
+                                               ' <a href="contractors/delete/36" "=""><button class="btn btn-danger btn-bitbucket" onclick="return confirm(\'Удалить?\')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button></a></span>';
+                                    }
+                                }
+
+                            ]
                         } );
 
                          /*               var contractors = data.contractors;
