@@ -54,19 +54,28 @@ function getPage(page) {
                     +'&currentUserID='+currentUserID,
                     success: function(data) {
                         console.log(data);
-                        // $('#currentPage').children().remove();
+                        var contractors = data.contractors;
+                        var managers = data.managers;
+                        var regions = data.regions;
+
+                        // Показывать кнопку удалить только для админа
+                        var deleteBtn = '';
+                        if (data.user_group == 0) {
+                            deleteBtn = ' <a href="contractors/delete/"><button class="btn btn-danger btn-bitbucket" onclick="return confirm(\'Удалить?\')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button></a></span>';
+                        }
+                        // Счетчик для ID
                         var i = 1;
+
                         //DataTables
                         $('#example').DataTable( {
                             ajax: {
                                 "url": "data/json.txt",
                             },
-                            rowId: 'staffId',
                             "bDestroy": true,
                             "bInfo": false,
                             "bFilter": false,
                             "bSearch": false,
-                            "oLanguage":{
+                            "oLanguage": {
                                 "sLengthMenu": "Отображено _MENU_ позиций на страницу",
                                 "sSearch": '',
                                 "sZeroRecords": "<strong style='padding: 30px'>Ничего не найдено - извините</strong>",
@@ -84,9 +93,8 @@ function getPage(page) {
                                 { "data": "id" },
                                 { "data": "name" },
                                 { "data": "phone" },
-                                { "data": "region_id" },
-                                { "data": "user_id" },
-                                { "data": "email"}
+                                { "data": "email"},
+                                { "data": "region_id" }
                             ],
 
                             "aoColumnDefs": [
@@ -98,11 +106,51 @@ function getPage(page) {
                                     },
                                 },
                                 {
+                                    "aTargets": [4],
+                                    "mData": "userId",
+                                    "mRender": function (data, type, full) {
+                                        var region = '';
+                                        for (var k = 0; k < contractors.length; k++) {
+
+                                            var region_id = contractors[k]['region_id'];
+
+                                            // Текущий менеджер
+                                            for (var j = 0; j < regions.length; j++) {
+                                                if (region_id == regions[j]['id']) {
+                                                    region = regions[j]['name'];
+                                                }
+                                            }
+                                            return region;
+
+                                        }
+                                    },
+                                },
+                                {
+                                    "aTargets": [5],
+                                    "mData": "userId",
+                                    "mRender": function (data, type, full) {
+                                        var manager = '';
+                                        for (var k = 0; k < contractors.length; k++) {
+                                            //console.log(id);
+                                            var manager_id = contractors[k]['user_id'];
+
+                                            // Текущий менеджер
+                                            for (var j = 0; j < managers.length; j++) {
+                                                if (manager_id == managers[j]['id']) {
+                                                    manager = managers[j]['fio'];
+                                                }
+                                            }
+                                            //console.log(manager);
+                                        }
+                                        return manager;
+                                    },
+                                },
+                                {
                                     "aTargets": [6],
                                     "mData": "userId",
                                     "mRender": function (data, type, full) {
-                                        return '<span class="text-center"><a href="contractors/edit/36" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a> ' +
-                                               ' <a href="contractors/delete/36" "=""><button class="btn btn-danger btn-bitbucket" onclick="return confirm(\'Удалить?\')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button></a></span>';
+                                        return '<span class="text-center"><a href="contractors/edit/" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a> ' +
+                                            deleteBtn;
                                     }
                                 }
 

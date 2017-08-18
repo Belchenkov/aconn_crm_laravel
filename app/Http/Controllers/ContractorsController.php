@@ -88,6 +88,7 @@ class ContractorsController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
 
@@ -373,7 +374,7 @@ class ContractorsController extends Controller
         $what_works = Input::get('what_works');
         $currentUserGroup = Input::get('currentUserGroup');
         $currentUserID = Input::get('currentUserID');
-
+        //$currentUserGroup = Auth()->user()->group_id;
         // Формируем строку запроса к базе с данными из фильтра
 
         // Если условие не первое
@@ -417,7 +418,6 @@ class ContractorsController extends Controller
                 }
             }
         }
-
 
         if ($status && $status !== 1) {
             if ($and) {
@@ -475,6 +475,7 @@ class ContractorsController extends Controller
             'managers' => $managers,
             'contractors' => $contractors_filter,
             'regions' => $regions,
+            'user_group' => $currentUserGroup,
             'user' => $currentUserID
         ]);
     }
@@ -482,7 +483,28 @@ class ContractorsController extends Controller
     public function contractorsGetCurrentUser()
     {
         $currentUser = Auth()->user();
-
         echo json_encode($currentUser);
+    }
+
+    public function checkRepeat(Request $request)
+    {
+        $name = $request->input('name');
+        $inn = $request->input('inn');
+        $phone = $request->input('phone');
+        $contract_number = $request->input('contract_number');
+
+        $query = 'select * from `contractors` where `name` = ?';
+
+        $checkFields = DB::select($query, $name);
+                       /* ->orWhere('phone', 'like', '%' . $phone . '%')*/
+        echo json_encode($checkFields);
+        //echo $checkFields;
+        /*if (count($checkFields) > 0) {
+            echo '0';
+        } else {
+            echo '1';
+        }*/
+
+        //echo json_encode($checkFields);
     }
 }

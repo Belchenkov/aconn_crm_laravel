@@ -103,9 +103,9 @@
                                                                 <th>ID</th>
                                                                 <th>Наименование(s)</th>
                                                                 <th>Телефон</th>
+                                                                <th>Email</th>
                                                                 <th>Регион</th>
                                                                 <th>Менеджер</th>
-                                                                <th>Email</th>
                                                                 @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                     <th>Управление</th>
                                                                 @endif

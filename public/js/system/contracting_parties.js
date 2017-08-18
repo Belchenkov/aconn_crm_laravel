@@ -127,8 +127,8 @@ $(document).ready(function() {
 	$("#newForm").submit(function () {
 		if (!checkRepeat) {
 			$.ajax({
-				type: "POST",
-				url: "/getter/check_contracting_parties",
+				type: "GET",
+				url: "checkRepeat",
 				data: $("#newForm").serialize(),
 				success: function(data){
 					if ($.trim(data) == '1') {
@@ -138,7 +138,11 @@ $(document).ready(function() {
 						"<div class='panel-body'>" +
 						"Организации с похожими данными не найдены. Можно добавлять организацию!</div></div></div>");
 					} else {
-						$('#resultRepeat').html(data);
+						console.log(data);
+						$('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
+                            "<div class='panel-heading'><h5>Проверка организации на дубли</h5></div>" +
+                            "<div class='panel-body'>" +
+                            "Найдены организации с похожими данными. Невозможно добавить организацию!</div></div></div>");
 					}
 				}
 			});

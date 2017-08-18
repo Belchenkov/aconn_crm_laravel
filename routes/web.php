@@ -24,6 +24,7 @@ Route::group(['prefix'=>'contractors','middleware'=>'auth'], function () {
     //Route::post('/delete/{id}', 'ContractorsController@destroy')->name('contractors_delete');
     Route::get('/delete/{id}', 'ContractorsController@destroy')->name('contractors_delete');
     Route::get('/contractorsGetCurrentUser', 'ContractorsController@contractorsGetCurrentUser')->name('contractors_contractorsGetCurrentUser');
+    Route::get('/checkRepeat', 'ContractorsController@checkRepeat')->name('contractors_checkRepeat');
 });
 
 // Комментарии

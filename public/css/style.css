@@ -8243,7 +8243,3 @@ select[name="status"] {
     border-radius: 4px;
 }
 
-table#currentPage {
-  display: block;
-  width: 1074px;
-}
