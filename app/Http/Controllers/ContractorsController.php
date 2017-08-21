@@ -31,6 +31,8 @@ class ContractorsController extends Controller
         $regions = Region::where('id', '>', '1')->get();
         // На чем работают
         $what_work = WhatWork::all();
+        // Количество записей
+        $count_row = Contractor::get()->count();
 
 
         return view('pages.contractors.index', [
@@ -38,6 +40,7 @@ class ContractorsController extends Controller
             'contractor_statuses' => $contractor_statuses,
             'regions' => $regions,
             'what_work' => $what_work,
+            'count_row' => $count_row
         ]);
     }
 
@@ -374,6 +377,8 @@ class ContractorsController extends Controller
         $what_works = Input::get('what_works');
         $currentUserGroup = Input::get('currentUserGroup');
         $currentUserID = Input::get('currentUserID');
+        $limit_start = Input::get('limit_start');
+        $limit_end = 10;
         //$currentUserGroup = Auth()->user()->group_id;
         // Формируем строку запроса к базе с данными из фильтра
 
@@ -459,7 +464,7 @@ class ContractorsController extends Controller
             }
         }
         //  Выполняем запрос
-        $where .= " ORDER BY id DESC";
+        $where .= " ORDER BY id ASC LIMIT " . $limit_start . ", " . $limit_end;
         $contractors_filter = DB::select($where);
         $managers = User::where('group_id', '=', '2')->get();
         $regions = Region::all();
@@ -468,7 +473,7 @@ class ContractorsController extends Controller
             'data' => $contractors_filter,
         ]);
 
-        file_put_contents('data/json.txt', $data);
+        //file_put_contents('data/json.txt', $data);
 
         // Отдаем на клиент
         echo json_encode([
@@ -476,7 +481,8 @@ class ContractorsController extends Controller
             'contractors' => $contractors_filter,
             'regions' => $regions,
             'user_group' => $currentUserGroup,
-            'user' => $currentUserID
+            'user' => $currentUserID,
+            'where' => $where
         ]);
     }
 

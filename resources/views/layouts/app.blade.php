@@ -138,9 +138,10 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="divider"></li>									<li>
+                            <li class="divider"></li>
+                            <li>
                                 <div class="text-center link-block">
-                                    <a href="http://homestead.app/alerts">
+                                    <a href="">
                                         <strong>Посмотреть все напоминания</strong>
                                         <i class="fa fa-angle-right"></i>
                                     </a>

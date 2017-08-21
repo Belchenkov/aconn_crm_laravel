@@ -87,9 +87,38 @@
                                 </div>
                             </div>
 
-                            {{--<div id="pagination" style="display: block;"><ul class="pagination bootpag"><li data-lp="1" class="prev disabled"><a href="javascript:void(0);">«</a></li><li data-lp="1" class="active"><a href="javascript:void(0);">1</a></li><li data-lp="2"><a href="javascript:void(0);">2</a></li><li data-lp="2" class="next"><a href="javascript:void(0);">»</a></li></ul></div>--}}
+                            {{-- Pagination --}}
+                            <ul class="pagination">
+                                {{-- <li class="paginate_button previous disabled" id="DataTables_Table_0_previous">
+                                     <a href="#" data-id="0">Пред</a>
+                                 </li>--}}
+                                @if (count($count_row) > 0)
+                                    <?php $step = 0; $page = 1;?>
+                                    @for ($i = 0; $i < $count_row; $i++)
+                                            <li
+                                                @if ($i >= 5)
+                                                    style="display: none"
+                                                @endif
+                                                @if($i == 15)
+                                                    style="display: inline"
+                                                @endif
+                                                class="paginate_button"
+                                                data-page_num="{{$step}}"
+                                            >
+                                                <a href="#">{{$page++}}</a>
+                                            </li>
+                                           {{-- @if ($i == 5 )
+                                                <li class="paginate_button"><a>...</a></li>
+                                            @endif--}}
+                                        <?php $step+=5; ?>
+                                    @endfor
+                                @endif
 
-
+                                {{-- <li class="paginate_button next" data-id="4" id="DataTables_Table_0_next">
+                                     <a href="#">След</a>
+                                 </li>--}}
+                             </ul>
+                            {{-- Pagination --}}
                             <div class="wrapper wrapper-content animated fadeInRight">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -100,7 +129,6 @@
                                                     <table id="example" class="display table table-striped table-bordered table-hover dataTables-example" >
                                                         <thead>
                                                             <tr>
-                                                                <th>ID</th>
                                                                 <th>Наименование(s)</th>
                                                                 <th>Телефон</th>
                                                                 <th>Email</th>

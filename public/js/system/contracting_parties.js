@@ -76,8 +76,6 @@ function add_office() {
 $(".select2_cities").select2();
 
 $(document).ready(function() {
-
-
 	// Активируем и гасим поле номер договора
     if ($('.contract_number_yes:checked').val() == 1) {
         $('.contract_number').prop('disabled',false);

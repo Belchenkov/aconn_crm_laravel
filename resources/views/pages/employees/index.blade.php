@@ -38,7 +38,7 @@
                                                     <td>
                                                         <a data-toggle="modal" href="#showprofile{{$employe->id}}">
                                                             @if (Auth()->user()->group_id == 0 && $employe->group_id == 2)
-                                                                <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="" data-original-title="Зайти как пользователь">
+                                                                <a href="{{ route('auth_getlogin', ['login' => $employe->email, 'password' => $employe->password]) }}" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="" data-original-title="Зайти как пользователь">
                                                                     <i class="fa fa-exchange"></i>
                                                                 </a>
                                                             @endif

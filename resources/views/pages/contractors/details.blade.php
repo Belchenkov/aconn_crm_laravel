@@ -192,6 +192,21 @@
 					</span>
                 </div>
             </div>
+            <div class="vertical-timeline-block">
+                <div class="vertical-timeline-icon navy-bg"><i class="fa fa-check"></i></div>
+                <div class="vertical-timeline-content">
+                    <p>Организация добавлена</p>
+                    <span class="vertical-date">
+                        <?php
+                        // Разбиваем на время и дату
+                        $date = explode(" ", $contractor->created_at);
+                        ?>
+                        <b><?= $date[1]; // Время ?></b>
+						<i class="fa fa-clock-o"></i>
+                        <?= $date[0]; // Дата ?> <br/>
+					</span>
+                </div>
+            </div>
 
             <div class="vertical-timeline-block">
                 <form action="{{route('comments_add')}}" id="add_comment" method="post">
@@ -200,8 +215,19 @@
                     <div class="vertical-timeline-content">
                         <input type="hidden" name="contractor_id" value="{{$contractor->id}}">
                         <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
+                        <div>
+                            <textarea id="comment" class="form-control" name="comment" rows="3"></textarea>
+                        </div>
+                        <br>
 
                         <div class="row">
+                            <div class="form-group col-md-4">
+                                <button type="button" class="btn btn-success pull-left" id="notif-btn">Напоминание</button>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row" id="date_notif">
                             <div class="form-group col-md-8 col-md-offset-2" id="data_1">
                                 <label>Дата напоминания</label>
                                 <div class="row">
@@ -211,6 +237,7 @@
                                             <input type="text" class="form-control inputmask" name="notification_date">
                                         </div>
                                     </div>
+                                    <input type="hidden" id="notif_yes" value="0" name="notification">
                                     <div class="form-group col-md-6">
                                         <div class="input-group clockpicker" data-autoclose="true">
                                             <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
@@ -221,41 +248,10 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="form-group col-md-4 col-md-offset-2">
-                                <label>Напоминание</label><br>
-                                <div class="radio radio-inline">
-                                    <input type="radio" id="notification_yes" value="1" name="notification">
-                                    <label for="notification_yes"> Да </label>
-                                </div>
-                                <br>
-                                <div class="radio radio-inline">
-                                    <input type="radio" id="notification_no" value="0" name="notification">
-                                    <label for="notification_no"> Нет </label>
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-4">
-                                <label>Напоминание активно</label><br>
-                                <div class="radio radio-inline">
-                                    <input type="radio" id="notification_active" value="1" name="notification_active">
-                                    <label for="notification_active"> Да </label>
-                                </div>
-                                <br>
-                                <div class="radio radio-inline">
-                                    <input type="radio" id="notification_active_no" value="0" name="notification_active">
-                                    <label for="notification_active_no"> Нет </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <textarea id="comment" class="form-control" name="comment" rows="3"></textarea>
-                        </div>
-                        <br>
                         <div class="form-group">
-                            <button {{--onclick="return false" --}}type="submit" id="sendComment" class="btn btn-primary pull-right" name="title" value="title">Добавить комментарий</button></div>
+                            <button type="submit" id="sendComment" class="btn btn-primary pull-right" name="title" value="title">Добавить комментарий</button></div>
                         </div>
+
                 </form>
             </div>
         </div>

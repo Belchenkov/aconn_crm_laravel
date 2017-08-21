@@ -84,6 +84,8 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'], function () {
     });
 });
 
+// Маршруты аутентификации
+Route::get('auth/login', 'Auth\AuthController@getLogin')->name('auth_getlogin');
 
 
 
