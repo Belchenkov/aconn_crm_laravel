@@ -269,7 +269,6 @@ $(document).ready(function() {
         if (date_nofit.css('height') != '1px') {
             $('#notif_yes').attr('value', 0)
         }
-        console.log($('#notif_yes').attr('value'));
 
     });
 

@@ -16,7 +16,6 @@ class CommentsController extends Controller
             $notification_time = $request->input('notification_time');
             $notification_date = $notification_date . ' ' . $notification_time;
             $contractor_id = $request->input('contractor_id');
-            //dd($date);
             $comment = new Comment();
             $comment->user_id = $request->input('user_id');
             $comment->contractor_id = $contractor_id;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use Illuminate\Http\Request;
 use App\Contractor;
 use App\User;
@@ -195,19 +196,23 @@ class ContractorsController extends Controller
     public function show($id)
     {
         $contractor = Contractor::find($id);
+        $comments = Comment::where('contractor_id', '=', $id)->get();
         // Список контактных лиц
         $contacts =Contact::where('contractors_id', '=', $id)->get();
         $manager = User::find($contractor->user_id)->contractors()->getParent()->fio;
+        $users = User::all();
         $region = Region::find($contractor->region_id)->contractor()->getParent()->name;
         // Статус контрагента
         $status = ContractorStatus::find($contractor->contractor_status_id)->contractor()->getParent()->name;
 
         return view('pages.contractors.details', [
             'contractor' => $contractor,
+            'users' => $users,
             'manager' => $manager,
             'region' => $region,
             'status' => $status,
-            'contacts' => $contacts
+            'contacts' => $contacts,
+            'comments' => $comments
         ]);
     }
 

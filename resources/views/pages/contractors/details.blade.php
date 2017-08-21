@@ -192,22 +192,39 @@
 					</span>
                 </div>
             </div>
-            <div class="vertical-timeline-block">
-                <div class="vertical-timeline-icon navy-bg"><i class="fa fa-check"></i></div>
-                <div class="vertical-timeline-content">
-                    <p>Организация добавлена</p>
-                    <span class="vertical-date">
-                        <?php
-                        // Разбиваем на время и дату
-                        $date = explode(" ", $contractor->created_at);
-                        ?>
-                        <b><?= $date[1]; // Время ?></b>
-						<i class="fa fa-clock-o"></i>
-                        <?= $date[0]; // Дата ?> <br/>
-					</span>
-                </div>
-            </div>
 
+            @if(!empty($comments) && count($comments) > 0)
+                @foreach($comments as $comment)
+                    <div class="vertical-timeline-block">
+                        <div class="vertical-timeline-icon navy-bg"><i class="fa fa-check"></i></div>
+                        <div class="vertical-timeline-content">
+                            <p><em>{{$comment->comments}}</em></p>
+                            <span class="vertical-date">
+                                <span>Добавлено </span>
+                                <?php
+                                // Разбиваем на время и дату
+                                $date = explode(" ", $comment->created_at);
+                                ?>
+                                <b><?= $date[1]; // Время ?></b>
+						        <i class="fa fa-clock-o"></i>
+                                <?= $date[0]; // Дата ?> <br/>
+                                @if(!empty($users) && count($users) > 0)
+                                    @foreach($users as $user)
+                                        @if($user->id == $comment->user_id)
+                                            <small>{{$user->fio}}</small>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            </span>
+                            @if(!empty($comment->reminder))
+                                <div class="pull-right">
+                                    <i class="fa fa-bell bell" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{$comment->comments}}  {{$comment->date_reminder}}"></i>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            @endif
             <div class="vertical-timeline-block">
                 <form action="{{route('comments_add')}}" id="add_comment" method="post">
                     {{csrf_field()}}
