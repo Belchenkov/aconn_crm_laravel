@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Auth;
+use App\Comment;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,9 +11,12 @@ class SettingsController extends Controller
 {
     public function index()
     {
+        // Напоминания
+        $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
         // Если (суперадмин -- group_id = 0)
         if(!Auth()->user()->group_id) {
-            return view('settings.index');
+            return view('settings.index', ['notifications' => $notifications]);
         }
     }
 

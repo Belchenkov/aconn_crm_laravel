@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Comment;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -15,10 +16,14 @@ class EmployeesController extends Controller
         $employees_active = User::where('id', '<>', 1)->where('status', '=', '1')->get();
         // Уволенные сотрудники
         $employees_dismiss = User::where('id', '<>', 1)->where('status', '=', '0')->get();
+        // Напоминания
+        $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
 
         return view('pages.employees.index', [
             'employees_active' => $employees_active,
-            'employees_dismiss' => $employees_dismiss
+            'employees_dismiss' => $employees_dismiss,
+            'notifications' => $notifications
         ]);
     }
 
@@ -26,7 +31,10 @@ class EmployeesController extends Controller
     {
         // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
-            return view('pages.employees.create');
+            // Напоминания
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
+            return view('pages.employees.create', ['notifications' => $notifications]);
         }
         else {
             abort(401);
@@ -78,9 +86,13 @@ class EmployeesController extends Controller
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
 
             $employe = User::find($id);
+            // Напоминания
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
 
             return view('pages.employees.edit', [
                 'employe' => $employe,
+                'notifications' => $notifications
             ]);
         }
         else {

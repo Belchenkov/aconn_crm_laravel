@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contractor;
 use Illuminate\Http\Request;
 use App\Region;
+use App\Comment;
 use App\User;
 
 class RegionsController extends Controller
@@ -21,10 +22,14 @@ class RegionsController extends Controller
 
             $managers = User::where('group_id', '=', '2')->get();
             $regions = Region::where('id', '>', '1')->get();
+            // Напоминания
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
 
             return view('settings.regions.index', [
                 'managers' => $managers,
-                'regions' => $regions
+                'regions' => $regions,
+                'notifications' => $notifications
             ]);
         }
         else {
@@ -81,10 +86,13 @@ class RegionsController extends Controller
 
             $managers = User::where('group_id', '=', '2')->get();
             $region = Region::find($id);
+            // Напоминания
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
 
             return view('settings.regions.edit', [
                 'managers' => $managers,
-                'region' => $region
+                'region' => $region,
+                'notifications' => $notifications
             ]);
         }
         else {

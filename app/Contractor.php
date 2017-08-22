@@ -25,4 +25,9 @@ class Contractor extends Model
     {
         return $this->hasOne('App\Contact');
     }
+
+    public function contactor_status()
+    {
+        return $this->hasOne('App\ContractorStatus');
+    }
 }

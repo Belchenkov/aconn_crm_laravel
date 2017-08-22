@@ -15,14 +15,12 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::group(['prefix'=>'contractors','middleware'=>'auth'], function () {
     Route::get('/', 'ContractorsController@index')->name('contractors');
     Route::get('/contractorsGetAjax', 'ContractorsController@contractorsGetAjax')->name('contractors_contractorsGetAjax');
-    Route::post('/contractorsGetAjax', 'ContractorsController@contractorsGetAjax')->name('contractors_contractorsGetAjax');
     Route::get('/create', 'ContractorsController@create')->name('contractors_add');
     Route::get('/edit/{id}', 'ContractorsController@edit')->name('contractors_edit');
     Route::post('/edit/{id}', 'ContractorsController@update')->name('contractors_update');
     Route::get('/details/{id}', 'ContractorsController@show')->name('contractors_details');
     Route::post('/store', 'ContractorsController@store')->name('contractors_store');
-    //Route::post('/delete/{id}', 'ContractorsController@destroy')->name('contractors_delete');
-    Route::get('/delete/{id}', 'ContractorsController@destroy')->name('contractors_delete');
+    Route::post('/delete/{id}', 'ContractorsController@destroy')->name('contractors_delete');
     Route::get('/contractorsGetCurrentUser', 'ContractorsController@contractorsGetCurrentUser')->name('contractors_contractorsGetCurrentUser');
     Route::get('/checkRepeat', 'ContractorsController@checkRepeat')->name('contractors_checkRepeat');
 });

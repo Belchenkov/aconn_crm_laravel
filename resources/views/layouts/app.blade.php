@@ -100,54 +100,34 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                             <i class="fa fa-bell"></i>
-                            <span class="label label-danger">12</span>
+                            <span class="label label-danger">{{count($notifications)}}</span>
                         </a>
-                        <ul class="dropdown-menu dropdown-alerts">
-                            <li>
-                                <a href="http://homestead.app/tasks/edit/14">
-                                    <div>
-                                        <i class="fa fa-ticket fa-fw"></i> <span class="pull-right text-muted small">01.01.70</span>
+
+                        @if (!empty($notifications))
+
+                            <ul class="dropdown-menu dropdown-alerts">
+                                @foreach($notifications as $notification)
+                                    <li>
+                                        <a href="{{route('contractors_details', ['id' => $notification->contractor_id])}}">
+                                            <div>
+                                                <i class="fa fa-ticket fa-fw"></i>
+                                                <span class="text-muted small">{{$notification->comments}}</span>
+                                                <span class="pull-right text-muted small"> {{$notification->date_reminder}}</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endforeach
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <a href="">
+                                            <strong>Посмотреть все напоминания</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
                                     </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li><li>
-                                <a href="http://homestead.app/tasks/edit/15">
-                                    <div>
-                                        <i class="fa fa-ticket fa-fw"></i> <span class="pull-right text-muted small">01.01.70</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li><li>
-                                <a href="http://homestead.app/tasks/edit/9">
-                                    <div>
-                                        <i class="fa fa-ticket fa-fw"></i> Провести совещание в отделе продаж<span class="pull-right text-muted small">18.10.16</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li><li>
-                                <a href="http://homestead.app/tasks/edit/1">
-                                    <div>
-                                        <i class="fa fa-ticket fa-fw"></i> Позвонить маме<span class="pull-right text-muted small">26.10.16</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li><li>
-                                <a href="http://homestead.app/tasks/edit/3">
-                                    <div>
-                                        <i class="fa fa-ticket fa-fw"></i> Прозвонить клиентов<span class="pull-right text-muted small">26.10.16</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <div class="text-center link-block">
-                                    <a href="">
-                                        <strong>Посмотреть все напоминания</strong>
-                                        <i class="fa fa-angle-right"></i>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
+                        @endif
                     </li>
                     <li>
                         <a href="{{ route('logout') }}"
@@ -238,7 +218,7 @@
     <script src="{{ asset('js/system/contracting_parties_list.js')}}"></script>
     <script src="{{ asset('js/jquery.bootpag.min.js')}}"></script>
 
-    {{--<script>
+    <script>
         $(document).ready(function() {
             setTimeout(function() {
                 toastr.options = {
@@ -337,7 +317,7 @@
             new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
 
         });
-    </script>--}}
+    </script>
 
 </body>
 

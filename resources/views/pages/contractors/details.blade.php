@@ -11,7 +11,7 @@
                         <a href="{{route('contractors')}}" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
                         {{-- Если (админ, руководитель, менеджер) --}}
                         @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
-                            <a href="{{route('contractors_edit', ['contractor_id' => $contractor->id])}}" class="btn btn-default"><i class="fa fa-edit"></i> Редактировать</a>
+                            <a href="{{ route('contractors_edit', ['contractor_id' => $contractor->id] )}}" class="btn btn-default"><i class="fa fa-edit"></i> Редактировать</a>
                             {{-- Если админ - удалять могут только админы --}}
                             @if(!Auth()->user()->group_id)
                                 <form action="{{route('contractors_delete', ['contractor_id' => $contractor->id])}}" method="post" style="display: inline;">
@@ -233,7 +233,7 @@
                         <input type="hidden" name="contractor_id" value="{{$contractor->id}}">
                         <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
                         <div>
-                            <textarea id="comment" class="form-control" name="comment" rows="3"></textarea>
+                            <textarea id="comment" required="" class="form-control" name="comment" rows="5"></textarea>
                         </div>
                         <br>
 
@@ -276,19 +276,6 @@
 </div>
 </div>
 <script>
-  /*  $('button#sendComment').click(function(){
-        comment = $('textarea#comment').val();
-
-        $.ajax({
-            type: 'POST',
-            url: '/contracting_parties/comment/79',
-            data: 'comment='+comment,
-            success: function(data){
-                location.reload();
-            }
-        });
-        return false;
-    });*/
 
 </script>
 <br><br>

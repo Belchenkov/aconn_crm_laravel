@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Packing;
 use App\Contractor;
+use App\Comment;
 
 class PackingsController extends Controller
 {
@@ -19,9 +20,13 @@ class PackingsController extends Controller
         if(!Auth()->user()->group_id) {
 
             $packing = Packing::where('id', '>', '1')->get();
+            // Напоминания
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
 
             return view('settings.packing.index', [
                 'packing' => $packing,
+                'notifications' => $notifications
             ]);
         }
         else {
@@ -73,8 +78,11 @@ class PackingsController extends Controller
         if(!Auth()->user()->group_id) {
 
             $packing = Packing::find($id);
+            // Напоминания
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
 
-            return view('settings.packing.edit')->with('packing', $packing);
+
+            return view('settings.packing.edit')->with('packing', $packing)->with('notifications', $notifications);
         }
         else {
             abort(401);

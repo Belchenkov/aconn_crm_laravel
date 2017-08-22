@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\WhatWork;
+use App\Comment;
 use App\Contractor;
 
 class WhatWorksController extends Controller
@@ -19,9 +20,13 @@ class WhatWorksController extends Controller
         if(!Auth()->user()->group_id) {
 
             $what_works = WhatWork::where('id', '>', '1')->get();
+            // Напоминания
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
 
             return view('settings.what_works.index', [
-                'what_works' => $what_works
+                'what_works' => $what_works,
+                'notifications' => $notifications
             ]);
         }
         else {
@@ -73,8 +78,10 @@ class WhatWorksController extends Controller
         if(!Auth()->user()->group_id) {
 
             $what_works = WhatWork::find($id);
+            // Напоминания
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
 
-            return view('settings.what_works.edit')->with('what_works', $what_works);
+            return view('settings.what_works.edit')->with('what_works', $what_works)->with('notifications', $notifications);
         }
         else {
             abort(401);

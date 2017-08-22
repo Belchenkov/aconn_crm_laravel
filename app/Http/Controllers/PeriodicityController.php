@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Periodicity;
+use App\Comment;
 use App\Contractor;
 
 class PeriodicityController extends Controller
@@ -19,9 +20,13 @@ class PeriodicityController extends Controller
         if(!Auth()->user()->group_id) {
 
             $periodicity = Periodicity::where('id', '>', '1')->get();
+            // Напоминания
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
 
             return view('settings.periodicity.index', [
                 'periodicity' => $periodicity,
+                'notifications' => $notifications
             ]);
         }
         else {
@@ -73,8 +78,10 @@ class PeriodicityController extends Controller
         if(!Auth()->user()->group_id) {
 
             $periodicity = Periodicity::find($id);
+            // Напоминания
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
 
-            return view('settings.periodicity.edit')->with('periodicity', $periodicity);
+            return view('settings.periodicity.edit')->with('periodicity', $periodicity)->with('notifications', $notifications);
         }
         else {
             abort(401);

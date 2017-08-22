@@ -34,6 +34,8 @@ class ContractorsController extends Controller
         $what_work = WhatWork::all();
         // Количество записей
         $count_row = Contractor::get()->count();
+        $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
 
 
         return view('pages.contractors.index', [
@@ -41,7 +43,8 @@ class ContractorsController extends Controller
             'contractor_statuses' => $contractor_statuses,
             'regions' => $regions,
             'what_work' => $what_work,
-            'count_row' => $count_row
+            'count_row' => $count_row,
+            'notifications' => $notifications
         ]);
     }
 
@@ -68,6 +71,9 @@ class ContractorsController extends Controller
             $periodicity = periodicity::all();
             // Упаковка
             $packing = packing::all();
+            // Напоминания
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
 
             return view('pages.contractors.create',  [
                 'contractors' => $contractors,
@@ -76,7 +82,8 @@ class ContractorsController extends Controller
                 'regions' => $regions,
                 'what_work' => $what_work,
                 'periodicity' => $periodicity,
-                'packing' => $packing
+                'packing' => $packing,
+                'notifications' => $notifications
             ]);
         }
         else {
@@ -204,6 +211,9 @@ class ContractorsController extends Controller
         $region = Region::find($contractor->region_id)->contractor()->getParent()->name;
         // Статус контрагента
         $status = ContractorStatus::find($contractor->contractor_status_id)->contractor()->getParent()->name;
+        // Напоминания
+        $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
 
         return view('pages.contractors.details', [
             'contractor' => $contractor,
@@ -212,7 +222,8 @@ class ContractorsController extends Controller
             'region' => $region,
             'status' => $status,
             'contacts' => $contacts,
-            'comments' => $comments
+            'comments' => $comments,
+            'notifications' => $notifications
         ]);
     }
 
@@ -234,6 +245,8 @@ class ContractorsController extends Controller
             $what_work = WhatWork::all();
             $periodicity = periodicity::all();
             $packing = packing::all();
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
 
             return view('pages.contractors.edit', [
                 'contractor' => $contractor,
@@ -242,7 +255,8 @@ class ContractorsController extends Controller
                 'regions' => $regions,
                 'what_work' => $what_work,
                 'periodicity' => $periodicity,
-                'packing' => $packing
+                'packing' => $packing,
+                'notifications' => $notifications
             ]);
         } else {
             abort('401');
@@ -277,7 +291,7 @@ class ContractorsController extends Controller
                 )
             );
             $contractor = Contractor::find($id);
-
+            $oldContractor_status_id = $contractor->contractor_status_id;
             $contractor->name = $request->input('name');
             $contractor->region_id = $request->input('region_id');
             $contractor->user_id = $request->input('manager');
@@ -308,6 +322,18 @@ class ContractorsController extends Controller
             // Статус контрагента
             $contractor->contractor_status_id = $request->input('contractor_status_id');
 
+            // Если изменился статус организации то сохраняем в таблицу Comments
+            if ($contractor->contractor_status_id != $oldContractor_status_id) {
+                $oldContractor_name = ContractorStatus::find($oldContractor_status_id)->contractor()->getParent()->name;
+                $newContractor_name = ContractorStatus::find($contractor->contractor_status_id)->contractor()->getParent()->name;
+                $comments = new Comment();
+                $comments->user_id = Auth()->id();
+                $comments->comments = 'Изменен статус с "' . $oldContractor_name . '" на "' . $newContractor_name . '"';
+                $comments->contractor_id = $contractor->id;
+                $comments->reminder = 0;
+
+                $comments->save();
+            }
             // Формирование строки телефонов
             $phones = '';
             foreach ($request->input('phone') as $phone) {
@@ -316,7 +342,6 @@ class ContractorsController extends Controller
             $contractor->phone = $phones;
 
             $contractor->save();
-
 
             if (!empty($request->input('contact'))) {
                 // ID сохраненного контрагента
@@ -344,7 +369,7 @@ class ContractorsController extends Controller
                 }
             }
 
-            return redirect('/contractors')->with('success', 'Данные об организации обновлены');
+            return redirect('/contractors/details/' . $id)->with('success', 'Данные об организации обновлены');
         } else {
             abort('401');
         }
