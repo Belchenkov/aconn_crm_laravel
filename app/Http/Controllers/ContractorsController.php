@@ -99,7 +99,7 @@ class ContractorsController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        //dd($request);
         // Если (суперадмин, руководитель, менеджер)
         if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3) {
 
@@ -108,18 +108,18 @@ class ContractorsController extends Controller
                 'name' => 'required|unique:contractors|max:255',
                 'region_id' => 'required',
                 'inn' => 'max:12',
-                'phone' => 'required|unique:contractors|max:255',
+                'phone' => 'required|max:255',
                 'contract_number' => 'max:255'
             ],
                 $messages = array(
                     'required' => 'Поле :attribute обязательно',
                     'max' => 'Поле :attribute должно быть не более 12 символов',
-                    'unique' => 'Поле :attribute должно быть уникальным',
                     'integer' => 'Поле :attribute должно быть числовым',
                     'string' => 'Поле :attribute должно быть строковым'
                 )
             );
 
+            //dd($request);
             $contractor = new Contractor();
             $contractor->name = $request->input('name');
             $contractor->region_id = $request->input('region_id');
@@ -214,7 +214,6 @@ class ContractorsController extends Controller
         // Напоминания
         $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
 
-
         return view('pages.contractors.details', [
             'contractor' => $contractor,
             'users' => $users,
@@ -246,7 +245,6 @@ class ContractorsController extends Controller
             $periodicity = periodicity::all();
             $packing = packing::all();
             $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
-
 
             return view('pages.contractors.edit', [
                 'contractor' => $contractor,
@@ -513,12 +511,6 @@ class ContractorsController extends Controller
         $managers = User::where('group_id', '=', '2')->get();
         $regions = Region::all();
 
-        $data = json_encode( [
-            'data' => $contractors_filter,
-        ]);
-
-        //file_put_contents('data/json.txt', $data);
-
         // Отдаем на клиент
         echo json_encode([
             'managers' => $managers,
@@ -538,23 +530,35 @@ class ContractorsController extends Controller
 
     public function checkRepeat(Request $request)
     {
-        $name = $request->input('name');
-        $inn = $request->input('inn');
+        $name = trim($request->input('name'));
+        $inn = trim($request->input('inn'));
         $phone = $request->input('phone');
+
         $contract_number = $request->input('contract_number');
 
-        $query = 'select * from `contractors` where `name` = ?';
+        //$query = 'select * from  contractors where name=' . $name;
 
-        $checkFields = DB::select($query, $name);
+        //echo $query;
+        //$checkFields = DB::select($query);
                        /* ->orWhere('phone', 'like', '%' . $phone . '%')*/
-        echo json_encode($checkFields);
-        //echo $checkFields;
-        /*if (count($checkFields) > 0) {
-            echo '0';
-        } else {
-            echo '1';
-        }*/
 
-        //echo json_encode($checkFields);
+       $phones = '';
+       foreach ($phone as $item) {
+            $phones .= trim($item) . ' ';
+       }
+
+       $checkFields = Contractor::where('name', '=', $name)->whereNotNull('name')
+                                            ->orWhere('inn', '=', $inn)->whereNotNull('inn')
+                                            ->orWhere('contract_number', '=', $contract_number)->whereNotNull('contract_number')
+                                            /*->orWhere('phone', 'like', '%' . $phone . '%')->whereNotNull('phone')*/
+                                            ->get();
+
+
+        //echo $phones;
+        if (count($checkFields) > 0) {
+            echo json_encode($checkFields);
+        } else {
+            echo 0;
+        }
     }
 }

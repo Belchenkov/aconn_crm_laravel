@@ -19,9 +19,9 @@ function getPage(page) {
                 // Текущий пользователь
                 var currentUserGroup = data['group_id'];
                 var currentUserID = data['id'];
-                // Отправляем данные из фильтра
 
-                function ajaxGet(limit_start, limit_end) {
+                // Отправляем данные из фильтра
+                function ajaxGet(limit_start) {
                     $.ajax({
                         type: 'GET',
                         url: '/contractors/contractorsGetAjax',

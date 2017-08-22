@@ -122,35 +122,47 @@ $(document).ready(function() {
             });
 		}
 
-	$("#newForm").submit(function () {
+	$("#newForm").submit(function (e) {
+	    //e.preventDefault();
 		if (!checkRepeat) {
 			$.ajax({
 				type: "GET",
 				url: "checkRepeat",
-				data: $("#newForm").serialize(),
 				success: function(data){
-					if ($.trim(data) == '1') {
-						checkRepeat = true;
-						$('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
-						"<div class='panel-heading'><h5>Проверка организации на дубли</h5></div>" +
-						"<div class='panel-body'>" +
-						"Организации с похожими данными не найдены. Можно добавлять организацию!</div></div></div>");
-					} else {
-						console.log(data);
-						$('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
+					if ( data.length != '1' )  {
+                        $('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
                             "<div class='panel-heading'><h5>Проверка организации на дубли</h5></div>" +
                             "<div class='panel-body'>" +
                             "Найдены организации с похожими данными. Невозможно добавить организацию!</div></div></div>");
+					} else {
+                        //checkRepeat = true;
+                        /*$('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
+                            "<div class='panel-heading'><h5>Проверка организации на дубли</h5></div>" +
+                            "<div class='panel-body'>" +
+                            "Организации с похожими данными не найдены. Можно добавлять организацию!</div></div></div>");*/
+                        $.ajax({
+                            type: "POST",
+                            url: "store",
+                            dataType: 'json',
+                            data: $("#newForm").serialize(),
+                            success: function (data) {
+                                window.location.replace('/');
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
 					}
 				}
 			});
 		}
-		if (checkRepeat) {
+		/*if (checkRepeat) {
+
 			return true;
 		} else {
 			checkRepeat = true;
 			return false;
-		}
+		}*/
 	});
 
 	$(".sale").TouchSpin({

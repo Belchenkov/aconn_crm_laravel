@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row border-bottom white-bg dashboard-header">
-    <form action="{{route('contractors_store')}}" method="post" id="newForm">
+    <form action="{{route('contractors_store')}}"  method="post" id="newForm">
 
     {{ csrf_field() }}
 
