@@ -32,10 +32,8 @@
     <link href="{{ asset('css/plugins/c3/c3.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/clockpicker/clockpicker.css') }}" rel="stylesheet">
-
-
-
 </head>
+
 <body class="skin-1 pace-done">
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
@@ -117,7 +115,7 @@
                                         </a>
                                     </li>
                                 @endforeach
-                                <li class="divider"></li>
+                                {{--<li class="divider"></li>
                                 <li>
                                     <div class="text-center link-block">
                                         <a href="">
@@ -125,7 +123,7 @@
                                             <i class="fa fa-angle-right"></i>
                                         </a>
                                     </div>
-                                </li>
+                                </li>--}}
                             </ul>
                         @endif
                     </li>
@@ -218,7 +216,7 @@
     <script src="{{ asset('js/system/contracting_parties_list.js')}}"></script>
     <script src="{{ asset('js/jquery.bootpag.min.js')}}"></script>
 
-    <script>
+   {{-- <script>
         $(document).ready(function() {
             setTimeout(function() {
                 toastr.options = {
@@ -317,7 +315,7 @@
             new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
 
         });
-    </script>
+    </script>--}}
 
 </body>
 

@@ -294,6 +294,7 @@ class ContractorsController extends Controller
             $oldContractor_status_id = $contractor->contractor_status_id;
             $contractor->name = $request->input('name');
             $contractor->region_id = $request->input('region_id');
+            $oldContractor_user_id = $contractor->user_id;
             $contractor->user_id = $request->input('manager');
             $contractor->email = $request->input('email');
             // Юридеский адрес
@@ -331,9 +332,22 @@ class ContractorsController extends Controller
                 $comments->comments = 'Изменен статус с "' . $oldContractor_name . '" на "' . $newContractor_name . '"';
                 $comments->contractor_id = $contractor->id;
                 $comments->reminder = 0;
+                $comments->save();
+            }
+
+            if ($contractor->user_id != $oldContractor_user_id) {
+                $oldManager_name = User::find($oldContractor_user_id)->contractors()->getParent()->fio;
+                $newManager_name = User::find($contractor->user_id)->contractors()->getParent()->fio;
+
+                $comments = new Comment();
+                $comments->user_id = Auth()->id();
+                $comments->comments = 'Изменен менеджер с "' . $oldManager_name . '" на "' . $newManager_name . '"';
+                $comments->contractor_id = $contractor->id;
+                $comments->reminder = 0;
 
                 $comments->save();
             }
+
             // Формирование строки телефонов
             $phones = '';
             foreach ($request->input('phone') as $phone) {

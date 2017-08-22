@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
+            {{--<div class="col-lg-4">
                 <div class="widget style1 lazur-bg">
                     <div class="row">
                         <div class="col-xs-4">
@@ -45,35 +45,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            {{--<div class="col-md-7">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title"><h5>Мои задачи на сегодня</h5></div>
-                    <div class="ibox-content">
-                        <div class="box-body">
-                            Отсутствуют
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Личные задачи</h5>
-                        <div class="ibox-tools">
-                            <a href="http://homestead.app/tasks/add/my" class="btn btn-xs btn-success">
-                                <i class="fa fa-plus"></i> Новая задача
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="box-body">
-                            Отсутствуют
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>--}}
+            </div>--}}
         <br><br>
     </div>
 

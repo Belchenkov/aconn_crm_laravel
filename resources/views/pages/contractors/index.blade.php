@@ -99,15 +99,12 @@
                                                 @if ($i >= 5)
                                                     style="display: none"
                                                 @endif
-                                                @if($i == 15)
-                                                    style="display: inline"
-                                                @endif
                                                 class="paginate_button"
                                                 data-page_num="{{$step}}"
                                             >
                                                 <a href="#">{{$page++}}</a>
                                             </li>
-                                           {{-- @if ($i == 5 )
+                                            {{--@if ($i == 5 )
                                                 <li class="paginate_button"><a>...</a></li>
                                             @endif--}}
                                         <?php $step+=5; ?>
@@ -119,6 +116,7 @@
                                  </li>--}}
                              </ul>
                             {{-- Pagination --}}
+
                             <div class="wrapper wrapper-content animated fadeInRight">
                                 <div class="row">
                                     <div class="col-lg-12">

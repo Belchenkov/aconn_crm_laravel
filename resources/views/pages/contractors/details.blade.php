@@ -8,7 +8,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="box-footer">
-                        <a href="{{route('contractors')}}" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
+                        <a onclick="javascript:history.back();" class="btn btn-white"><i class="fa fa-arrow-circle-o-left"></i> Назад</a>
                         {{-- Если (админ, руководитель, менеджер) --}}
                         @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                             <a href="{{ route('contractors_edit', ['contractor_id' => $contractor->id] )}}" class="btn btn-default"><i class="fa fa-edit"></i> Редактировать</a>
@@ -202,8 +202,8 @@
                             <span class="vertical-date">
                                 <span>Добавлено </span>
                                 <?php
-                                // Разбиваем на время и дату
-                                $date = explode(" ", $comment->created_at);
+                                    // Разбиваем на время и дату
+                                    $date = explode(" ", $comment->created_at);
                                 ?>
                                 <b><?= $date[1]; // Время ?></b>
 						        <i class="fa fa-clock-o"></i>
@@ -236,14 +236,12 @@
                             <textarea id="comment" required="" class="form-control" name="comment" rows="5"></textarea>
                         </div>
                         <br>
-
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <button type="button" class="btn btn-success pull-left" id="notif-btn">Напоминание</button>
                             </div>
                         </div>
                         <br>
-
                         <div class="row" id="date_notif">
                             <div class="form-group col-md-8 col-md-offset-2" id="data_1">
                                 <label>Дата напоминания</label>
@@ -264,11 +262,9 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <button type="submit" id="sendComment" class="btn btn-primary pull-right" name="title" value="title">Добавить комментарий</button></div>
                         </div>
-
                 </form>
             </div>
         </div>
