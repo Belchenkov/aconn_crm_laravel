@@ -42,12 +42,11 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                             <span>
-                                <a href="#" onclick="send()"><img src="{{ asset('img/aconncrm_logo_w.png') }}" /></a>
+                                <a href="/"><img src="{{ asset('img/aconncrm_logo_w.png') }}" /></a>
                              </span>
                         <br><br>
                         <span data-toggle="dropdown" class="dropdown-toggle">
-                            {{--<span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->fio }}</strong>--}}
-                             {{--</span><br>--}}
+
                             <span class="text-muted text-center text-xs block font-bold"><strong class="text-white">{{ Auth::user()->position }}</strong></span> </span>
                         </span>
 
@@ -62,9 +61,6 @@
                 <li>
                     <a href="{{route('employees')}}"><i class="fa fa-users"></i> <span class="nav-label">Сотрудники</span></a>
                 </li>
-                {{--<li>
-                    <a href="/tasks"><i class="fa fa-ticket"></i> <span class="nav-label">Задачи</span></a>
-                </li>--}}
                 <li>
                     <a href="{{route('contractors')}}"><i class="fa fa-briefcase"></i> <span class="nav-label">Организации</span></a>
                 </li>
@@ -130,8 +126,9 @@
                     <li>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
-                            <i class="fa fa-sign-out"></i>  Выход
+                                 document.getElementById('logout-form').submit();"
+                           >
+                           <i class="fa fa-sign-out"></i>  Выход
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -143,6 +140,9 @@
         </div>
         <br>
 
+        <div id="message">
+
+        </div>
         {{-- Вывод оповещений --}}
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)

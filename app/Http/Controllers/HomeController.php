@@ -29,7 +29,7 @@ class HomeController extends Controller
         $count_contractors = Contractor::get()->count();
         // Напоминания
         $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
-
+        $contractors = Contractor::all();
 
         if (Auth()->user()->group_id == 2) {
             $count_contractors = Contractor::where('user_id', '=', Auth()->id())->get()->count();
@@ -37,7 +37,8 @@ class HomeController extends Controller
 
         return view('home', [
             'count_contractors' => $count_contractors,
-            'notifications' => $notifications
+            'notifications' => $notifications,
+            'contractors' => $contractors
         ]);
     }
 

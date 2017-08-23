@@ -211,6 +211,7 @@ class ContractorsController extends Controller
         $status = ContractorStatus::find($contractor->contractor_status_id)->contractor()->getParent()->name;
         // Напоминания
         $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+        $notifications_active = Comment::where('reminder_status', '=', '1')->where('user_id', '=', Auth()->id())->get();
 
         return view('pages.contractors.details', [
             'contractor' => $contractor,
@@ -220,8 +221,11 @@ class ContractorsController extends Controller
             'status' => $status,
             'contacts' => $contacts,
             'comments' => $comments,
-            'notifications' => $notifications
+            'notifications' => $notifications,
+            'notifications_active' => $notifications_active[0]
         ]);
+
+
     }
 
     /**

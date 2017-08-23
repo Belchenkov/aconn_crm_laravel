@@ -216,11 +216,16 @@
                                     @endforeach
                                 @endif
                             </span>
-                            @if(!empty($comment->reminder))
+                            @if(!empty($comment->reminder_status) && $comment->reminder_status == 1)
                                 <div class="pull-right">
                                     <i class="fa fa-bell bell" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{$comment->comments}}  {{$comment->date_reminder}}"></i>
                                 </div>
+                            @elseif(!empty($comment->reminder_status) && $comment->reminder_status == 2)
+                            <div class="pull-right">
+                                <i class="fa fa-bell bell-not-active" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{$comment->comments}}  {{$comment->date_reminder}}"></i>
+                            </div>
                             @endif
+
                         </div>
                     </div>
                 @endforeach

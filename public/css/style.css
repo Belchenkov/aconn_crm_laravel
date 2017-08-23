@@ -8243,8 +8243,15 @@ select[name="status"] {
     border-radius: 4px;
 }
 
-i.bell {
+i.fa.fa-bell {
     font-size: 22px;
-    color: orange;
     margin: -100px 15px 0 0;
+}
+
+i.bell {
+    color: orange;
+}
+
+#notifications {
+  margin-top: 50px;
 }
