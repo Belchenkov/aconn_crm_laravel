@@ -73,9 +73,27 @@ function add_office() {
 	'</div>');
 }
 
+// WebSockets
+var conn = new WebSocket("ws://laravel.app:8000");
+conn.onopen = function (e) {
+	console.log("Соединение открылось");
+	send();
+};
+
+conn.onmessage = function (e) {
+	console.log ("Пришло сообщение с содержанием: " + e.data);
+};
+
+function send() {
+	var data = Math.random();
+	conn.send(data);
+	console.log ("Отправлено: " + data);
+}
+
 $(".select2_cities").select2();
 
 $(document).ready(function() {
+
 	// Активируем и гасим поле номер договора
     if ($('.contract_number_yes:checked').val() == 1) {
         $('.contract_number').prop('disabled',false);
@@ -136,17 +154,19 @@ $(document).ready(function() {
                             "Найдены организации с похожими данными. Невозможно добавить организацию!</div></div></div>");
 					} else {
                         //checkRepeat = true;
-                        /*$('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
-                            "<div class='panel-heading'><h5>Проверка организации на дубли</h5></div>" +
-                            "<div class='panel-body'>" +
-                            "Организации с похожими данными не найдены. Можно добавлять организацию!</div></div></div>");*/
+                        /*
+                            $('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
+                                "<div class='panel-heading'><h5>Проверка организации на дубли</h5></div>" +
+                                "<div class='panel-body'>" +
+                                "Организации с похожими данными не найдены. Можно добавлять организацию!</div></div></div>");
+                        */
                         $.ajax({
                             type: "POST",
                             url: "store",
                             dataType: 'json',
                             data: $("#newForm").serialize(),
                             success: function (data) {
-                                window.location.replace('/');
+                                location.assign('/');
                             },
                             error: function (err) {
                                 console.log(err);

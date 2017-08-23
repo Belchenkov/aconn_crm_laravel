@@ -42,7 +42,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                             <span>
-                                <a href="/"><img src="{{ asset('img/aconncrm_logo_w.png') }}" /></a>
+                                <a href="#" onclick="send()"><img src="{{ asset('img/aconncrm_logo_w.png') }}" /></a>
                              </span>
                         <br><br>
                         <span data-toggle="dropdown" class="dropdown-toggle">
