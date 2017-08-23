@@ -85,9 +85,20 @@
                                         </div>
                                     @endif
 
-                                    <div class="form-group col-md-12">
-                                        <label>В каких объемах берут</label>
-                                        <input type="number" min="1" class="form-control" value="{{$contractor->take_amount}}" name="take_amount">
+                                    <div class="col-md-12" style="margin: 20px 0;">
+                                        <b>В каких объемах берут:</b>
+
+                                        <select class="select2 form-control" name="take_amount">
+                                            @for($k = 0; $k <= 100; $k+=10)
+                                                <option
+                                                    value="{{$k}}"
+                                                    @if($k == $contractor->take_amount)
+                                                        selected
+                                                    @endif
+                                                >{{$k}}</option>
+                                            @endfor
+                                        </select>
+
                                     </div>
 
                                     @if(!empty($what_work))

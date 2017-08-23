@@ -72,9 +72,13 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <b>В каких объемах берут:</b>
-                                            <input type="number" class="form-control" min="1"  name="take_amount">
+                                                <select class="select2 form-control" name="take_amount">
+                                                    @for($k = 0; $k <= 100; $k+=10)
+                                                        <option value="{{$k}}">{{$k}}</option>
+                                                    @endfor
+                                                </select>
                                         </div>
 
                                         <div class="col-md-12"><br></div>

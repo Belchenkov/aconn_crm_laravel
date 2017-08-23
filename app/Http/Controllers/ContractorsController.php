@@ -12,6 +12,7 @@ use App\WhatWork;
 use App\Periodicity;
 use App\Packing;
 use App\Contact;
+use App\TakeVolume;
 use Illuminate\Support\Facades\Input;
 use DB;
 
@@ -42,7 +43,7 @@ class ContractorsController extends Controller
             'regions' => $regions,
             'what_work' => $what_work,
             'count_row' => $count_row,
-            'notifications' => $notifications
+            'notifications' => $notifications,
         ]);
     }
 
@@ -81,7 +82,7 @@ class ContractorsController extends Controller
                 'what_work' => $what_work,
                 'periodicity' => $periodicity,
                 'packing' => $packing,
-                'notifications' => $notifications
+                'notifications' => $notifications,
             ]);
         }
         else {
@@ -222,7 +223,7 @@ class ContractorsController extends Controller
             'contacts' => $contacts,
             'comments' => $comments,
             'notifications' => $notifications,
-            'notifications_active' => $notifications_active[0]
+            'notifications_active' => $notifications_active[0],
         ]);
 
 
@@ -256,7 +257,7 @@ class ContractorsController extends Controller
                 'what_work' => $what_work,
                 'periodicity' => $periodicity,
                 'packing' => $packing,
-                'notifications' => $notifications
+                'notifications' => $notifications,
             ]);
         } else {
             abort('401');
@@ -508,7 +509,7 @@ class ContractorsController extends Controller
             }
         }
         //  Выполняем запрос
-        $where .= " ORDER BY id ASC LIMIT " . $limit_start . ", " . $limit_end;
+        $where .= " ORDER BY id DESC LIMIT " . $limit_start . ", " . $limit_end;
         $contractors_filter = DB::select($where);
         $managers = User::where('group_id', '=', '2')->get();
         $regions = Region::all();

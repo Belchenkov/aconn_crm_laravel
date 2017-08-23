@@ -107,9 +107,13 @@
                                 </div>
                             @endif
 
-                            <div class="form-group col-md-6">
-                                <label>В каких объемах берут</label>
-                                <input type="number" min="1" class="form-control" value="{{old('take_amount')}}" name="take_amount">
+                            <div class="col-md-6" style="margin: 10px 0;">
+                                <b>В каких объемах берут:</b>
+                                <select class="select2 form-control" name="take_amount">
+                                    @for($k = 0; $k <= 100; $k+=10)
+                                        <option value="{{$k}}">{{$k}}</option>
+                                    @endfor
+                                </select>
                             </div>
 
                             <div class="form-group col-md-6">
