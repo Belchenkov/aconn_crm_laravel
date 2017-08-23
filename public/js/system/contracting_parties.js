@@ -74,6 +74,7 @@ function add_office() {
 }
 
 // WebSockets
+/*
 var conn = new WebSocket("ws://laravel.app:8000");
 conn.onopen = function (e) {
 	console.log("Соединение открылось");
@@ -89,6 +90,7 @@ function send() {
 	conn.send(data);
 	console.log ("Отправлено: " + data);
 }
+*/
 
 $(".select2_cities").select2();
 
@@ -141,39 +143,39 @@ $(document).ready(function() {
 		}
 
 	$("#newForm").submit(function (e) {
-	    //e.preventDefault();
+	    e.preventDefault();
 		if (!checkRepeat) {
 			$.ajax({
 				type: "GET",
 				url: "checkRepeat",
+                data: $("#newForm").serialize(),
 				success: function(data){
+					console.log(data);
 					if ( data.length != '1' )  {
                         $('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
                             "<div class='panel-heading'><h5>Проверка организации на дубли</h5></div>" +
                             "<div class='panel-body'>" +
                             "Найдены организации с похожими данными. Невозможно добавить организацию!</div></div></div>");
-					} else {
-                        //checkRepeat = true;
-                        /*
-                            $('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
-                                "<div class='panel-heading'><h5>Проверка организации на дубли</h5></div>" +
-                                "<div class='panel-body'>" +
-                                "Организации с похожими данными не найдены. Можно добавлять организацию!</div></div></div>");
-                        */
+					}
+                    else {
+                        $('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
+                            "<div class='panel-heading'><h5>Проверка организации на дубли</h5></div>" +
+                            "<div class='panel-body'>" +
+                            "Организации с похожими данными не найдены. Можно добавлять организацию!</div></div></div>");
                         $.ajax({
                             type: "POST",
                             url: "store",
                             dataType: 'json',
                             data: $("#newForm").serialize(),
                             success: function (data) {
-                                location.assign('/');
                             },
                             error: function (err) {
                                 console.log(err);
                             }
                         });
-					}
-				}
+                        window.location.href = '/contractors';
+                    }
+                }
 			});
 		}
 		/*if (checkRepeat) {

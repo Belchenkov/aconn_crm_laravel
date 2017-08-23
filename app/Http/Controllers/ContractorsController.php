@@ -36,8 +36,6 @@ class ContractorsController extends Controller
         $count_row = Contractor::get()->count();
         $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
 
-
-
         return view('pages.contractors.index', [
             'managers' => $managers,
             'contractor_statuses' => $contractor_statuses,
@@ -536,12 +534,6 @@ class ContractorsController extends Controller
 
         $contract_number = $request->input('contract_number');
 
-        //$query = 'select * from  contractors where name=' . $name;
-
-        //echo $query;
-        //$checkFields = DB::select($query);
-                       /* ->orWhere('phone', 'like', '%' . $phone . '%')*/
-
        $phones = '';
        foreach ($phone as $item) {
             $phones .= trim($item) . ' ';
@@ -553,8 +545,6 @@ class ContractorsController extends Controller
                                             /*->orWhere('phone', 'like', '%' . $phone . '%')->whereNotNull('phone')*/
                                             ->get();
 
-
-        //echo $phones;
         if (count($checkFields) > 0) {
             echo json_encode($checkFields);
         } else {
