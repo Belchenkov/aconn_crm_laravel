@@ -60,7 +60,7 @@
                                         </div>
                                         <div class="col-md-12"><br></div>
 
-                                        <div class="col-md-4">
+                                        {{--<div class="col-md-4">
                                             <b>На чем работают:</b>
                                             <select class="select2 form-control" name="filter[what_works]">
                                                 <option value="0" selected>Все</option>
@@ -70,7 +70,20 @@
                                                     @endforeach
                                                 @endif
                                             </select>
-                                        </div>
+                                        </div>--}}
+
+                                        @if(!empty($what_work))
+                                            <div class="form-group col-md-6">
+                                                <label class="font-normal">На чём работают</label>
+                                                <div>
+                                                    <select data-placeholder="Выберете категорию ..." class="chosen-select" multiple="" name="filter[what_works]" style="width: 350px; display: none;" tabindex="-1">
+                                                        @foreach($what_work as $item)
+                                                            <option value="{{$item->name}}">{{$item->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        @endif
 
                                         <div class="col-md-4">
                                             <b>В каких объемах берут:</b>

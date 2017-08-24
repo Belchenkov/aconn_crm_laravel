@@ -20,8 +20,8 @@
     <link href="{{ asset('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/nouslider/jquery.nouislider.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-
+    <link href="{{ asset('css/plugins/chosen/bootstrap-chosen.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}" rel="stylesheet">
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/chosen/chosen.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/select2/select2.min.css') }}" rel="stylesheet">
@@ -212,6 +212,8 @@
     <script src="{{ asset('js/plugins/jasny/jasny-bootstrap.min.js')}}"></script>
     <script src="{{ asset('js/plugins/clockpicker/clockpicker.js')}}"></script>
     <script src="{{ asset('js/plugins/touchspin/jquery.bootstrap-touchspin.min.js')}}" ></script>
+    <script src="{{ asset('js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js')}}"></script>
+    <script src="{{ asset('js/plugins/dualListbox/jquery.bootstrap-duallistbox.js')}}"></script>
     <script src="{{ asset('js/system/contracting_parties.js')}}"></script>
     <script src="{{ asset('js/system/contracting_parties_list.js')}}"></script>
     <script src="{{ asset('js/jquery.bootpag.min.js')}}"></script>

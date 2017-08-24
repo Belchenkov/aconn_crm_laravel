@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row border-bottom white-bg dashboard-header">
-    <form action="{{--{{route('contractors_store')}}--}}"  method="post" id="newForm">
+    <form action="{{route('contractors_store')}}"  method="post" id="newForm">
 
     {{ csrf_field() }}
 
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
 
-                            @if(!empty($what_work))
+                           {{-- @if(!empty($what_work))
                                 <div class="form-group col-md-6">
                                     <label>На чём работают</label>
                                     <select class="select2 form-control" name="what_work_id" required="">
@@ -83,7 +83,7 @@
                                             @endforeach
                                     </select>
                                 </div>
-                            @endif
+                            @endif--}}
 
                             @if(!empty($periodicity))
                                 <div class="form-group col-md-6">
@@ -107,6 +107,8 @@
                                 </div>
                             @endif
 
+
+
                             <div class="col-md-6" style="margin: 10px 0;">
                                 <b>В каких объемах берут:</b>
                                 <select class="select2 form-control" name="take_amount">
@@ -115,6 +117,19 @@
                                     @endfor
                                 </select>
                             </div>
+
+                            @if(!empty($what_work))
+                                <div class="form-group col-md-6">
+                                    <label class="font-normal">На чём работают</label>
+                                    <div>
+                                        <select data-placeholder="Выберете категорию ..." class="chosen-select" multiple="" name="what_work_id[]" style="width: 350px; display: none;" tabindex="-1">
+                                            @foreach($what_work as $item)
+                                                <option value="{{$item->name}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            @endif
 
                             <div class="form-group col-md-6">
                                 <label>Адресс доставки</label>
