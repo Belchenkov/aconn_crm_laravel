@@ -128,16 +128,6 @@ class WhatWorksController extends Controller
         // Если (суперадмин -- group_id = 0)
         if(!Auth()->user()->group_id) {
             $what_work = WhatWork::find($id);
-            // Контрагенты работающее с данным товаром
-            $contractors_what_works = Contractor::where('what_work_id', '=', $id)->get();
-
-            if (!empty($contractors_what_works)) {
-                foreach ($contractors_what_works as $item) {
-                    // Меняем на чем работают на отсутствует
-                    $item->what_work_id = 1;
-                    $item->save();
-                }
-            }
 
             $what_work->delete();
 

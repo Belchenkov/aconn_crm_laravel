@@ -22,21 +22,23 @@ function getPage(page) {
 
                 // Отправляем данные из фильтра
                 function ajaxGet(limit_start) {
+                    var dataRequest = 'search='+$('input[name="filter[search]"]').val()
+                        +'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()
+                        +'&client_manager='+$('select[name="filter[client_manager]"]').val()
+                        +'&status='+$('select[name="filter[status]"]').val()
+                        +'&what_works='+$('select[name="filter[what_works]"]').val()
+                        +'&take_amount='+$('select[name="take_amount"]').val()
+                        +'&currentUserGroup='+currentUserGroup
+                        +'&currentUserID='+currentUserID
+                        +'&limit_start='+limit_start;
+                    //console.log(dataRequest);
                     $.ajax({
                         type: 'GET',
                         url: '/contractors/contractorsGetAjax',
                         dataType: "json",
-                        data: 'search='+$('input[name="filter[search]"]').val()
-                        +'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()
-                        +'&client_manager='+$('select[name="filter[client_manager]"]').val()
-                        +'&status='+$('select[name="filter[status]"]').val()
-                        //+'&what_works='+$('select[name="filter[what_works]"]').val()
-                        +'&take_amount='+$('select[name="take_amount"]').val()
-                        +'&currentUserGroup='+currentUserGroup
-                        +'&currentUserID='+currentUserID
-                        +'&limit_start='+limit_start,
+                        data: dataRequest,
                         success: function(data) {
-                            //console.log(data);
+
                             var contractors = data.contractors;
                             var managers = data.managers;
                             var regions = data.regions;
@@ -105,7 +107,7 @@ function getPage(page) {
                             $('#currentPage').html(table_row);
                         },
                         error: function (err) {
-                            console.log(err);
+                            console.log(err.responseText);
                         }
                     }); // end $.ajax()
                 }

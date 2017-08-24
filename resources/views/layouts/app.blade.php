@@ -111,15 +111,6 @@
                                         </a>
                                     </li>
                                 @endforeach
-                                {{--<li class="divider"></li>
-                                <li>
-                                    <div class="text-center link-block">
-                                        <a href="">
-                                            <strong>Посмотреть все напоминания</strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </div>
-                                </li>--}}
                             </ul>
                         @endif
                     </li>
@@ -140,9 +131,7 @@
         </div>
         <br>
 
-        <div id="message">
 
-        </div>
         {{-- Вывод оповещений --}}
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)

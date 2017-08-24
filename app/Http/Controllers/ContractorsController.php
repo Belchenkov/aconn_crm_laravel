@@ -149,8 +149,8 @@ class ContractorsController extends Controller
             $contractor->comments = $request->input('comments');
             // Статус контрагента
             $contractor->contractor_status_id = $request->input('contractor_status_id');
-
             $what_work_id = $request->input('what_work_id');
+
             // Собираем на чем работают в одну строку
             $what_works = '';
             if (!empty($what_work_id) && count($what_work_id) != 0) {
@@ -160,7 +160,6 @@ class ContractorsController extends Controller
                 $contractor->what_work_id = $what_works;
 
             }
-
 
             // Собираем телефоны в одну строку
             $phones = '';
@@ -191,9 +190,7 @@ class ContractorsController extends Controller
                         $phones_contacts .=  $phone ."<br>";
                     }
                     $contact->phones = $phones_contacts;
-                    //echo $contact->phones . "<br>";
 
-                    //dd($contact);
                     $contact->save();
                 }
             }
@@ -236,8 +233,6 @@ class ContractorsController extends Controller
             'notifications' => $notifications,
             'notifications_active' => $notifications_active[0],
         ]);
-
-
     }
 
     /**
@@ -282,6 +277,7 @@ class ContractorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
         // Если (суперадмин, руководитель, менеджер)
@@ -368,7 +364,6 @@ class ContractorsController extends Controller
                     $what_works .= $item . " ";
                 }
                 $contractor->what_work_id = $what_works;
-
             }
 
             // Формирование строки телефонов
@@ -505,18 +500,7 @@ class ContractorsController extends Controller
             }
         }
 
-        if ($what_works && $what_works !== 1) {
-            if ($and) {
-                $where .= ' AND what_work_id=' . $what_works;
-            } else {
-                if ($where && $and) {
-                    $where .= ' AND what_work_id=' . $what_works;
-                } else {
-                    $where .= ' WHERE what_work_id=' . $what_works;
-                    $and = true;
-                }
-            }
-        }
+
 
         if ($take_amount && $take_amount != 0) {
             if ($and) {
@@ -526,6 +510,19 @@ class ContractorsController extends Controller
                     $where .= ' AND take_amount=' . $take_amount;
                 } else {
                     $where .= ' WHERE take_amount=' . $take_amount;
+                    $and = true;
+                }
+            }
+        }
+
+        if (!empty($what_works) && !($what_works == 'null')) {
+            if ($and) {
+                $where .= ' AND what_work_id LIKE \'%' . $what_works . '%\'';
+            } else {
+                if ($where && $and) {
+                    $where .= ' AND what_work_id LIKE \'%' . $what_works . '%\'';
+                } else {
+                    $where .= ' WHERE what_work_id LIKE \'%' . $what_works . '%\'';
                     $and = true;
                 }
             }
@@ -546,6 +543,7 @@ class ContractorsController extends Controller
         }
         //  Выполняем запрос
         $where .= " ORDER BY id DESC LIMIT " . $limit_start . ", " . $limit_end;
+        //echo $where;
         $contractors_filter = DB::select($where);
         $managers = User::where('group_id', '=', '2')->get();
         $regions = Region::all();

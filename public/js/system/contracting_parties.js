@@ -152,7 +152,7 @@ $(document).ready(function() {
 				url: "checkRepeat",
                 data: $("#newForm").serialize(),
 				success: function(data){
-					console.log(data);
+					//console.log(data);
 					if ( data.length != '1' )  {
                         $('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
                             "<div class='panel-heading'><h5>Проверка организации на дубли</h5></div>" +
@@ -160,10 +160,10 @@ $(document).ready(function() {
                             "Найдены организации с похожими данными. Невозможно добавить организацию!</div></div></div>");
 					}
                     else {
-                        $('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
+                        /*$('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
                             "<div class='panel-heading'><h5>Проверка организации на дубли</h5></div>" +
                             "<div class='panel-body'>" +
-                            "Организации с похожими данными не найдены. Можно добавлять организацию!</div></div></div>");
+                            "Организации с похожими данными не найдены. Можно добавлять организацию!</div></div></div>");*/
                         $.ajax({
                             type: "POST",
                             url: "store",
@@ -176,7 +176,6 @@ $(document).ready(function() {
                             }
                         });
                         window.location.href = '/contractors';
-
                     }
                 }
 			});
@@ -197,18 +196,6 @@ $(document).ready(function() {
 	$('.i-checks').iCheck({
 		checkboxClass: 'icheckbox_square-green',
 		radioClass: 'iradio_square-green',
-	});
-	$('#status').on('change', 'select[name="status"]', function(){
-		$(this).nextAll('select[name="status"]').remove();
-		var selectelement = this;
-		$.ajax({
-			type: "POST",
-			url: "/getter/contracting_parties_status",
-			data: "id="+$(this).val(),
-			success: function(selects){
-				$(selectelement).after(selects);
-			}
-		});
 	});
 
 	$('#listContacts').on('click', '.close-window-contact', function(){
