@@ -55,10 +55,10 @@
                             <label>E-mail</label><br>
 
                             @if (!empty($contractor->email))
-                                <i class="copyButton fa fa-copy"
+                                <i class="copyButton fa fa-copy" style="display: none"
                                    title="Копировать в буфер"
                                 ></i>
-                                <span class="cont" style="margin-left: 15px"> {{$contractor->email}}</span>
+                                <span class="cont"> {{$contractor->email}}</span>
                             @else
                                 Отсутствует
                             @endif
@@ -91,8 +91,8 @@
 
                         <div class="form-group col-md-6">
                             <label>Адрес доставки</label><br>
-                            @if (!empty($contractor->ur_address))
-                                {{$contractor->ur_address}}
+                            @if (!empty($contractor->delivery_address))
+                                {{$contractor->delivery_address}}
                             @else
                                 Отсутствует
                             @endif
@@ -106,6 +106,70 @@
                                 Отсутствует
                             @endif
                         </div>
+
+                        <div class="form-group col-md-6">
+                            <label>На чем работают</label><br>
+                            @if (!empty($contractor->what_work_id))
+                                {{$contractor->what_work_id}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>В каких объемах берут</label><br>
+                            @if (!empty($contractor->take_amount))
+                                {{$contractor->take_amount}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Периодичность</label><br>
+                            @if (!empty($periodicity))
+                                {{$periodicity}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Номер контракта</label><br>
+                            @if (!empty($contractor->contract_number))
+                                {{$contractor->contract_number}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Доставка</label><br>
+                            @if (!empty($contractor->delivery))
+                                {{$contractor->delivery}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Упаковка</label><br>
+                            @if (!empty($packing))
+                                {{$packing}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label>Комментарий</label><br>
+                            @if (!empty($contractor->comments))
+                                {{$contractor->comments}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -148,7 +212,7 @@
                                     @endif
 
                                     @if (!empty($contact->email))
-                                        <i class="copyButton fa fa-copy"
+                                        <i class="copyButton fa fa-copy" style="display: none"
                                            title="Копировать в буфер"
                                         ></i>
                                         <span class="cont" style="margin-left: 15px"> {{$contact->email}}</span>

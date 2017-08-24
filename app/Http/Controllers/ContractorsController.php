@@ -217,6 +217,10 @@ class ContractorsController extends Controller
         $region = Region::find($contractor->region_id)->contractor()->getParent()->name;
         // Статус контрагента
         $status = ContractorStatus::find($contractor->contractor_status_id)->contractor()->getParent()->name;
+        // Периодичность
+        $periodicity = Periodicity::find($contractor->periodicity_id)->contractor()->getParent()->name;
+        // Упаковка
+        $packing = Packing::find($contractor->packing_id)->contractor()->getParent()->name;
         // Напоминания
         $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->orderBy('id', 'desc')->get();
         $notifications_active = Comment::where('reminder_status', '=', '1')->where('user_id', '=', Auth()->id())->orderBy('id', 'desc')->get();
@@ -231,6 +235,8 @@ class ContractorsController extends Controller
             'comments' => $comments,
             'notifications' => $notifications,
             'notifications_active' => $notifications_active[0],
+            'periodicity' => $periodicity,
+            'packing' => $packing
         ]);
     }
 

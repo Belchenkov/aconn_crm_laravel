@@ -30,4 +30,14 @@ class Contractor extends Model
     {
         return $this->hasOne('App\ContractorStatus');
     }
+
+    public function periodicity()
+    {
+        return $this->hasOne('App\Periodicity');
+    }
+
+    public function packing()
+    {
+        return $this->hasOne('App\Packing');
+    }
 }
