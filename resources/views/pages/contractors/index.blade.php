@@ -76,7 +76,7 @@
                                             <div class="form-group col-md-6">
                                                 <label class="font-normal">На чём работают</label>
                                                 <div>
-                                                    <select data-placeholder="Выберете категорию ..." class="chosen-select" multiple="" name="filter[what_works]" style="width: 350px; display: none;" tabindex="-1">
+                                                    <select data-placeholder="Все" class="chosen-select" multiple="" name="filter[what_works]" style="width: 350px; display: none;" tabindex="-1">
                                                         @foreach($what_work as $item)
                                                             <option value="{{$item->name}}">{{$item->name}}</option>
                                                         @endforeach

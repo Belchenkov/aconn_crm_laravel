@@ -144,7 +144,7 @@ $(document).ready(function() {
             });
 		}
 
-	$("#newForm1").submit(function (e) {
+	$("#newForm").submit(function (e) {
 	    e.preventDefault();
 		if (!checkRepeat) {
 			$.ajax({

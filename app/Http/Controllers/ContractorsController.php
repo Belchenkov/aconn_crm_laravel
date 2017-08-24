@@ -150,12 +150,16 @@ class ContractorsController extends Controller
             // Статус контрагента
             $contractor->contractor_status_id = $request->input('contractor_status_id');
 
+            $what_work_id = $request->input('what_work_id');
             // Собираем на чем работают в одну строку
             $what_works = '';
-            foreach ($request->input('what_work_id') as $item) {
-                $what_works .= $item . " ";
+            if (!empty($what_work_id) && count($what_work_id) != 0) {
+                foreach ($request->input('what_work_id') as $item) {
+                    $what_works .= $item . " ";
+                }
+                $contractor->what_work_id = $what_works;
+
             }
-            $contractor->what_work_id = $what_works;
 
 
             // Собираем телефоны в одну строку
@@ -312,7 +316,7 @@ class ContractorsController extends Controller
             // Закреплен ли менеджер
             $contractor->assign_manager = $request->input('assign_manager');
             // На чем работают
-            $contractor->what_work_id = $request->input('what_work_id');
+            //$contractor->what_work_id = $request->input('what_work_id');
             // Периодичность
             $contractor->periodicity_id = $request->input('periodicity_id');
             // В каких объемах берут
@@ -354,6 +358,17 @@ class ContractorsController extends Controller
                 $comments->reminder = 0;
 
                 $comments->save();
+            }
+
+            $what_work_id = $request->input('what_work_id');
+            // Собираем на чем работают в одну строку
+            $what_works = '';
+            if (!empty($what_work_id) && count($what_work_id) != 0) {
+                foreach ($request->input('what_work_id') as $item) {
+                    $what_works .= $item . " ";
+                }
+                $contractor->what_work_id = $what_works;
+
             }
 
             // Формирование строки телефонов

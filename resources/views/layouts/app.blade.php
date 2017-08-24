@@ -99,7 +99,7 @@
 
                         @if (!empty($notifications))
 
-                            <ul class="dropdown-menu dropdown-alerts">
+                            <ul class="dropdown-menu dropdown-alerts" style="min-width: 600px;">
                                 @foreach($notifications as $notification)
                                     <li>
                                         <a href="{{route('contractors_details', ['id' => $notification->contractor_id])}}">

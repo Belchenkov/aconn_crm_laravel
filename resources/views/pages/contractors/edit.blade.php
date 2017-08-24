@@ -101,7 +101,7 @@
 
                                     </div>
 
-                                    @if(!empty($what_work))
+                                    {{--@if(!empty($what_work))
                                         <div class="form-group col-md-12">
                                             <label>На чём работают</label>
                                             <select class="form-control" name="what_work_id">
@@ -114,6 +114,18 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                    @endif--}}
+                                    @if(!empty($what_work))
+                                        <div class="form-group col-md-12">
+                                            <label class="font-normal">На чём работают</label>
+                                            <div>
+                                                <select data-placeholder="Все" class="chosen-select" multiple="" name="what_work_id[]" style="width: 350px; display: none;" tabindex="-1">
+                                                    @foreach($what_work as $item)
+                                                        <option value="{{$item->name}}">{{$item->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     @endif
                                 </div>
