@@ -22,16 +22,26 @@ function getPage(page) {
 
                 // Отправляем данные из фильтра
                 function ajaxGet(limit_start) {
+                    var what_work = $('select[name="filter[what_works]"]').val();
+                    var new_what_work = '';
+
+                    if (what_work != null) {
+                        for (var i = 0; i < what_work.length; i++) {
+                            new_what_work += what_work[i] + ', ';
+                        }
+                    }
+
+                    //console.log(new_what_work);
                     var dataRequest = 'search='+$('input[name="filter[search]"]').val()
                         +'&page='+page+'&regions='+$('select[name="filter[regions]"]').val()
                         +'&client_manager='+$('select[name="filter[client_manager]"]').val()
                         +'&status='+$('select[name="filter[status]"]').val()
-                        +'&what_works='+$('select[name="filter[what_works]"]').val()
+                        +'&what_works='+new_what_work
                         +'&take_amount='+$('select[name="take_amount"]').val()
                         +'&currentUserGroup='+currentUserGroup
                         +'&currentUserID='+currentUserID
                         +'&limit_start='+limit_start;
-                    //console.log(dataRequest);
+                    //console.log(what_work);
                     $.ajax({
                         type: 'GET',
                         url: '/contractors/contractorsGetAjax',
@@ -107,7 +117,7 @@ function getPage(page) {
                             $('#currentPage').html(table_row);
                         },
                         error: function (err) {
-                            console.log(err.responseText);
+                            //console.log(err.responseText);
                         }
                     }); // end $.ajax()
                 }
