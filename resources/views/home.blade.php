@@ -17,7 +17,6 @@
                                 @endif
                             </h2>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -27,7 +26,7 @@
                 <table id="notifications" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="contacts_info">
                     <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>ID</th>
                         <th>Комментарий</th>
                         <th>Организация</th>
                         <th>Дата напоминания</th>

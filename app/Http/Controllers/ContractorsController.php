@@ -420,6 +420,7 @@ class ContractorsController extends Controller
         $manager = Input::get('client_manager');
         $status = Input::get('status');
         $what_works = Input::get('what_works');
+        $take_amount = Input::get('take_amount');
         $currentUserGroup = Input::get('currentUserGroup');
         $currentUserID = Input::get('currentUserID');
         $limit_start = Input::get('limit_start');
@@ -490,6 +491,19 @@ class ContractorsController extends Controller
                     $where .= ' AND what_work_id=' . $what_works;
                 } else {
                     $where .= ' WHERE what_work_id=' . $what_works;
+                    $and = true;
+                }
+            }
+        }
+
+        if ($take_amount && $take_amount != 0) {
+            if ($and) {
+                $where .= ' AND take_amount=' . $take_amount;
+            } else {
+                if ($where && $and) {
+                    $where .= ' AND take_amount=' . $take_amount;
+                } else {
+                    $where .= ' WHERE take_amount=' . $take_amount;
                     $and = true;
                 }
             }

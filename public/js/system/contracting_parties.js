@@ -179,13 +179,6 @@ $(document).ready(function() {
                 }
 			});
 		}
-		/*if (checkRepeat) {
-
-			return true;
-		} else {
-			checkRepeat = true;
-			return false;
-		}*/
 	});
 
 	$(".sale").TouchSpin({
@@ -215,8 +208,6 @@ $(document).ready(function() {
 			}
 		});
 	});
-	//$('div#status select').first().hide();
-	//$('#status select').change();
 
 	$('#listContacts').on('click', '.close-window-contact', function(){
 		if (typeof swal == 'function') {

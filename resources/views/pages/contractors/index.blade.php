@@ -75,7 +75,8 @@
                                         <div class="col-md-4">
                                             <b>В каких объемах берут:</b>
                                                 <select class="select2 form-control" name="take_amount">
-                                                    @for($k = 0; $k <= 100; $k+=10)
+                                                    <option selected value="0">Все</option>
+                                                    @for($k = 10; $k <= 100; $k+=10)
                                                         <option value="{{$k}}">{{$k}}</option>
                                                     @endfor
                                                 </select>

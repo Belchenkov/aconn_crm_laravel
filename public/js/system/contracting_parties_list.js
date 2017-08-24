@@ -31,6 +31,7 @@ function getPage(page) {
                         +'&client_manager='+$('select[name="filter[client_manager]"]').val()
                         +'&status='+$('select[name="filter[status]"]').val()
                         +'&what_works='+$('select[name="filter[what_works]"]').val()
+                        +'&take_amount='+$('select[name="take_amount"]').val()
                         +'&currentUserGroup='+currentUserGroup
                         +'&currentUserID='+currentUserID
                         +'&limit_start='+limit_start,
