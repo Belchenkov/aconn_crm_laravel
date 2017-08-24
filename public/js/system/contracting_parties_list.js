@@ -52,23 +52,25 @@ function getPage(page) {
                             var contractors = data.contractors;
                             var managers = data.managers;
                             var regions = data.regions;
-                            var contractors = data.contractors;
-                            var managers = data.managers;
-                            var regions = data.regions;
 
                             var table_row = '';
 
                             for (var i = 0; i < contractors.length; i++) {
                                 var id = contractors[i]['id'];
                                 var name = contractors[i]['name'];
-                                var phone =  contractors[i]['phone'];
+                                var what_works =  contractors[i]['what_work_id'];
                                 var region_id = contractors[i]['region_id'];
                                 var manager_id = contractors[i]['user_id'];
-                                var email = contractors[i]['email'];
+                                var take_amount = contractors[i]['take_amount'];
 
-                                // Если email = null
-                                if (!email) {
-                                    email = 'Отсутствует';
+                                // Если what_works = null
+                                if (!what_works) {
+                                    what_works = 'Отсутствует';
+                                }
+
+                                // Если take_amount = null
+                                if (take_amount == '0' || !take_amount) {
+                                    take_amount = 'Отсутствует';
                                 }
 
                                 var manager = '';
@@ -104,10 +106,10 @@ function getPage(page) {
                                 table_row +=
                                     '<tr>' +
                                     '<td><a href="/contractors/details/' + id + '">'+ name +'</a></td>' +
-                                    '<td>'+ phone +'</td>' +
-                                    '<td>'+ email +'</td>' +
                                     '<td>'+ region +'</td>' +
                                     '<td>'+ manager +'</td>' +
+                                    '<td>'+ what_works +'</td>' +
+                                    '<td>'+ take_amount +'</td>' +
                                     '<td class="text-center">'+
                                     '<a href="contractors/edit/'+id+'" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right"  title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a> '
                                     + delete_btn +

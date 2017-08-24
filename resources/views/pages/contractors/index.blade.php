@@ -61,18 +61,6 @@
                                         </div>
                                         <div class="col-md-12"><br></div>
 
-                                        {{--<div class="col-md-4">
-                                            <b>На чем работают:</b>
-                                            <select class="select2 form-control" name="filter[what_works]">
-                                                <option value="0" selected>Все</option>
-                                                @if(!empty($what_work))
-                                                    @foreach($what_work as $item)
-                                                        <option value="{{$item->id}}">{{$item->name}}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                        </div>--}}
-
                                         @if(!empty($what_work))
                                             <div class="form-group col-md-6">
                                                 <label class="font-normal">На чём работают</label>
@@ -147,156 +135,16 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>Наименование(s)</th>
-                                                                <th>Телефон</th>
-                                                                <th>Email</th>
                                                                 <th>Регион</th>
                                                                 <th>Менеджер</th>
+                                                                <th>На чем работают</th>
+                                                                <th>В каких объемах берут</th>
                                                                 @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                     <th>Управление</th>
                                                                 @endif
                                                             </tr>
                                                         </thead>
                                                         <tbody id="currentPage">
-                                                       <!--{{--@if(!empty($contractors))
-                                                               <?php $i = 1; ?>
-                                                               @foreach($contractors as $contractor)
-                                                                   @if(Auth()->user()->group_id != 2)
-                                                                       <tr id="currentPage">
-                                                                           <td>{{$i++}}</td>
-                                                                           <td>
-                                                                               <a href="{{route('contractors_details', ['id' => $contractor->id])}}">{{$contractor->name}}</a>
-                                                                           </td>
-                                                                           <td>{!! $contractor->phone !!}</td>
-                                                                           <td>
-                                                                               @foreach($regions as $region)
-                                                                                   @if($contractor->region_id === $region->id)
-                                                                                       {{$region->name}}
-                                                                                   @endif
-                                                                               @endforeach
-                                                                           </td>
-                                                                           <td>
-                                                                               @foreach($users as $user)
-                                                                                   @if($contractor->user_id === $user->id)
-                                                                                       {{$user->fio}}
-                                                                                   @endif
-                                                                               @endforeach
-                                                                           </td>
-                                                                           <td>
-                                                                               @if($contractor->assign_manager)
-                                                                                   {{'Да'}}
-                                                                               @else
-                                                                                   {{'Нет'}}
-                                                                               @endif
-                                                                           </td>
-                                                                           <td>
-                                                                               @foreach($what_work as $item)
-                                                                                   @if($contractor->what_work_id === $item->id)
-                                                                                       {{$item->name}}
-                                                                                   @endif
-                                                                               @endforeach
-                                                                           </td>
-
-                                                                           <td>
-                                                                               @foreach($periodicity as $item)
-                                                                                   @if($contractor->periodicity_id === $item->id)
-                                                                                       {{$item->name}}
-                                                                                   @endif
-                                                                               @endforeach
-                                                                           </td>
-
-                                                                           <td>
-                                                                               @foreach($packing as $item)
-                                                                                   @if($contractor->packing_id === $item->id)
-                                                                                       {{$item->name}}
-                                                                                   @endif
-                                                                               @endforeach
-                                                                           </td>
-
-                                                                           @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
-                                                                               <td>
-                                                                                   <a href="{{route('contractors_edit', ['id' => $contractor->id] )}}" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a>
-                                                                                   @if(!Auth()->user()->group_id)
-                                                                                       <form action="{{route('contractors_delete', ['id' => $contractor->id])}}" method="post" style="display: inline;">
-                                                                                           {{ csrf_field() }}
-                                                                                           <button class="btn btn-danger btn-bitbucket" onclick="return confirm('Удалить?')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button>
-                                                                                       </form>
-                                                                                   @endif
-                                                                               </td>
-                                                                           @endif
-                                                                       </tr>
-                                                                   @endif
-                                                               @endforeach
-                                                           @endif
-
-                                                           @if(!empty($manager_contractors))
-                                                               @foreach($manager_contractors as $contractor)
-                                                                   @if(Auth()->user()->group_id == 2)
-                                                                       <tr>
-                                                                           <td>{{$contractor->id}}</td>
-                                                                           <td>
-                                                                               <a href="{{route('contractors_details', ['id' => $contractor->id] ) }}">{{$contractor->name}}</a>
-                                                                           </td>
-                                                                           <td>{!! $contractor->phone !!}</td>
-                                                                           <td>
-                                                                               @foreach($regions as $region)
-                                                                                   @if($contractor->region_id === $region->id)
-                                                                                       {{$region->name}}
-                                                                                   @endif
-                                                                               @endforeach
-                                                                           </td>
-                                                                           <td>
-                                                                               @foreach($users as $user)
-                                                                                   @if($contractor->user_id === $user->id)
-                                                                                       {{$user->fio}}
-                                                                                   @endif
-                                                                               @endforeach
-                                                                           </td>
-                                                                           <td>
-                                                                               @if($contractor->assign_manager)
-                                                                                   {{'Да'}}
-                                                                               @else
-                                                                                   {{'Нет'}}
-                                                                               @endif
-                                                                           </td>
-                                                                           <td>
-                                                                               @foreach($what_work as $item)
-                                                                                   @if($contractor->what_work_id === $item->id)
-                                                                                       {{$item->name}}
-                                                                                   @endif
-                                                                               @endforeach
-                                                                           </td>
-
-                                                                           <td>
-                                                                               @foreach($periodicity as $item)
-                                                                                   @if($contractor->periodicity_id === $item->id)
-                                                                                       {{$item->name}}
-                                                                                   @endif
-                                                                               @endforeach
-                                                                           </td>
-
-                                                                           <td>
-                                                                               @foreach($packing as $item)
-                                                                                   @if($contractor->packing_id === $item->id)
-                                                                                       {{$item->name}}
-                                                                                   @endif
-                                                                               @endforeach
-                                                                           </td>
-
-                                                                           @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
-                                                                               <td>
-                                                                                   <a href="{{route('contractors_edit', ['id' => $contractor->id] )}}" class="btn btn-outline btn-warning btn-bitbucket" data-toggle="tooltip" data-placement="right" title="Редактировать" data-original-title="Редактировать"><i class="fa fa-edit"></i></a>
-                                                                                   @if(!Auth()->user()->group_id)
-                                                                                       <form action="{{route('contractors_delete', ['id' => $contractor->id] )}}" method="post" style="display: inline;">
-                                                                                           {{ csrf_field() }}
-                                                                                           <button class="btn btn-danger btn-bitbucket" onclick="return confirm('Удалить?')" data-toggle="tooltip" data-placement="right" title="Удалить организацию" data-original-title="Удалить организацию"><i class="fa fa-trash"></i></button>
-                                                                                       </form>
-                                                                                   @endif
-                                                                               </td>
-                                                                           @endif
-                                                                       </tr>
-                                                                   @endif
-                                                               @endforeach
-                                                           @endif--}}-->
                                                         </tbody>
 
                                                     </table>

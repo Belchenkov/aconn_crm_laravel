@@ -16,10 +16,11 @@ class CommentsController extends Controller
             $notification_time = $request->input('notification_time');
             $notification_date = $notification_date . ' ' . $notification_time;
             $contractor_id = $request->input('contractor_id');
+            $notification_active = $request->input('notification_active');
+
+            //dd($request);
 
             $old_active_comment = Comment::where('reminder_status', '=', 1)->where('user_id', '=', Auth()->id())->get();
-
-            //dd($old_active_comment);
 
             $comment = new Comment();
             $comment->user_id = $request->input('user_id');
@@ -30,13 +31,16 @@ class CommentsController extends Controller
 
             if ($notification_date != " ") {
                 $comment->date_reminder = $notification_date;
-                $comment->reminder = 1;
-                $comment->reminder_status = 1;
 
-                // Деактивируем старую запись
-                if (count($old_active_comment[0]) > 0) {
-                    $old_active_comment[0]->reminder_status = 2;
-                    $old_active_comment[0]->save();
+                if ($notification_active == 1) {
+                    $comment->reminder = 1;
+                    $comment->reminder_status = 1;
+
+                    // Деактивируем старую запись
+                    if (count($old_active_comment[0]) > 0) {
+                        $old_active_comment[0]->reminder_status = 2;
+                        $old_active_comment[0]->save();
+                    }
                 }
             }
 

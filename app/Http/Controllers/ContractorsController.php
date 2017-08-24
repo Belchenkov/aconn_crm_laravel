@@ -209,7 +209,7 @@ class ContractorsController extends Controller
     public function show($id)
     {
         $contractor = Contractor::find($id);
-        $comments = Comment::where('contractor_id', '=', $id)->get();
+        $comments = Comment::where('contractor_id', '=', $id)->orderBy('id', 'desc')->get();
         // Список контактных лиц
         $contacts =Contact::where('contractors_id', '=', $id)->get();
         $manager = User::find($contractor->user_id)->contractors()->getParent()->fio;
@@ -218,8 +218,8 @@ class ContractorsController extends Controller
         // Статус контрагента
         $status = ContractorStatus::find($contractor->contractor_status_id)->contractor()->getParent()->name;
         // Напоминания
-        $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
-        $notifications_active = Comment::where('reminder_status', '=', '1')->where('user_id', '=', Auth()->id())->get();
+        $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->orderBy('id', 'desc')->get();
+        $notifications_active = Comment::where('reminder_status', '=', '1')->where('user_id', '=', Auth()->id())->orderBy('id', 'desc')->get();
 
         return view('pages.contractors.details', [
             'contractor' => $contractor,
@@ -570,19 +570,21 @@ class ContractorsController extends Controller
 
        $phones = '';
        foreach ($phone as $item) {
-            $phones .= trim($item) . ' ';
+            $phones .= trim($item) . '<br>';
        }
+
+       //echo $phones;
 
        $checkFields = Contractor::where('name', '=', $name)->whereNotNull('name')
                                             ->orWhere('inn', '=', $inn)->whereNotNull('inn')
                                             ->orWhere('contract_number', '=', $contract_number)->whereNotNull('contract_number')
-                                            /*->orWhere('phone', 'like', '%' . $phone . '%')->whereNotNull('phone')*/
+                                            ->orWhere('phone', 'like', '%' . $phones . '%')->whereNotNull('phone')
                                             ->get();
 
         if (count($checkFields) > 0) {
-            echo json_encode($checkFields);
+            //echo json_encode($checkFields);
         } else {
-            echo 0;
+            //echo 0;
         }
     }
 }

@@ -178,36 +178,79 @@
     <div class="col-md-12">
         <div id="vertical-timeline" class="vertical-container">
             <div class="vertical-timeline-block">
-                <div class="vertical-timeline-icon navy-bg"><i class="fa fa-check"></i></div>
-                <div class="vertical-timeline-content">
-                    <p>Организация добавлена</p>
-                    <span class="vertical-date">
-                        <?php
-                            // Разбиваем на время и дату
-                            $date = explode(" ", $contractor->created_at);
-                        ?>
-						<b><?= $date[1]; // Время ?></b>
-						<i class="fa fa-clock-o"></i>
-                        <?= $date[0]; // Дата ?> <br/>
-					</span>
-                </div>
+                <form action="{{route('comments_add')}}" id="add_comment" method="post">
+                    {{csrf_field()}}
+                    <div class="vertical-timeline-icon blue-bg"><i class="fa fa-comments"></i></div>
+                    
+                    <div class="vertical-timeline-content">
+                        <div class="row">
+                            <div class="form-group col-md-12" style="margin-top: 25px">
+                                <button type="button" class="btn btn-success btn-block btn-lg" id="notif-btn">Добавить комментарий</button>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row col-md-12" id="date_notif" style="display: none;">
+                            <input type="hidden" name="contractor_id" value="{{$contractor->id}}">
+                            <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
+
+                            <div>
+                                <textarea id="comment" required="" class="form-control" name="comment" rows="5"></textarea>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <div class="form-group col-md-10 col-md-offset-1" id="data_1">
+                                    <label>Дата напоминания</label>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type="text" class="form-control inputmask" name="notification_date">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="notif_yes" value="0" name="notification">
+                                        <div class="form-group col-md-3 col-md-push-2">
+                                            <div class="input-group clockpicker" data-autoclose="true">
+                                                <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+                                                <input type="time" class="form-control" name="notification_time">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox checkbox-circle" style="margin-left: 45px">
+                                    <input type="checkbox" class="" id="notification_active" name="notification_active" value="1" />
+                                    <label for="notification_active"><strong>Напоминание</strong></label>
+                                </div>
+                                <button type="submit" id="sendComment" class="btn btn-primary pull-right">Добавить комментарий</button></div>
+                            </div>
+
+                        </div>
+
+
+                </form>
             </div>
 
+
+
             @if(!empty($comments) && count($comments) > 0)
-                @foreach($comments as $comment)
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg"><i class="fa fa-check"></i></div>
-                        <div class="vertical-timeline-content">
-                            <p><em>{{$comment->comments}}</em></p>
-                            <span class="vertical-date">
+            @foreach($comments as $comment)
+            <div class="vertical-timeline-block">
+                <div class="vertical-timeline-icon navy-bg"><i class="fa fa-check"></i></div>
+                <div class="vertical-timeline-content">
+                    <p><em>{{$comment->comments}}</em></p>
+                    <span class="vertical-date">
                                 <span>Добавлено </span>
-                                <?php
-                                    // Разбиваем на время и дату
-                                    $date = explode(" ", $comment->created_at);
-                                ?>
-                                <b><?= $date[1]; // Время ?></b>
+                        <?php
+                        // Разбиваем на время и дату
+                        $date = explode(" ", $comment->created_at);
+                        ?>
+                        <b><?= $date[1]; // Время ?></b>
 						        <i class="fa fa-clock-o"></i>
-                                <?= $date[0]; // Дата ?> <br/>
+                        <?= $date[0]; // Дата ?> <br/>
                                 @if(!empty($users) && count($users) > 0)
                                     @foreach($users as $user)
                                         @if($user->id == $comment->user_id)
@@ -216,62 +259,37 @@
                                     @endforeach
                                 @endif
                             </span>
-                            @if(!empty($comment->reminder_status) && $comment->reminder_status == 1)
-                                <div class="pull-right">
-                                    <i class="fa fa-bell bell" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{$comment->comments}}  {{$comment->date_reminder}}"></i>
-                                </div>
-                            @elseif(!empty($comment->reminder_status) && $comment->reminder_status == 2)
-                            <div class="pull-right">
-                                <i class="fa fa-bell bell-not-active" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{$comment->comments}}  {{$comment->date_reminder}}"></i>
-                            </div>
-                            @endif
-
-                        </div>
+                    @if(!empty($comment->reminder_status) && $comment->reminder_status == 1)
+                    <div class="pull-right">
+                        <i class="fa fa-bell bell" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{$comment->comments}}  {{$comment->date_reminder}}"></i>
                     </div>
-                @endforeach
-            @endif
-            <div class="vertical-timeline-block">
-                <form action="{{route('comments_add')}}" id="add_comment" method="post">
-                    {{csrf_field()}}
-                    <div class="vertical-timeline-icon blue-bg"><i class="fa fa-comments"></i></div>
-                    <div class="vertical-timeline-content">
-                        <input type="hidden" name="contractor_id" value="{{$contractor->id}}">
-                        <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
-                        <div>
-                            <textarea id="comment" required="" class="form-control" name="comment" rows="5"></textarea>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="form-group col-md-4">
-                                <button type="button" class="btn btn-success pull-left" id="notif-btn">Напоминание</button>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row" id="date_notif">
-                            <div class="form-group col-md-8 col-md-offset-2" id="data_1">
-                                <label>Дата напоминания</label>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <div class="input-group date">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            <input type="text" class="form-control inputmask" name="notification_date">
-                                        </div>
-                                    </div>
-                                    <input type="hidden" id="notif_yes" value="0" name="notification">
-                                    <div class="form-group col-md-6">
-                                        <div class="input-group clockpicker" data-autoclose="true">
-                                            <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
-                                            <input type="time" class="form-control" name="notification_time">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" id="sendComment" class="btn btn-primary pull-right" name="title" value="title">Добавить комментарий</button></div>
-                        </div>
-                </form>
+                    @elseif(!empty($comment->reminder_status) && $comment->reminder_status == 2)
+                    <div class="pull-right">
+                        <i class="fa fa-bell bell-not-active" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{$comment->comments}}  {{$comment->date_reminder}}"></i>
+                    </div>
+                    @endif
+
+                </div>
             </div>
+            @endforeach
+            @endif
+
+            <div class="vertical-timeline-block">
+                <div class="vertical-timeline-icon navy-bg"><i class="fa fa-check"></i></div>
+                <div class="vertical-timeline-content">
+                    <p>Организация добавлена</p>
+                    <span class="vertical-date">
+                <?php
+                        // Разбиваем на время и дату
+                        $date = explode(" ", $contractor->created_at);
+                        ?>
+                        <b><?= $date[1]; // Время ?></b>
+                <i class="fa fa-clock-o"></i>
+                        <?= $date[0]; // Дата ?> <br/>
+            </span>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

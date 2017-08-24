@@ -74,17 +74,6 @@
                                 </div>
                             </div>
 
-                           {{-- @if(!empty($what_work))
-                                <div class="form-group col-md-6">
-                                    <label>На чём работают</label>
-                                    <select class="select2 form-control" name="what_work_id" required="">
-                                            @foreach($what_work as $item)
-                                                <option value="{{$item->id}}">{{$item->name}}</option>
-                                            @endforeach
-                                    </select>
-                                </div>
-                            @endif--}}
-
                             @if(!empty($periodicity))
                                 <div class="form-group col-md-6">
                                     <label>Периодичность</label>
@@ -106,8 +95,6 @@
                                     </select>
                                 </div>
                             @endif
-
-
 
                             <div class="col-md-6" style="margin: 10px 0;">
                                 <b>В каких объемах берут:</b>

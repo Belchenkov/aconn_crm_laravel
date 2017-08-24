@@ -28,7 +28,7 @@ class HomeController extends Controller
         // Общее количество контрагентов(организаций)
         $count_contractors = Contractor::get()->count();
         // Напоминания
-        $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+        $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->orderBy('id', 'desc')->get();
         $contractors = Contractor::all();
 
         if (Auth()->user()->group_id == 2) {
