@@ -280,14 +280,9 @@
                                 </div>
                                 <button type="submit" id="sendComment" class="btn btn-primary pull-right">Добавить комментарий</button></div>
                             </div>
-
                         </div>
-
-
                 </form>
             </div>
-
-
 
             @if(!empty($comments) && count($comments) > 0)
             @foreach($comments as $comment)
@@ -303,7 +298,7 @@
                         ?>
                         <b><?= $date[1]; // Время ?></b>
 						        <i class="fa fa-clock-o"></i>
-                        <?= $date[0]; // Дата ?> <br/>
+                        <?=  $date[0]; // Дата ?> <br/>
                                 @if(!empty($users) && count($users) > 0)
                                     @foreach($users as $user)
                                         @if($user->id == $comment->user_id)
@@ -333,12 +328,15 @@
                     <p>Организация добавлена</p>
                     <span class="vertical-date">
                 <?php
+
                         // Разбиваем на время и дату
                         $date = explode(" ", $contractor->created_at);
+                        //dd( date('d:m:Y',  $date[0]) );
                         ?>
                         <b><?= $date[1]; // Время ?></b>
                 <i class="fa fa-clock-o"></i>
-                        <?= $date[0]; // Дата ?> <br/>
+                        <?= date($date[0]); // Дата ?> <br/>
+
             </span>
                 </div>
             </div>
