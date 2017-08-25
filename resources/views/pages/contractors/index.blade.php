@@ -131,16 +131,15 @@
                                     <div class="col-lg-12">
                                         <div class="ibox float-e-margins">
                                             <div class="ibox-content">
-
                                                 <div class="table-responsive" >
                                                     <table id="example" class="display table table-striped table-bordered table-hover dataTables-example" >
                                                         <thead>
                                                             <tr>
-                                                                <th>Наименование(s)</th>
-                                                                <th>Регион</th>
-                                                                <th>Статус</th>
-                                                                <th>На чем работают</th>
-                                                                <th>В каких объемах берут</th>
+                                                                @if(!empty($table_th)/* && count($table_th > 0)*/)
+                                                                    @foreach($table_th as $item)
+                                                                        <th>{{$item->name}}</th>
+                                                                    @endforeach
+                                                                @endif
                                                                 @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)
                                                                     <th>Управление</th>
                                                                 @endif

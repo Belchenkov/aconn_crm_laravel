@@ -12,7 +12,7 @@ use App\WhatWork;
 use App\Periodicity;
 use App\Packing;
 use App\Contact;
-use App\TakeVolume;
+use App\Tableth;
 use Illuminate\Support\Facades\Input;
 use DB;
 
@@ -33,6 +33,8 @@ class ContractorsController extends Controller
         $regions = Region::where('id', '>', '1')->get();
         // На чем работают
         $what_work = WhatWork::all();
+        // Заголовки таблицы организаций
+        $table_th = Tableth::all();
         // Количество записей
         $count_row = Contractor::get()->count();
         $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
@@ -42,6 +44,7 @@ class ContractorsController extends Controller
             'contractor_statuses' => $contractor_statuses,
             'regions' => $regions,
             'what_work' => $what_work,
+            'table_th' => $table_th,
             'count_row' => $count_row,
             'notifications' => $notifications,
         ]);

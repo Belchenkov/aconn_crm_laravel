@@ -27,16 +27,6 @@ class TablethController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -44,18 +34,28 @@ class TablethController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        // Если (суперадмин -- group_id = 0)
+        if(!Auth()->user()->group_id) {
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+            // Validate
+            $this->validate($request, [
+                'name' => 'required|max:255'
+            ],
+                $messages = array(
+                    'required' => 'Поле :attribute обязательно',
+                    'max' => 'Поле :attribute должно быть не более 255 символов'
+                )
+            );
+
+            $table_th = new Tableth();
+            $table_th->name = $request->input('name');
+            $table_th->save();
+
+            return redirect('/settings/table-th')->with('success', 'Добавлена новая запись');
+        }
+        else {
+            abort(401);
+        }
     }
 
     /**
@@ -66,7 +66,18 @@ class TablethController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Если (суперадмин -- group_id = 0)
+        if(!Auth()->user()->group_id) {
+
+            $table_th = Tableth::find($id);
+            // Напоминания
+            $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->get();
+
+            return view('settings.table-th.edit')->with('table_th', $table_th)->with('notifications', $notifications);
+        }
+        else {
+            abort(401);
+        }
     }
 
     /**
@@ -78,7 +89,24 @@ class TablethController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Если (суперадмин -- group_id = 0)
+        if(!Auth()->user()->group_id) {
+            // Validate
+            $this->validate($request, [
+                'name' => 'required|max:255',
+            ],
+                $messages = array(
+                    'required' => 'Поле :attribute обязательно',
+                    'max' => 'Поле :attribute должно быть не более 255 символов'
+                )
+            );
+
+            $table_th = Tableth::find($id);
+            $table_th->name = $request->input('name');
+            $table_th->save();
+
+            return redirect('/settings/table-th')->with('success', 'Запись отредактирована');
+        }
     }
 
     /**
@@ -89,6 +117,16 @@ class TablethController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Если (суперадмин -- group_id = 0)
+        if(!Auth()->user()->group_id) {
+
+            $table_th = Tableth::find($id);
+            $table_th->delete();
+
+            return redirect('/settings/table-th')->with('success', 'Запись удалена');
+        }
+        else {
+            abort(401);
+        }
     }
 }

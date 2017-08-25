@@ -86,7 +86,7 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'], function () {
         Route::get('/', 'TablethController@index')->name('table-th');
         Route::post('/create', 'TablethController@store')->name('table_th_store');
         Route::get('/edit/{id}', 'TablethController@edit')->name('table_th_edit');
-        Route::post('/edit/{id}', 'TablethController@update')->name('table-th_update');
+        Route::post('/edit/{id}', 'TablethController@update')->name('table_th_update');
         Route::post('/delete/{id}', 'TablethController@destroy')->name('table_th_delete');
     });
 
