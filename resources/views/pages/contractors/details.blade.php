@@ -31,7 +31,6 @@
             <div class="ibox-content">
                 <div class="box-body">
                     <div class="row">
-
                         @if(!empty($phones))
                             <div class="form-group col-md-6">
                                 <div style="width: 160px">
@@ -51,59 +50,6 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label>E-mail</label><br>
-
-                            @if (!empty($contractor->email))
-                                <span class="cont copyButton" data-toggle="tooltip" data-placement="left" title="" data-original-title="Копировать"> {{$contractor->email}}</span>
-                            @else
-                                Отсутствует
-                            @endif
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label>ИНН</label><br>
-                            @if (!empty($contractor->inn))
-                                {{$contractor->inn}}
-                            @else
-                                Отсутствует
-                            @endif
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label>Регион</label><br>
-                            @if (!empty($region))
-                                {{$region}}
-                            @endif
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label>Юридический адрес</label><br>
-                            @if (!empty($contractor->ur_address))
-                                {{$contractor->ur_address}}
-                            @else
-                                Отсутствует
-                            @endif
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label>Адрес доставки</label><br>
-                            @if (!empty($contractor->delivery_address))
-                                {{$contractor->delivery_address}}
-                            @else
-                                Отсутствует
-                            @endif
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label>Сайт</label><br>
-                            @if (!empty($contractor->site_company))
-                                {{$contractor->site_company}}
-                            @else
-                                Отсутствует
-                            @endif
-                        </div>
-
-                        <div class="form-group col-md-6">
                             <label>На чем работают</label><br>
                             @if (!empty($contractor->what_work_id))
                                 {{$contractor->what_work_id}}
@@ -113,18 +59,10 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label>В каких объемах берут</label><br>
-                            @if (!empty($contractor->take_amount))
-                                {{$contractor->take_amount}}
-                            @else
-                                Отсутствует
-                            @endif
-                        </div>
+                            <label>E-mail</label><br>
 
-                        <div class="form-group col-md-6">
-                            <label>Периодичность</label><br>
-                            @if (!empty($periodicity))
-                                {{$periodicity}}
+                            @if (!empty($contractor->email))
+                                <span class="cont copyButton" data-toggle="tooltip" data-placement="left" title="" data-original-title="Копировать"> {{$contractor->email}}</span>
                             @else
                                 Отсутствует
                             @endif
@@ -140,9 +78,61 @@
                         </div>
 
                         <div class="form-group col-md-6">
+                            <label>ИНН</label><br>
+                            @if (!empty($contractor->inn))
+                                {{$contractor->inn}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>В каких объемах берут</label><br>
+                            @if (!empty($contractor->take_amount))
+                                {{$contractor->take_amount}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Регион</label><br>
+                            @if (!empty($region))
+                                {{$region}}
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Периодичность</label><br>
+                            @if (!empty($periodicity))
+                                {{$periodicity}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Юридический адрес</label><br>
+                            @if (!empty($contractor->ur_address))
+                                {{$contractor->ur_address}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
                             <label>Доставка</label><br>
                             @if (!empty($contractor->delivery))
                                 {{$contractor->delivery}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Адрес доставки</label><br>
+                            @if (!empty($contractor->delivery_address))
+                                {{$contractor->delivery_address}}
                             @else
                                 Отсутствует
                             @endif
@@ -157,7 +147,16 @@
                             @endif
                         </div>
 
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
+                            <label>Сайт</label><br>
+                            @if (!empty($contractor->site_company))
+                                {{$contractor->site_company}}
+                            @else
+                                Отсутствует
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-6">
                             <label>Комментарий</label><br>
                             @if (!empty($contractor->comments))
                                 {{$contractor->comments}}
