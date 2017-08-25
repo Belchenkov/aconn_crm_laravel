@@ -296,9 +296,13 @@
                         // Разбиваем на время и дату
                         $date = explode(" ", $comment->created_at);
                         ?>
-                        <b><?= $date[1]; // Время ?></b>
+                        <b>
+                            {{-- Удаляем секунды --}}
+                            <?= substr($date[1], 0, 5); // Time ?>
+                        </b>
 						        <i class="fa fa-clock-o"></i>
-                        <?=  $date[0]; // Дата ?> <br/>
+
+                        <?=  date('d.m.Y', strtotime($contractor->created_at)); // Дата ?> <br/>
                                 @if(!empty($users) && count($users) > 0)
                                     @foreach($users as $user)
                                         @if($user->id == $comment->user_id)
@@ -333,9 +337,14 @@
                         $date = explode(" ", $contractor->created_at);
                         //dd( date('d:m:Y',  $date[0]) );
                         ?>
-                        <b><?= $date[1]; // Время ?></b>
+                        <b>
+                            {{-- Удаляем секунды --}}
+                            <?= substr($date[1], 0, 5); ?></b>
                 <i class="fa fa-clock-o"></i>
-                        <?= date($date[0]); // Дата ?> <br/>
+                        <?=
+                            date('d.m.Y', strtotime ($contractor->created_at)); // Дата
+                        ?>
+                <br/>
 
             </span>
                 </div>

@@ -304,8 +304,7 @@
                                         <div id="listPhones">
                                             @if (!empty($contractor->phone))
                                                 <?php
-                                                $phones = explode('<br>', $contractor->phone);
-                                                //dd($phones);
+                                                    $phones = explode('<br>', $contractor->phone);
                                                 ?>
                                                 @for ($i = 0; $i < count($phones); $i++)
                                                     @if(!empty($phones[$i]))
