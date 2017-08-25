@@ -74,7 +74,7 @@
                             <li><a href="{{route('what-works')}}"><i class="fa fa-cog"></i> На чем работают</a></li>
                             <li><a href="{{route('periodicity')}}"><i class="fa fa-cog"></i> Периодичность</a></li>
                             <li><a href="{{route('packings')}}"><i class="fa fa-cog"></i> Упаковка</a></li>
-                            <li><a href="{{route('table-th')}}"><i class="fa fa-cog pull-left"></i> Заголоки таблицы</a></li>
+                            <li><a href="{{route('table-th')}}"><i class="fa fa-cog pull-left"></i> Заголовки</a></li>
                         </ul>
                     </li>
                 @endif

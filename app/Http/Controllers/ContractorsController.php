@@ -581,6 +581,9 @@ class ContractorsController extends Controller
 
     public function checkRepeat(Request $request)
     {
+        $managers = User::where('group_id', '=', 2)->get();
+        $regions = Region::all();
+
         $name = trim($request->input('name'));
         $inn = trim($request->input('inn'));
         $phone = $request->input('phone');
@@ -597,13 +600,17 @@ class ContractorsController extends Controller
        $checkFields = Contractor::where('name', '=', $name)->whereNotNull('name')
                                             ->orWhere('inn', '=', $inn)->whereNotNull('inn')
                                             ->orWhere('contract_number', '=', $contract_number)->whereNotNull('contract_number')
-                                            ->orWhere('phone', 'like', '%' . $phones . '%')->whereNotNull('phone')
+                                            ->orWhere('phone', 'like', '%' . $phones . '%')->whereNotNull('phone')->take(1)
                                             ->get();
 
         if (count($checkFields) > 0) {
-            //echo json_encode($checkFields);
+            echo json_encode([
+                'checkFields' => $checkFields,
+                'managers' => $managers,
+                'regions' => $regions,
+            ]);
         } else {
-            //echo 0;
+            echo 0;
         }
     }
 }
