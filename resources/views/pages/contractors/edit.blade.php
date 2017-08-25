@@ -305,12 +305,15 @@
                                             @if (!empty($contractor->phone))
                                                 <?php
                                                 $phones = explode('<br>', $contractor->phone);
+                                                //dd($phones);
                                                 ?>
                                                 @for ($i = 0; $i < count($phones); $i++)
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" name="phone[]" data-mask="+7 (999) 999-9999" value="{{$phones[$i]}}">
-                                                        <div class="input-group-addon"><a href="#" onclick="$(this).parent('.input-group-addon').parent('.input-group').remove(); return false;"><i class="fa fa-trash"></i></a></div>
-                                                    </div>
+                                                    @if(!empty($phones[$i]))
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" name="phone[]" data-mask="+7 (999) 999-9999" value="{{$phones[$i]}}">
+                                                            <div class="input-group-addon"><a href="#" onclick="$(this).parent('.input-group-addon').parent('.input-group').remove(); return false;"><i class="fa fa-trash"></i></a></div>
+                                                        </div>
+                                                    @endif
                                                 @endfor
                                             @endif
                                         </div>
