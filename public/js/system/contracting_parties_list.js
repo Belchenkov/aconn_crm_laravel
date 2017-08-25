@@ -52,8 +52,10 @@ function getPage(page) {
                             var contractors = data.contractors;
                             var managers = data.managers;
                             var regions = data.regions;
-
+                            var status = data.status_all;
                             var table_row = '';
+                            console.log(data);
+
 
                             for (var i = 0; i < contractors.length; i++) {
                                 var id = contractors[i]['id'];
@@ -62,6 +64,8 @@ function getPage(page) {
                                 var region_id = contractors[i]['region_id'];
                                 var manager_id = contractors[i]['user_id'];
                                 var take_amount = contractors[i]['take_amount'];
+                                var contractor_status_id = contractors[i]['contractor_status_id'];
+
 
                                 // Если what_works = null
                                 if (!what_works) {
@@ -78,6 +82,15 @@ function getPage(page) {
                                 for (var j = 0; j < managers.length; j++) {
                                     if (manager_id == managers[j]['id']) {
                                         manager = managers[j]['fio'];
+                                        break;
+                                    }
+                                }
+
+                                var contractor_status = '';
+                                // Текущей менеджер
+                                for (var s = 0; s < status.length; s++) {
+                                    if (contractor_status_id == status[s]['id']) {
+                                        contractor_status = status[s]['name'];
                                         break;
                                     }
                                 }
@@ -107,7 +120,7 @@ function getPage(page) {
                                     '<tr>' +
                                     '<td><a href="/contractors/details/' + id + '">'+ name +'</a></td>' +
                                     '<td>'+ region +'</td>' +
-                                    '<td>'+ manager +'</td>' +
+                                    '<td>'+ contractor_status +'</td>' +
                                     '<td>'+ what_works +'</td>' +
                                     '<td>'+ take_amount +'</td>' +
                                     '<td class="text-center">'+

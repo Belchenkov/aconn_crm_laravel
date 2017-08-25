@@ -42,36 +42,25 @@
                                             </div>
                                         @endif
 
-                                        <div class="col-md-4">
-                                            <b>Менеджер:</b>
-                                            <select
-                                                    class="select2 form-control"
-                                                    name="filter[client_manager]"
-                                                    @if(Auth()->user()->group_id == 2 )
-                                                        disabled
-                                                    @endif
-                                            >
-                                                <option value="0" selected>Все</option>
-                                                @if(!empty($managers))
-                                                    @foreach($managers as $manager)
-                                                        <option value="{{$manager->id}}">{{$manager->fio}}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                        </div>
-                                        <div class="col-md-12"><br></div>
-
-                                        @if(!empty($what_work))
-                                            <div class="form-group col-md-6">
-                                                <label class="font-normal">На чём работают</label>
-                                                <div>
-                                                    <select data-placeholder="Все" class="chosen-select" multiple="" name="filter[what_works]" style="width: 350px; display: none;" tabindex="-1">
-                                                        @foreach($what_work as $item)
-                                                            <option value="{{$item->name}}">{{$item->name}}</option>
+                                        @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 2)
+                                            <div class="col-md-4">
+                                                <b>Менеджер:</b>
+                                                <select
+                                                        class="select2 form-control"
+                                                        name="filter[client_manager]"
+                                                        @if(Auth()->user()->group_id == 2 )
+                                                            disabled
+                                                        @endif
+                                                >
+                                                    <option value="0" selected>Все</option>
+                                                    @if(!empty($managers))
+                                                        @foreach($managers as $manager)
+                                                            <option value="{{$manager->id}}">{{$manager->fio}}</option>
                                                         @endforeach
-                                                    </select>
-                                                </div>
+                                                    @endif
+                                                </select>
                                             </div>
+                                            <div class="col-md-12"><br></div>
                                         @endif
 
                                         <div class="col-md-4">
@@ -83,6 +72,19 @@
                                                     @endfor
                                                 </select>
                                         </div>
+
+                                        @if(!empty($what_work))
+                                                <div class="form-group col-md-4">
+                                                    <label class="font-normal">На чём работают</label>
+                                                    <div>
+                                                        <select data-placeholder="Все" class="chosen-select" multiple="" name="filter[what_works]" style="width: 350px; display: none;" tabindex="-1">
+                                                            @foreach($what_work as $item)
+                                                                <option value="{{$item->name}}">{{$item->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                        @endif
 
                                         <div class="col-md-12"><br></div>
                                         <div class="col-md-12">
@@ -136,7 +138,7 @@
                                                             <tr>
                                                                 <th>Наименование(s)</th>
                                                                 <th>Регион</th>
-                                                                <th>Менеджер</th>
+                                                                <th>Статус</th>
                                                                 <th>На чем работают</th>
                                                                 <th>В каких объемах берут</th>
                                                                 @if(Auth()->user()->group_id >= 0 && Auth()->user()->group_id < 3)

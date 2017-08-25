@@ -452,7 +452,8 @@ class ContractorsController extends Controller
         $currentUserID = Input::get('currentUserID');
         $limit_start = Input::get('limit_start');
         $limit_end = 10;
-        //$currentUserGroup = Auth()->user()->group_id;
+
+
         // Формируем строку запроса к базе с данными из фильтра
 
         // Если условие не первое
@@ -555,6 +556,7 @@ class ContractorsController extends Controller
         $contractors_filter = DB::select($where);
         $managers = User::where('group_id', '=', '2')->get();
         $regions = Region::all();
+        $status_all = ContractorStatus::all();
 
         // Отдаем на клиент
         echo json_encode([
@@ -563,7 +565,8 @@ class ContractorsController extends Controller
             'regions' => $regions,
             'user_group' => $currentUserGroup,
             'user' => $currentUserID,
-            'where' => $where
+//            'where' => $where,
+            'status_all' => $status_all
         ]);
     }
 

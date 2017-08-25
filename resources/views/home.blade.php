@@ -56,6 +56,12 @@
                                 </tr>
                                 <?php $i++?>
                             @endforeach
+                        @else
+                                <tr>
+                                    <td class="text-center" colspan="5">
+                                        <strong>Напоминаний нет</strong>
+                                    </td>
+                                </tr>
                         @endif
 
                     </tbody>
