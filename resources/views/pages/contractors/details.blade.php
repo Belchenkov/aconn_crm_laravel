@@ -32,14 +32,13 @@
                 <div class="box-body">
                     <div class="row">
 
-                        @if(!empty($contractor->phone))
+                        @if(!empty($phones))
                             <div class="form-group col-md-6">
                                 <div style="width: 160px">
                                     <label>Телефоны</label><br>
-                                    <i class="copyButton fa fa-copy"
-                                      title="Копировать в буфер"
-                                    ></i>
-                                    <span class="cont pull-right">{!! $contractor->phone !!}</span>
+                                        @foreach($phones as $phone)
+                                            <div class="phones copyButton" data-toggle="tooltip" data-placement="left" title="" data-original-title="Копировать">{{ $phone }}</div>
+                                        @endforeach
                                 </div>
                             </div>
                         @endif
@@ -55,10 +54,7 @@
                             <label>E-mail</label><br>
 
                             @if (!empty($contractor->email))
-                                <i class="copyButton fa fa-copy" style="display: none"
-                                   title="Копировать в буфер"
-                                ></i>
-                                <span class="cont"> {{$contractor->email}}</span>
+                                <span class="cont copyButton" data-toggle="tooltip" data-placement="left" title="" data-original-title="Копировать"> {{$contractor->email}}</span>
                             @else
                                 Отсутствует
                             @endif
@@ -204,18 +200,12 @@
 
                                     @if (!empty($contact->phones) && count($contact->phones) > 0 && $contact->phones != '<br>')
                                         <div style="width: 160px; margin-bottom: 30px;">
-                                            <i class="copyButton fa fa-copy"
-                                              title="Копировать в буфер"
-                                            ></i>
-                                            <div class="cont pull-right">{!! $contact->phones !!}</div>
+                                            <div class="phones copyButton" data-toggle="tooltip" data-placement="left" title="" data-original-title="Копировать" >{!! $contact->phones !!}</div>
                                         </div>
                                     @endif
 
                                     @if (!empty($contact->email))
-                                        <i class="copyButton fa fa-copy" style="display: none"
-                                           title="Копировать в буфер"
-                                        ></i>
-                                        <span class="cont" style="margin-left: 15px"> {{$contact->email}}</span>
+                                        <span class="phones copyButton" data-toggle="tooltip" data-placement="left" title="" data-original-title="Копировать"> {{$contact->email}}</span>
                                     @endif
                                 </div>
                             @endif

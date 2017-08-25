@@ -8255,3 +8255,11 @@ i.bell {
 #notifications {
   margin-top: 50px;
 }
+
+.copyButton:hover {
+  cursor: pointer;
+}
+
+.phones.copyButton {
+    margin-bottom: 5px;
+}

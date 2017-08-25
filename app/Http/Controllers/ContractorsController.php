@@ -225,6 +225,12 @@ class ContractorsController extends Controller
         $notifications = Comment::where('reminder', '=', '1')->where('user_id', '=', Auth()->id())->orderBy('id', 'desc')->get();
         $notifications_active = Comment::where('reminder_status', '=', '1')->where('user_id', '=', Auth()->id())->orderBy('id', 'desc')->get();
 
+        // Телефоны организации
+        $phones = explode('<br>', $contractor->phone);
+
+        // Телефоны Контактных лиц
+        //$phones_contacts = explode('<br>', $contacts->phones);
+        //dd($contacts);
         return view('pages.contractors.details', [
             'contractor' => $contractor,
             'users' => $users,
@@ -236,7 +242,8 @@ class ContractorsController extends Controller
             'notifications' => $notifications,
             'notifications_active' => $notifications_active[0],
             'periodicity' => $periodicity,
-            'packing' => $packing
+            'packing' => $packing,
+            'phones' => $phones
         ]);
     }
 

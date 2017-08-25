@@ -97,22 +97,27 @@ $(document).ready(function() {
 		var button = document.querySelectorAll('.copyButton');
 		for (var i = 0; i < button.length; i++) {
 			button[i].addEventListener('click', function (el) {
+				//console.log(el.target);
 				var elem = el.target;
-				var ta = elem.nextElementSibling;
-
-				//производим его выделение
-                var range = document.createRange();
-                range.selectNode(ta);
 
                 try {
                     // современный объект Selection
                     window.getSelection().removeAllRanges();
+
                 } catch (e) {
                     // для IE8-
                     document.selection.empty();
                 }
 
-                window.getSelection().addRange(range);
+				// Выделение при клике
+                function selection(elem) {
+                    var select = window.getSelection();
+                    var range = document.createRange();
+                    range.selectNodeContents(elem);
+                    select.addRange(range);
+                }
+
+                selection(elem);
 
                 //пытаемся скопировать текст в буфер обмена
                 try {
@@ -120,8 +125,6 @@ $(document).ready(function() {
                 } catch(err) {
                     console.log('Can`t copy, boss');
                 }
-                //очистим выделение текста, чтобы пользователь "не парился"
-                window.getSelection().removeAllRanges();
             });
 		}
 
