@@ -15,6 +15,24 @@
                 <div class="ibox-content">
                     <div class="box-body">
                         <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Наименование</label>
+                                <input type="text" class="form-control" name="name" value="{{old('name')}}" required="" placeholder="Наименование">
+                            </div>
+
+                            @if(!empty($packing))
+                                <div class="form-group col-md-6">
+                                    <label>Упаковка</label>
+                                    <select class="select2 form-control" required="" name="packing_id">
+                                        @foreach($packing as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="row">
                             @if(!empty($regions))
                                 <div class="form-group col-md-6">
                                     <label>Регион</label>
@@ -38,23 +56,7 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label>Наименование</label>
-                                <input type="text" class="form-control" name="name" value="{{old('name')}}" required="" placeholder="Наименование">
-                            </div>
 
-                            @if(!empty($packing))
-                                <div class="form-group col-md-6">
-                                    <label>Упаковка</label>
-                                    <select class="select2 form-control" required="" name="packing_id">
-                                        @foreach($packing as $item)
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            @endif
-                        </div>
                         <div class="row">
                             @if(!empty($managers))
                                 <div class="form-group col-md-6">
@@ -192,7 +194,7 @@
                 </div>
             </div>
 
-        <div class="col-md-5" style="margin-top: 52px">
+        <div class="col-md-5" style="margin-top: 53px">
 
             @if(!empty($contractor_statuses))
                 <div class="ibox float-e-margins">

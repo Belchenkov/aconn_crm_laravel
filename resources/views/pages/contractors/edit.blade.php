@@ -4,9 +4,7 @@
 
     <div class="row  border-bottom white-bg dashboard-header">
         <form action="/contractors/edit/{{$contractor->id}}" method="post">
-
             {{ csrf_field() }}
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="ibox float-e-margins">
@@ -19,26 +17,48 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-7">
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
                             <div class="box-body">
                                 <div class="row">
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-6">
+                                        <label>Название</label>
+                                        <input type="text" class="form-control" name="name" value="{{$contractor->name}}">
+                                    </div>
+                                    @if(!empty($packing))
+                                        <div class="form-group col-md-6">
+                                            <label>Упаковка</label>
+                                            <select class="select2 form-control" name="packing_id">
+                                                @foreach($packing as $item)
+                                                    <option
+                                                            @if($item->id === $contractor->packing_id)
+                                                            selected
+                                                            @endif
+                                                            value="{{$item->id}}">{{$item->name}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6">
                                         @if(!empty($regions))
                                             <label>Регион</label>
                                             <select
                                                     class="form-control"
                                                     name="region_id"
                                                     @if(Auth()->user()->group_id > 1 )
-                                                        onmousedown="return(false)" onkeydown="return(false)"
-                                                        readonly=""
+                                                    onmousedown="return(false)" onkeydown="return(false)"
+                                                    readonly=""
                                                     @endif
                                             >
                                                 @foreach($regions as $region)
                                                     <option
                                                             @if($region->id === $contractor->region_id)
-                                                                selected
+                                                            selected
                                                             @endif
                                                             value="{{$region->id}}">{{$region->name}}
                                                     </option>
@@ -46,113 +66,40 @@
                                             </select>
                                         @endif
                                     </div>
-                                    <div class="form-group col-md-12">
-                                        <label>Название</label>
-                                        <input type="text" class="form-control" name="name" value="{{$contractor->name}}">
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <label>E-mail</label>
-                                        <input type="text" class="form-control" name="email" value="{{$contractor->email}}">
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <label>Юридический адрес</label>
-                                        <input type="text" class="form-control" name="ur_address" value="{{$contractor->ur_address}}" placeholder="Юридический адрес">
-                                    </div>
 
-                                    <div class="form-group col-md-12">
-                                        <label>Сайт компании</label>
-                                        <input type="text" class="form-control" name="site_company" value="{{$contractor->site_company}}" placeholder="Сайт компании">
-                                    </div>
-
-                                    <div class="form-group col-md-12">
-                                        <label>ИНН</label>
-                                        <input type="text"  min="0" max="999999999999" maxlength="12" class="form-control" name="inn" value="{{$contractor->inn}}" placeholder="ИНН">
-                                    </div>
-
-                                    @if(!empty($packing))
-                                        <div class="form-group col-md-12">
-                                            <label>Упаковка</label>
-                                            <select class="select2 form-control" name="packing_id">
-                                                @foreach($packing as $item)
+                                    @if(!empty($periodicity))
+                                        <div class="form-group col-md-6">
+                                            <label>Периодичность</label>
+                                            <select class="form-control" name="periodicity_id">
+                                                @foreach($periodicity as $item)
                                                     <option
-                                                        @if($item->id === $contractor->packing_id)
+                                                            @if($item->id === $contractor->periodicity_id)
                                                             selected
-                                                        @endif
-                                                        value="{{$item->id}}">{{$item->name}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    @endif
-
-                                    <div class="col-md-12" style="margin: 20px 0;">
-                                        <b>В каких объемах берут:</b>
-
-                                        <select class="select2 form-control" name="take_amount">
-                                            @for($k = 0; $k <= 100; $k+=10)
-                                                <option
-                                                    value="{{$k}}"
-                                                    @if($k == $contractor->take_amount)
-                                                        selected
-                                                    @endif
-                                                >{{$k}}</option>
-                                            @endfor
-                                        </select>
-
-                                    </div>
-
-                                    {{--@if(!empty($what_work))
-                                        <div class="form-group col-md-12">
-                                            <label>На чём работают</label>
-                                            <select class="form-control" name="what_work_id">
-                                                @foreach($what_work as $item)
-                                                    <option
-                                                            @if($item->id === $contractor->what_work_id)
-                                                                selected
                                                             @endif
                                                             value="{{$item->id}}">{{$item->name}}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                    @endif--}}
-                                    @if(!empty($what_work))
-                                        <div class="form-group col-md-12">
-                                            <label class="font-normal">На чём работают</label>
-                                            <div>
-                                                <select data-placeholder="Все" class="chosen-select" multiple="" name="what_work_id[]" style="width: 350px; display: none;" tabindex="-1">
-                                                    @foreach($what_work as $item)
-                                                        <option value="{{$item->name}}">{{$item->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
                                     @endif
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-                            <div class="box-body">
+
                                 <div class="row">
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-6">
                                         @if(!empty($managers))
                                             <label>Менеджер</label>
                                             <select
                                                     class="form-control"
                                                     name="manager"
                                                     @if(Auth()->user()->group_id > 1 )
-                                                        onmousedown="return(false)" onkeydown="return(false)"
-                                                        readonly=""
+                                                    onmousedown="return(false)" onkeydown="return(false)"
+                                                    readonly=""
                                                     @endif
                                             >
                                                 @foreach($managers as $manager)
                                                     <option
                                                             @if($manager->id === $contractor->user_id)
-                                                                selected
+                                                            selected
                                                             @endif
                                                             value="{{$manager->id}}">
                                                         {{$manager->fio}}
@@ -162,7 +109,23 @@
                                         @endif
                                     </div>
 
-                                    <div class="form-group col-md-12">
+                                    <div class="col-md-6" style="margin: 10px 0;">
+                                        <b>В каких объемах берут:</b>
+                                        <select class="select2 form-control" name="take_amount">
+                                            @for($k = 0; $k <= 100; $k+=10)
+                                                <option
+                                                        value="{{$k}}"
+                                                        @if($k == $contractor->take_amount)
+                                                        selected
+                                                        @endif
+                                                >{{$k}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6">
                                         <br>
                                         <div class="checkbox checkbox-circle">
                                             <input id="assign_manager"
@@ -174,8 +137,8 @@
                                                    name="assign_manager"
                                                    value="1"
                                                    @if($contractor->assign_manager == 1)
-                                                       checked
-                                                   @endif
+                                                   checked
+                                                    @endif
                                             >
                                             <label for="assign_manager">
                                                 Закрепить за менеджером
@@ -183,21 +146,59 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-12">
-                                        <label>Номер договора</label>
-                                        <input type="text" min="1" disabled  class="contract_number form-control" value="{{$contractor->contract_number}}" name="contract_number">
-                                    </div>
+                                    @if(!empty($what_work))
+                                        <div class="form-group col-md-6">
+                                            <label class="font-normal">На чём работают</label>
+                                            <div>
+                                                <select data-placeholder="Выберете категорию" class="chosen-select" multiple="" name="what_work_id[]" style="width: 350px; display: none;" tabindex="-1">
+                                                    @foreach($what_work as $item)
+                                                        <option value="{{$item->name}}">{{$item->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
 
-                                    <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>Юридический адрес</label>
+                                        <input type="text" class="form-control" name="ur_address" value="{{$contractor->ur_address}}" placeholder="Юридический адрес">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>E-mail</label>
+                                        <input type="text" class="form-control" name="email" value="{{$contractor->email}}">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>Сайт компании</label>
+                                        <input type="text" class="form-control" name="site_company" value="{{$contractor->site_company}}" placeholder="Сайт компании">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>ИНН</label>
+                                        <input type="text"  min="0" max="999999999999" maxlength="12" class="form-control" name="inn" value="{{$contractor->inn}}" placeholder="ИНН">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6">
                                         <label>Наличие договора</label><br>
                                         <div class="radio radio-inline">
                                             <input class="contract_number_yes"
-                                                    type="radio"
-                                                    id="contract_yes"
-                                                    value="1"
-                                                    name="contract_exist"
-                                                    @if($contractor->contract_exist == 1)
-                                                        checked
+                                                   type="radio"
+                                                   id="contract_yes"
+                                                   value="1"
+                                                   name="contract_exist"
+                                                   @if($contractor->contract_exist == 1)
+                                                   checked
                                                     @endif
                                             >
                                             <label for="contract_yes"> Да </label>
@@ -210,34 +211,30 @@
                                                     value="0"
                                                     name="contract_exist"
                                                     @if($contractor->contract_exist !== 1)
-                                                        checked
+                                                    checked
                                                     @endif
                                             >
                                             <label for="contract_no"> Нет </label>
                                         </div>
                                     </div>
+                                </div>
 
-                                    @if(!empty($periodicity))
-                                        <div class="form-group col-md-12">
-                                            <label>Периодичность</label>
-                                            <select class="form-control" name="periodicity_id">
-                                                @foreach($periodicity as $item)
-                                                        <option
-                                                            @if($item->id === $contractor->periodicity_id)
-                                                                selected
-                                                            @endif
-                                                            value="{{$item->id}}">{{$item->name}}
-                                                        </option>
-                                                @endforeach
-                                            </select>
+                                <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Номер договора</label>
+                                            <input type="text" min="1" disabled  class="contract_number form-control" value="{{$contractor->contract_number}}" name="contract_number">
                                         </div>
-                                    @endif
-                                    <div class="form-group col-md-12">
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6">
                                         <label>Адресс доставки</label>
                                         <input type="text" class="form-control" value="{{$contractor->delivery_address}}" name="delivery_address">
                                     </div>
+                                </div>
 
-                                    <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
                                         <label>Доставка</label><br>
                                         <div class="radio radio-inline">
                                             <input
@@ -246,7 +243,7 @@
                                                     value="наша"
                                                     name="delivery"
                                                     @if($contractor->delivery == 'наша')
-                                                        checked
+                                                    checked
                                                     @endif
                                             >
                                             <label for="delivery_our"> Наша </label>
@@ -259,14 +256,16 @@
                                                     value="сам"
                                                     name="delivery"
                                                     @if($contractor->delivery == 'сам')
-                                                        checked
+                                                    checked
                                                     @endif
                                             >
                                             <label for="delivery_self"> Сам </label>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
                                         <label>Комментарии</label>
                                         <textarea rows="8" type="text" class="form-control" name="comments">{{$contractor->comments}}</textarea>
                                     </div>
@@ -275,7 +274,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+
+                <div class="col-md-5">
                     @if(!empty($contractor_statuses))
                         <div class="ibox float-e-margins">
                             <h2>Статус</h2>
@@ -284,10 +284,10 @@
                                     <select class="form-control" name="contractor_status_id">
                                         @foreach($contractor_statuses as $contractor_status)
                                             <option
-                                                @if($contractor_status->id == $contractor->contractor_status_id)
+                                                    @if($contractor_status->id == $contractor->contractor_status_id)
                                                     selected
-                                                @endif
-                                                value="{{$contractor_status->id}}">{{$contractor_status->name}}
+                                                    @endif
+                                                    value="{{$contractor_status->id}}">{{$contractor_status->name}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -304,7 +304,7 @@
                                         <div id="listPhones">
                                             @if (!empty($contractor->phone))
                                                 <?php
-                                                    $phones = explode('<br>', $contractor->phone);
+                                                $phones = explode('<br>', $contractor->phone);
                                                 ?>
                                                 @for ($i = 0; $i < count($phones); $i++)
                                                     <div class="input-group">
@@ -333,13 +333,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-                            <div class="box-footer">
-                                <a href="{{route('contractors')}}" class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a>
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Сохранить изменения</button>
-                            </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="box-footer">
+                            <a href="{{route('contractors')}}" class="btn btn-danger"><i class="fa fa-arrow-circle-o-left"></i> Отмена</a>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Сохранить изменения</button>
                         </div>
                     </div>
                 </div>

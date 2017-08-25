@@ -1,6 +1,7 @@
 var checkRepeat = false;
 var count = 1;
 
+
 function add_contact_person() {
 	$('#listContacts').append('<div class="ibox float-e-margins">' +
 		'<div class="ibox-title">' +
@@ -77,6 +78,12 @@ $(".select2_cities").select2();
 
 $(document).ready(function() {
 
+	// Select2 Responsive
+    $(window).resize(function() {
+        $('.select2').css('width', "100%");
+    });
+
+	// Multiselect Active
     $('.chosen-select').chosen({width: "100%"});
 
     // Активируем и гасим поле номер договора
