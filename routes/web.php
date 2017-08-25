@@ -81,6 +81,15 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'], function () {
         Route::post('/edit/{id}', 'PackingsController@update')->name('packings_update');
         Route::post('/delete/{id}', 'PackingsController@destroy')->name('packings_delete');
     });
+
+    Route::group(['prefix'=>'table-th','middleware'=>'auth'], function () {
+        Route::get('/', 'TablethController@index')->name('table-th');
+        Route::post('/create', 'TablethController@store')->name('table_th_store');
+        Route::get('/edit/{id}', 'TablethController@edit')->name('table_th_edit');
+        Route::post('/edit/{id}', 'TablethController@update')->name('table-th_update');
+        Route::post('/delete/{id}', 'TablethController@destroy')->name('table_th_delete');
+    });
+
 });
 
 // Маршруты аутентификации

@@ -54,7 +54,7 @@ function getPage(page) {
                             var regions = data.regions;
                             var status = data.status_all;
                             var table_row = '';
-                            console.log(data);
+                            //console.log(data);
 
 
                             for (var i = 0; i < contractors.length; i++) {
