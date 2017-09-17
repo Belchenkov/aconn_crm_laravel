@@ -144,34 +144,38 @@ $(document).ready(function() {
                 data: $("#newForm").serialize(),
 				success: function(data){
 					data = JSON.parse(data);
-                    console.log(data.checkFields[0]);
-                    console.log(data.managers);
-                    console.log(data.regions);
+
+					//console.log(data.checkFields[0]);
+                    //console.log(data.managers);
+                    //console.log(data.regions);
 
 
                     var managers = data.managers;
                     var regions = data.regions;
 
-                    var name = data.checkFields[0].name;
-
                     var region = '';
-                    for (var r = 0; r < regions.length; r++) {
-                    	if (regions[r]['id'] == data.checkFields[0]['region_id']) {
-                    		region = regions[r]['name'];
-                    		break;
-						}
+
+                    if (regions) {
+                        for (var r = 0; r < regions.length; r++) {
+                            if (regions[r]['id'] == data.checkFields[0]['region_id']) {
+                                region = regions[r]['name'];
+                                break;
+                            }
+                        }
 					}
 
-                    var manager = '';
-                    for (var m = 0; m < managers.length; m++) {
-                        if (managers[m]['id'] == data.checkFields[0]['user_id']) {
-                            manager = managers[r]['fio'];
-                            break;
-                        }
-                    }
+                   if (managers) {
+                       var manager = '';
+                       for (var m = 0; m < managers.length; m++) {
+                           if (managers[m]['id'] == data.checkFields[0]['user_id']) {
+                               manager = managers[m]['fio'];
+                               break;
+                           }
+                       }
+				   }
 
-					//console.log(data[0].region_id);
-					if ( 1 )  {
+					if ( data != '0')  {
+                    	//console.log(data);
                         $('#resultRepeat').html("<div class='col-md-12'><div class='panel panel-success'>" +
                             "<div class='panel-heading'><h5>Проверка организации на дубли</h5></div>" +
                             "<div class='panel-body'>" +
@@ -188,7 +192,7 @@ $(document).ready(function() {
 													"</tr>" +
 												"</thead>" +
 												"<tbody>" +
-													"<td>" + name + "</td>" +
+													"<td>" + data.checkFields[0]['name'] + "</td>" +
 													"<td>" + region + "</td>" +
 													"<td>" + manager + "</td>" +
 												"</tbody>" +
@@ -199,7 +203,7 @@ $(document).ready(function() {
 							"</div>"
 						);
 					}
-                   /* else {
+                    else {
                         $.ajax({
                             type: "POST",
                             url: "store",
@@ -212,7 +216,7 @@ $(document).ready(function() {
                             }
                         });
                         window.location.href = '/contractors';
-                    }*/
+                    }
                 }
 			});
 		}
